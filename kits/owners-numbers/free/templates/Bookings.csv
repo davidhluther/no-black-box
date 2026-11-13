@@ -1,0 +1,3 @@
+date,service,staff,booked_minutes,status,client_id,price
+2026-09-02,Cut,Stylist A,45,completed,C001,55
+2026-09-03,Color,Stylist B,120,no_show,C002,140

@@ -1,0 +1,35 @@
+{
+  "_note": "Worked example for a made-up organization at example.org. Copy this file, change the values, and point the checker at it with the SEO_VALIDATE_BRAND_RULES environment variable or a site config. Every key here must stay; an unknown key stops the run on purpose. Empty lists switch a check off.",
+  "brand": "example",
+  "internal_links": {
+    "patterns": {
+      "example": "https://example\\.org/blog/[^\\s\\)\\\"]+"
+    },
+    "min_unique": 3,
+    "escalation": null,
+    "label": "Example Org blog posts"
+  },
+  "product_link_placement": {
+    "url_patterns": []
+  },
+  "upsell": {
+    "product_urls": [],
+    "heading_patterns": [],
+    "label": "Example Org"
+  },
+  "cta_patterns": [
+    "see how",
+    "get a (free )?quote",
+    "schedule a (demo|call|consultation)",
+    "talk to (our|a) (team|specialist|expert)",
+    "request a demo",
+    "start (your|a) free",
+    "contact us"
+  ],
+  "compliance": null,
+  "faq_schema_match": false,
+  "structure": {
+    "metadata_table": false,
+    "key_takeaways": false
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "name": "owners-numbers",
+  "version": "0.1.0",
+  "description": "A one-page monthly scorecard from your own exports, plus break-even and pricing what-ifs.",
+  "author": {
+    "name": "David Luther",
+    "url": "https://pigasus.group"
+  },
+  "license": "MIT",
+  "keywords": [
+    "on",
+    "wave-2"
+  ]
+}

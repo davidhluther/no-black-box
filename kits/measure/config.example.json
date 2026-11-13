@@ -1,0 +1,18 @@
+{
+  "org_name": "Example Organization",
+  "site_url": "https://www.example.org/",
+  "search_console_site": "sc-domain:example.org",
+  "ga4_property_id": "123456789",
+  "ga4_measurement_id": "G-ABC12345",
+  "gtm_container_id": "GTM-ABCDEFG",
+  "tag_prefix": "Add |",
+  "sister_site_domains": ["shop.example.org"],
+  "form_success_event_regex": ".*form\\.success$",
+  "report_month_format": "yyyy-mm",
+  "clarity_project": "my-site",
+  "data_sheet_name": "Example Organization measurement data",
+  "report_reader": "Board of directors",
+  "flag_threshold_percent": 20,
+  "flag_threshold_events": 100,
+  "contact": "name@example.org"
+}

@@ -1,0 +1,8 @@
+Item,Value,Notes
+meeting_date,01/21/2027,The date of the meeting this packet is for. Use mm/dd/yyyy.
+month_folder_name,2027 January,Exact name of this month's folder inside the year folder.
+prior_meeting_date,12/17/2026,The meeting whose minutes are in this packet for approval.
+notes_for_email,,Anything the board should know. For example an approval item or where an addendum lives.
+approval_items,,One per line. Items the board votes on this month.
+callouts,,One per line. A one-time item that needs its own link.
+missing_reports_auto,"=IFERROR(TEXTJOIN("", "",TRUE,FILTER(Reports!B2:B40,Reports!G2:G40=""Yes"",Reports!D2:D40<>""minutes"",Reports!H2:H40<>""Yes"",Reports!B2:B40<>"""")),"""")",Filled in for you. Lists active reports not marked Received on the Reports tab.

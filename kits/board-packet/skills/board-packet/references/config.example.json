@@ -1,0 +1,71 @@
+{
+  "kit": "board-packet",
+  "kit_version": "0.1.0",
+  "note": "Copy this file to config.json and replace every example value. The free and low-cost versions keep the same details in the Settings, Reports and Contacts tabs of your tracker sheet; the full version reads this file. Never put passwords or keys in it.",
+  "organization": {
+    "name": "Example Community Org",
+    "board_name": "Board of Directors",
+    "mission_statement": "",
+    "website_url": "https://www.example.org"
+  },
+  "people": {
+    "chair_name": "Alex Rivera",
+    "secretary_name": "Jamie Carter",
+    "sender_name": "Jamie Carter",
+    "reviewer_name": "Sam Okafor"
+  },
+  "meeting": {
+    "schedule_note": "Third Thursday of each month",
+    "start_time": "12:00 pm",
+    "end_time": "2:00 pm",
+    "location": "In person at the community room and on video",
+    "video_details": "Video link: https://example.org/meeting (meeting ID and passcode go here)"
+  },
+  "folders": {
+    "local_workspace": "board-packet-work",
+    "month_folder_pattern": "{year} {month}",
+    "drive_root_name": "Board Secretary Files",
+    "drive_root_folder_id": "REPLACE_WITH_FOLDER_ID",
+    "transcripts_folder_name": "Board Meeting Transcripts (private)",
+    "transcripts_folder_id": "REPLACE_WITH_FOLDER_ID",
+    "combined_packet_filename": "board-packet-combined.pdf",
+    "pdf_copies_subfolder": "PDF copies"
+  },
+  "reports": [
+    { "order": 1,  "name": "Agenda",                       "owner": "Alex Rivera",    "role": "agenda",  "in_combined_packet": true,  "filename_keyword": "agenda",      "active": true },
+    { "order": 2,  "name": "Director's report",            "owner": "Sam Okafor",     "role": "report",  "in_combined_packet": true,  "filename_keyword": "director",    "active": true },
+    { "order": 3,  "name": "Development update",           "owner": "Jordan Lee",     "role": "report",  "in_combined_packet": true,  "filename_keyword": "development", "active": true },
+    { "order": 4,  "name": "Grants report",                "owner": "Casey Martin",   "role": "report",  "in_combined_packet": true,  "filename_keyword": "grants",      "active": true },
+    { "order": 5,  "name": "Committee or special reports", "owner": "Committee chairs","role": "report", "in_combined_packet": true,  "filename_keyword": "committee",   "active": true },
+    { "order": 6,  "name": "Monthly financials",           "owner": "Taylor Nguyen",  "role": "report",  "in_combined_packet": false, "filename_keyword": "financ",      "active": true },
+    { "order": 7,  "name": "Annual budget",                "owner": "Taylor Nguyen",  "role": "report",  "in_combined_packet": false, "filename_keyword": "budget",      "active": false },
+    { "order": 99, "name": "Prior meeting's minutes",      "owner": "Jamie Carter",   "role": "minutes", "in_combined_packet": true,  "filename_keyword": "minutes",     "active": true }
+  ],
+  "email": {
+    "subject_pattern": "[org_name] Board of Directors Meeting, [date] at [start_time]",
+    "to": ["chair@example.org"],
+    "cc": ["director@example.org", "finance@example.org"],
+    "bcc_note": "The full board goes in Bcc so addresses stay private and nobody can reply to everyone by accident.",
+    "bcc": ["board.member1@example.org", "board.member2@example.org"],
+    "contact_list_url": "https://docs.google.com/spreadsheets/d/REPLACE_WITH_FILE_ID",
+    "standing_links": [
+      { "label": "Volunteer sign-up sheet", "url": "https://docs.google.com/spreadsheets/d/REPLACE_WITH_FILE_ID" }
+    ],
+    "recurring_ask": "Please check your details in the board contact list and email me any changes.",
+    "draft_only": true
+  },
+  "minutes": {
+    "voice": "third person, past tense; full name on first mention in a section, then first name",
+    "mission_at_top": false,
+    "include_absent_list": false,
+    "heading_style": "topic only, never the presenter's name",
+    "font": "Arial",
+    "logo_path": "",
+    "signature_image_path": "",
+    "signature_lines": ["Respectfully submitted by,", "", "", "", "Jamie Carter, Secretary"]
+  },
+  "transcription": {
+    "whisper_model": "small",
+    "language": "en"
+  }
+}

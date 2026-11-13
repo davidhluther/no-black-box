@@ -1,0 +1,14 @@
+{
+  "name": "civic-voice",
+  "version": "0.1.0",
+  "description": "Show up prepared for public meetings, request public records, and pull your county's census numbers.",
+  "author": {
+    "name": "David Luther",
+    "url": "https://pigasus.group"
+  },
+  "license": "MIT",
+  "keywords": [
+    "cv",
+    "wave-2"
+  ]
+}

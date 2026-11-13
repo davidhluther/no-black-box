@@ -1,0 +1,4 @@
+Item,Amount,Due,Restricted use,Note
+Example payroll due,9000,10/29/2026,No,EXAMPLE. Money owed or promised but not yet paid
+Example IRS notice,4200,10/15/2026,No,EXAMPLE
+Example holding deposits owed,1500,,No,EXAMPLE

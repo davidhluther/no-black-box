@@ -1,0 +1,17 @@
+Measure,Value,How it is figured
+Asks on record,"=COUNTA(Pipeline!$A$2:$A)-COUNTIF(Pipeline!$D$2:$D,""Prospect"")-COUNTIF(Pipeline!$D$2:$D,""Not Pursued"")",Every row except Prospect and Not Pursued.
+Awarded (count),"=COUNTIF(Pipeline!$D$2:$D,""Awarded"")+COUNTIF(Pipeline!$D$2:$D,""Awarded-Reduced"")",Awarded plus Awarded-Reduced.
+Declined (count),"=COUNTIF(Pipeline!$D$2:$D,""Declined"")",Status Declined.
+Outcome unknown (count),"=COUNTIF(Pipeline!$D$2:$D,""Outcome Unknown"")",Asks nobody recorded the result of.
+Win rate,"=IFERROR(B3/(B3+B4),""not enough decisions yet"")",Awarded divided by awarded plus declined. Unknowns are left out.
+Dollars awarded,"=SUMIF(Pipeline!$D$2:$D,""Awarded"",Pipeline!$G$2:$G)+SUMIF(Pipeline!$D$2:$D,""Awarded-Reduced"",Pipeline!$G$2:$G)",Sum of the Award column for awarded rows.
+Awarded this fiscal year ($),"=SUMIFS(Pipeline!$G$2:$G,Pipeline!$D$2:$D,""Awarded"",Pipeline!$F$2:$F,"">=""&Settings!$B$13)+SUMIFS(Pipeline!$G$2:$G,Pipeline!$D$2:$D,""Awarded-Reduced"",Pipeline!$F$2:$F,"">=""&Settings!$B$13)",Awards whose decision date is on or after the fiscal year start in Settings. Needs real dates in the Decision date column.
+Planned grant income ($),=Settings!$B$12,From Settings.
+Open asks (count),"=COUNTIF(Pipeline!$D$2:$D,""LOI Submitted"")+COUNTIF(Pipeline!$D$2:$D,""Submitted"")+COUNTIF(Pipeline!$D$2:$D,""Pending Decision"")",Waiting on a funder.
+Open asks ($ requested),"=SUMIF(Pipeline!$D$2:$D,""LOI Submitted"",Pipeline!$C$2:$C)+SUMIF(Pipeline!$D$2:$D,""Submitted"",Pipeline!$C$2:$C)+SUMIF(Pipeline!$D$2:$D,""Pending Decision"",Pipeline!$C$2:$C)",Dollars requested in open asks.
+Prospects (count),"=COUNTIF(Pipeline!$D$2:$D,""Prospect"")",Not yet asked.
+Prospects ($ requested),"=SUMIF(Pipeline!$D$2:$D,""Prospect"",Pipeline!$C$2:$C)",Dollars you plan to ask for.
+Tier 1 rows,"=COUNTIF(Pipeline!$T$2:$T,""Tier 1"")",From the Tier column.
+Tier 2 rows,"=COUNTIF(Pipeline!$T$2:$T,""Tier 2"")",From the Tier column.
+Tier 3 rows,"=COUNTIF(Pipeline!$T$2:$T,""Tier 3"")",From the Tier column.
+Deadlines in the next 30 days,"=COUNTIFS(Pipeline!$P$2:$P,"">=""&TODAY(),Pipeline!$P$2:$P,""<=""&(TODAY()+30))",Needs real dates in the Deadline column.

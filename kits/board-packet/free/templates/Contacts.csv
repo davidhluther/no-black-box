@@ -1,0 +1,6 @@
+Name,Email,Group,Role,Active
+Alex Rivera,chair@example.org,To,Chair,Yes
+Sam Okafor,director@example.org,Cc,Executive director,Yes
+Taylor Nguyen,finance@example.org,Cc,Finance,Yes
+Pat Morgan,pat.morgan@example.org,Bcc,Board member,Yes
+Robin Shah,robin.shah@example.org,Bcc,Board member,Yes

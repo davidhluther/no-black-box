@@ -1,0 +1,13 @@
+{
+  "organization_name": "Maple Street Food Bank",
+  "what_we_offer": "Free groceries every Tuesday and Saturday",
+  "who_we_serve": "Families and seniors on the east side of town",
+  "area_served": "Springfield and nearby villages",
+  "alternatives": ["Church meal program", "Community fridge"],
+  "seed_terms": ["food pantry", "free groceries", "food assistance"],
+  "max_seed_terms": 3,
+  "notify_email": "name@example.org",
+  "sheet_name": "Customer research",
+  "site_url": "https://www.example.org",
+  "output_folder": "customer-research-output"
+}

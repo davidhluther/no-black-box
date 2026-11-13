@@ -1,0 +1,2 @@
+run_id,run_date,run_by,question_set_version,ai_product,model_shown,signed_in_state,memory_off,location_note,questions_skipped,notes
+2026-11,11/15/2026,Alex Example,v1,ChatGPT,(copy the model name shown in the app),signed out,yes,"home network, no VPN",none,"example row, delete it"

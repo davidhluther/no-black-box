@@ -1,0 +1,2 @@
+run_id,question_id,ai_product,answer_status,named,position,your_site_cited,cited_domains,others_named,resolved_to,qset_version,notes,outcome,group
+2026-11,LD-01,ChatGPT,ok,n,-,n,yelp.com; example-directory.org,Riverside Salon; Town Cuts,person_local,v1,"example row, delete it","=IF(A2="""","""",IF(D2<>""ok"",""not scored"",IF(E2=""y"",IF(G2=""y"",""named and cited"",""named only""),IF(G2=""y"",""cited only"",IF(I2<>"""",""crowded out"",""absent"")))))","=IFERROR(VLOOKUP(B2,Questions!$A:$B,2,FALSE),"""")"

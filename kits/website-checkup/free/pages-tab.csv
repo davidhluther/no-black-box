@@ -1,0 +1,2 @@
+URL,Page type,Title tag,Title length,Meta description,Description length,Main heading (H1),Structured data types,Mobile score,Field LCP (s),Field INP (ms),Field CLS,Date checked,Notes
+,,,=LEN(C2),,=LEN(E2),,,,,,,,

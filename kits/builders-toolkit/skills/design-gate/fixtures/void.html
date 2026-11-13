@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fixture — the 177px void</title>
+<link rel="stylesheet" href="_shell.css">
+<style>
+  /* The reconstructed defect. On the live page the hole was produced by a
+     figure whose caption block collapsed, leaving its reserved height behind;
+     here it is stated directly, because what the gate reads is the hole, not
+     its cause. 177px is the measurement from the 2026-08-30 incident. */
+  .void { height: 177px; }
+  /* Zero the margins that would otherwise be absorbed into the hole, so the
+     number the gate reports IS the number in the fixture's name. A void that
+     measured 203px because of two paragraph margins is still a correct
+     reading — a reader sees one hole, not three — but an exact fixture is a
+     better regression test. */
+  .void-above p:last-child { margin-bottom: 0; }
+  .void + section h2 { margin-top: 0; }
+</style>
+</head>
+<body>
+<main>
+  <h1>The 177px void</h1>
+  <p>Severity-1 regression fixture. The gate must report one interior void of
+     177px on this page, at every viewport and in both themes.</p>
+
+  <section class="void-above">
+    <h2>Block above the hole</h2>
+    <p>Ink here bounds the top of the void, which is what makes it interior
+       rather than page-top breathing room.</p>
+  </section>
+
+  <div class="void"></div>
+
+  <section>
+    <h2>Block below the hole</h2>
+    <p>Ink here bounds the bottom. A reader scrolling this page meets a screen
+       and a half of nothing between two headings and reads it as a broken
+       page — every mechanical gate in the repo was green when this shipped.</p>
+  </section>
+</main>
+</body>
+</html>

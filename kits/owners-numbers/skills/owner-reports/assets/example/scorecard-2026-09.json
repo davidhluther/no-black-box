@@ -1,0 +1,142 @@
+{
+  "business": "Example Hair Studio (invented)",
+  "period": "09/01/2026 to 09/30/2026",
+  "money": {
+    "money_in": 11283.04,
+    "money_out": 10089.0,
+    "owner_draws": 1500.0,
+    "net_operating": 1194.0400000000009,
+    "by_category": {
+      "rent": 2400.0,
+      "utilities": 310.0,
+      "software": 89.0,
+      "cogs": 1360.0,
+      "insurance": 160.0,
+      "marketing": 150.0,
+      "payroll": 5200.0,
+      "transfer": 500.0,
+      "loan_payment": 420.0,
+      "owner_draw": 1500.0
+    },
+    "uncategorized": 0,
+    "cash_on_hand": 21450.0,
+    "prior_cash_on_hand": 22300.0,
+    "prior_money_in": 9887.2,
+    "prior_money_out": 10089.0,
+    "runway": {
+      "months": null,
+      "basis": "actual"
+    }
+  },
+  "sales": {
+    "total": 11456.0,
+    "prior_total": 10001.0,
+    "count": 174.0,
+    "deposit_gap": -172.95999999999913
+  },
+  "what_pays": {
+    "top_items": [
+      [
+        "Color",
+        5740.0
+      ],
+      [
+        "Cut",
+        2585.0
+      ],
+      [
+        "Blowout",
+        1980.0
+      ],
+      [
+        "Treatment",
+        735.0
+      ],
+      [
+        "Shampoo",
+        416.0
+      ]
+    ],
+    "gross_margin": {
+      "amount": 10096.0,
+      "ratio": 0.8812849162011173,
+      "basis": "actual"
+    },
+    "labor_cost": {
+      "ratio": 0.45391061452513964,
+      "basis": "actual"
+    },
+    "contribution": {
+      "unit": 58.02298850574713,
+      "ratio": 0.8812849162011174,
+      "basis": "actual"
+    },
+    "break_even": {
+      "units": 150.44037242472265,
+      "revenue": 9904.855784469097,
+      "basis": "actual"
+    }
+  },
+  "customers": {
+    "clients_served": 51,
+    "new": 11,
+    "returning": 40,
+    "no_show_rate": 0.07344632768361582,
+    "cancel_rate": 0.062146892655367235,
+    "basis": "actual"
+  },
+  "capacity": {
+    "booked_minutes": 8775.0,
+    "lost_minutes": 1190.0,
+    "utilization": 0.6647727272727273,
+    "slack": 4425.0,
+    "revenue_per_booked_hour": 75.48717948717949,
+    "basis": "actual"
+  },
+  "library": {
+    "price_sensitivity": {
+      "new_price": 69.13103448275862,
+      "new_unit_contribution": 61.314942528735635,
+      "breakeven_volume_shift": -0.053689262147570485,
+      "basis": "what-if"
+    },
+    "volume_response": {
+      "contribution_change_ratio": 0.014465927099841513,
+      "better_off": true,
+      "contribution_change_amount": 151.0841379310338,
+      "basis": "what-if"
+    },
+    "cost_to_serve": {
+      "rate": 7.5,
+      "full_cost": 2400.0,
+      "profit": 4800.0,
+      "basis": "what-if"
+    },
+    "customer_lifetime_value": {
+      "lifetime_years": 3.333333333333333,
+      "clv": 1399.9999999999998,
+      "basis": "what-if"
+    },
+    "headcount_payback": {
+      "monthly_net": 1200.0,
+      "covers_cost": true,
+      "months_to_payback": 2.0,
+      "basis": "what-if"
+    },
+    "working_capital": {
+      "working_capital": 7000.0,
+      "current_ratio": 1.7777777777777777,
+      "basis": "what-if"
+    },
+    "cash_conversion": {
+      "days": 20.0,
+      "basis": "what-if"
+    }
+  },
+  "flag": [
+    "No-shows and cancellations",
+    "7% of bookings were no-shows and about 20 booked hours were lost to no-shows and cancellations."
+  ],
+  "verdict": "The month paid for itself, with $1,194 left over after operating costs.",
+  "data_notes": []
+}

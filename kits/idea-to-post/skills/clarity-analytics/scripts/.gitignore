@@ -1,0 +1,11 @@
+# Clarity API tokens must never live in a project folder. The script refuses to read one
+# from inside a git working tree. These patterns are a second guard for the case where
+# someone saves one here anyway.
+*.token
+.clarity*
+credentials.json
+
+# Clarity DATA does not belong here either. Keep each project's pulls in that project's own folder.
+*.clarity.json
+clarity-*.json
+__pycache__/

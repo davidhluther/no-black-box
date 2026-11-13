@@ -1,0 +1,7 @@
+Setting,Value,Note
+Organization name,Example Community Food Pantry,EXAMPLE. Replace with your organization
+Fiscal year start month,7,A number from 1 to 12. EXAMPLE
+Reserve target in months,3,How many months of cash out you want held in reserve. EXAMPLE
+Minimum cash floor,10000,The balance below which you want a warning. EXAMPLE
+First month shown,2026-01-01,"Always the first day of a month, written yyyy-mm-dd. EXAMPLE"
+Opening cash balance,66500,Total cash the day before the first month. EXAMPLE

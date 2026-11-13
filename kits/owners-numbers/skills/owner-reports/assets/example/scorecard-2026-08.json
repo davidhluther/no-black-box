@@ -1,0 +1,142 @@
+{
+  "business": "Example Hair Studio (invented)",
+  "period": "08/01/2026 to 08/31/2026",
+  "money": {
+    "money_in": 9887.2,
+    "money_out": 10089.0,
+    "owner_draws": 1500.0,
+    "net_operating": -201.79999999999927,
+    "by_category": {
+      "rent": 2400.0,
+      "utilities": 310.0,
+      "software": 89.0,
+      "cogs": 1360.0,
+      "insurance": 160.0,
+      "marketing": 150.0,
+      "payroll": 5200.0,
+      "transfer": 500.0,
+      "loan_payment": 420.0,
+      "owner_draw": 1500.0
+    },
+    "uncategorized": 0,
+    "cash_on_hand": 22300.0,
+    "prior_cash_on_hand": 20800.0,
+    "prior_money_in": 0,
+    "prior_money_out": 0,
+    "runway": {
+      "months": 110.50545094152666,
+      "basis": "actual"
+    }
+  },
+  "sales": {
+    "total": 10001.0,
+    "prior_total": 0,
+    "count": 156.0,
+    "deposit_gap": -113.79999999999927
+  },
+  "what_pays": {
+    "top_items": [
+      [
+        "Color",
+        4760.0
+      ],
+      [
+        "Cut",
+        2750.0
+      ],
+      [
+        "Blowout",
+        1485.0
+      ],
+      [
+        "Treatment",
+        630.0
+      ],
+      [
+        "Shampoo",
+        376.0
+      ]
+    ],
+    "gross_margin": {
+      "amount": 8641.0,
+      "ratio": 0.8640135986401359,
+      "basis": "actual"
+    },
+    "labor_cost": {
+      "ratio": 0.51994800519948,
+      "basis": "actual"
+    },
+    "contribution": {
+      "unit": 55.39102564102565,
+      "ratio": 0.864013598640136,
+      "basis": "actual"
+    },
+    "break_even": {
+      "units": 157.58870501099406,
+      "revenue": 10102.850248813795,
+      "basis": "actual"
+    }
+  },
+  "customers": {
+    "clients_served": 41,
+    "new": 41,
+    "returning": 0,
+    "no_show_rate": 0.033112582781456956,
+    "cancel_rate": 0.0728476821192053,
+    "basis": "actual"
+  },
+  "capacity": {
+    "booked_minutes": 7680.0,
+    "lost_minutes": 1050.0,
+    "utilization": 0.5818181818181818,
+    "slack": 5520.0,
+    "revenue_per_booked_hour": 75.1953125,
+    "basis": "actual"
+  },
+  "library": {
+    "price_sensitivity": {
+      "new_price": 67.31442307692308,
+      "new_unit_contribution": 58.59647435897437,
+      "breakeven_volume_shift": -0.05470378129427144,
+      "basis": "what-if"
+    },
+    "volume_response": {
+      "contribution_change_ratio": 0.015554681171160656,
+      "better_off": true,
+      "contribution_change_amount": 155.0861538461531,
+      "basis": "what-if"
+    },
+    "cost_to_serve": {
+      "rate": 7.5,
+      "full_cost": 2400.0,
+      "profit": 4800.0,
+      "basis": "what-if"
+    },
+    "customer_lifetime_value": {
+      "lifetime_years": 3.333333333333333,
+      "clv": 1399.9999999999998,
+      "basis": "what-if"
+    },
+    "headcount_payback": {
+      "monthly_net": 1200.0,
+      "covers_cost": true,
+      "months_to_payback": 2.0,
+      "basis": "what-if"
+    },
+    "working_capital": {
+      "working_capital": 7000.0,
+      "current_ratio": 1.7777777777777777,
+      "basis": "what-if"
+    },
+    "cash_conversion": {
+      "days": 20.0,
+      "basis": "what-if"
+    }
+  },
+  "flag": [
+    "Cash",
+    "Operating costs ran $202 past money in. At that pace the cash lasts about 110.5 months."
+  ],
+  "verdict": "The month ran short, with $202 missing after operating costs.",
+  "data_notes": []
+}

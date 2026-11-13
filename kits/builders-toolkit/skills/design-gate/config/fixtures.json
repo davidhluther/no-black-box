@@ -1,0 +1,16 @@
+{
+  "repo": "shared-skills/design-gate (regression fixtures)",
+  "routes": ["/clean.html", "/void.html", "/overflow.html", "/ghost-section.html"],
+  "reference_page": "/clean.html",
+  "design_system": ["design-gate/SKILL.md"],
+  "banlist": null,
+  "void_ceiling_px": 120,
+  "viewports": [
+    { "name": "mobile", "width": 390, "height": 844 },
+    { "name": "desktop", "width": 1440, "height": 1000 }
+  ],
+  "themes": ["light", "dark"],
+  "dark_mode": { "strategy": "media" },
+  "section_selector": "main section",
+  "out_dir": ".design-gate/fixtures"
+}

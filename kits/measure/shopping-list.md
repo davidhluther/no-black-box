@@ -1,0 +1,25 @@
+# Shopping List
+
+Every item the kit uses. For each: what it is, why you need it, what it costs, the free or cheaper option, whether you can skip it, and where you have room to choose. Accounts and keys are explained in [Keys and accounts](../../guides/keys-and-accounts.md). Prices change, so each cost line points to the vendor's own page instead of repeating a number from memory.
+
+| Item | What it is | Why you need it | Cost | Free or cheaper option | Skip it? | Room to choose |
+|---|---|---|---|---|---|---|
+| Google account | A login for Google's tools | Everything in the free version uses it | Free for a personal account; Google for Nonprofits offers free tools to eligible organizations (see https://www.google.com/nonprofits/) | Use one shared organization login rather than a personal one so access does not leave with a person | No | Personal or Nonprofits |
+| [GA4](glossary.md#ga4) | Google's visit counter for your site | It holds your visit and goal numbers | Free standard version; see https://marketingplatform.google.com/about/analytics/ for current terms | Another counter works if you already have one, but the guides assume GA4 | No | None |
+| [Google Tag Manager](glossary.md#google-tag-manager) | A tool to add tracking without editing the site | It lets you add [events](glossary.md#event) safely and test them first | See https://marketingplatform.google.com/about/tag-manager/ for current terms | Ask whoever edits your site to add each event by hand; slower and harder to test | Yes, if your site editor will add events for you | [Tag Manager](glossary.md#google-tag-manager) or your site editor |
+| [Search Console](glossary.md#search-console) | Google's report of how your site shows in search | It is the only source of search clicks and queries | Free; see https://search.google.com/search-console/about | None needed | No | None |
+| Bing Webmaster Tools | Microsoft's version of Search Console | A second independent source for search direction | See https://www.bing.com/webmasters for current terms | None needed | Yes, but it makes direction checks stronger | Add later |
+| [Looker Studio](glossary.md#looker-studio) | Google's dashboard tool | Draws your sheet as charts | See https://lookerstudio.google.com for current terms | A chart inside the sheet itself | Yes | Dashboard or sheet charts |
+| Google Sheets | Google's spreadsheet app | Holds your monthly numbers | Free with a Google account | Excel works but the check-up and pulls assume Sheets | No | None |
+| [Apps Script](glossary.md#apps-script) | Small programs inside a Sheet | The check-up, and in the low-cost version the pulls | Free, with daily limits; see https://developers.google.com/apps-script/guides/services/quotas | Do the pulls by hand | Check-up is advised; pulls can be skipped | Pulls or hand export |
+| [Clarity](glossary.md#clarity) | Microsoft's free tool that shows how visitors click and scroll | Behavior evidence and a second view of AI visits | Free forever with no traffic limits, per its home page (checked 11/13/2026); sign-up at https://clarity.microsoft.com | None needed | Yes | Add when you want it |
+| A free AI model | ChatGPT, Claude or Gemini at no cost | Runs the paste-in prompts | Free tiers have limits; see each vendor's page | None needed | No (free version) | Any of the three |
+| One AI plan | A paid ChatGPT or Claude plan | The low-cost version reads your numbers inside a saved Project | Roughly the price most vendors charge for one consumer plan; see https://chatgpt.com/pricing or https://claude.com/pricing for today's price | The free tier with more pasting | Yes, until you want it | ChatGPT or Claude |
+| Claude Code | A program that runs Claude on your own computer, with tools | The full version runs the [skills](glossary.md#skill) | See https://claude.com/pricing for plans that include it | Low-cost version | Yes, unless you want the full version | Full only |
+| Google Cloud project and [service account](glossary.md#service-account) | A free [container](glossary.md#container) for a program's login | The full version's Search Console reader | See https://cloud.google.com/pricing for current terms; reading Search Console through it uses no paid service | Use the web export or Apps Script pull | Yes, for free and low cost | Full only |
+| Python 3 | A programming language the helper scripts need | Full version scripts | Free; download from https://www.python.org/downloads/ | Not needed in free or low cost | Yes, for free and low cost | Full only |
+| A password manager | A locked place for logins and [tokens](glossary.md#token) | Keeps tokens out of files and screenshots | See the vendor's page; some are free | A written note in a locked drawer is better than a file in a shared folder | Advised | Any |
+
+## What you can skip
+
+The free version needs only a Google account, GA4, Search Console, Sheets, Apps Script (for the check-up) and a free AI model. Tag Manager, Looker Studio, Clarity and Bing are worth adding but not required to get a trustworthy monthly report.

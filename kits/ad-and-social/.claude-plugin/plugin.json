@@ -1,0 +1,14 @@
+{
+  "name": "ad-and-social",
+  "version": "0.1.0",
+  "description": "Ad copy, ad pictures and posts for X, Facebook and Instagram that sound like you.",
+  "author": {
+    "name": "David Luther",
+    "url": "https://pigasus.group"
+  },
+  "license": "MIT",
+  "keywords": [
+    "as",
+    "wave-2"
+  ]
+}

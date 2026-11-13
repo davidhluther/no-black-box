@@ -1,0 +1,6 @@
+Account,Kind,Restricted,Books balance,Bank balance,Difference,As of,Note
+Example Operating Checking,Operating,No,42000,30500,"=IF(OR(D2="""",E2=""""),"""",D2-E2)",09/30/2026,EXAMPLE. Replace every example row
+Example Grant Account,Savings,Yes,12500,12500,"=IF(OR(D3="""",E3=""""),"""",D3-E3)",09/30/2026,EXAMPLE. Restricted to a named purpose
+,,,,,"=IF(OR(D4="""",E4=""""),"""",D4-E4)",,
+,,,,,"=IF(OR(D5="""",E5=""""),"""",D5-E5)",,
+,,,,,"=IF(OR(D6="""",E6=""""),"""",D6-E6)",,

@@ -1,0 +1,12 @@
+key,value,what to put here
+business_name,Maple Hair Studio,"Your business name exactly as customers see it (example value, replace it)"
+business_type,hair salon,"What you are, in the words a customer uses (example)"
+service,balayage color,"Your most asked-for service, in customer words (example)"
+town,Maple Town,The town customers search for (example)
+region,Example County,The county or area around it (example)
+owner_name,Alex Example,Owner or best-known person (example)
+competitor_1,Riverside Salon,One real competitor you want compared (example)
+website_domain,example.org,Your website address without https:// or www (example)
+question_set_version,,"Fill in once, for example v1. Change it only if you retire or add a question"
+question_set_frozen_on,,"Date you froze the question set, mm/dd/yyyy"
+kit_version,0.1.0,Do not change

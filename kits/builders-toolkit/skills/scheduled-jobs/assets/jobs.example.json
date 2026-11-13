@@ -1,0 +1,24 @@
+{
+  "outcomes_file": "job-outcomes/outcomes.ndjson",
+  "flags_file": "job-outcomes/flags.md",
+  "jobs": {
+    "weekly-data-pull": {
+      "command": ["python3", "scripts/pull_data.py", "--as-of", "{slot_date}"],
+      "workdir": ".",
+      "schedule": { "every": "weekly", "weekday": "sun", "time": "22:00" },
+      "grace_minutes": 30,
+      "timeout_minutes": 30,
+      "retry_delays_minutes": [15, 60, 240],
+      "safe_to_repeat": true,
+      "output_file": "data/pulls/{slot_date}.json",
+      "since": "2026-11-13T00:00"
+    },
+    "daily-check": {
+      "command": ["python3", "scripts/daily_check.py"],
+      "schedule": { "every": "daily", "time": "06:30" },
+      "grace_minutes": 15,
+      "timeout_minutes": 10,
+      "safe_to_repeat": false
+    }
+  }
+}

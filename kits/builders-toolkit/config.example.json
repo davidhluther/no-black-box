@@ -1,0 +1,27 @@
+{
+  "workspace": {
+    "projects_folder": "~/work",
+    "routing_table": "~/CLAUDE.md"
+  },
+  "ledger": {
+    "path": "CAPABILITIES.md",
+    "max_age_days": 30
+  },
+  "brief": {
+    "path": "BRIEF-example-topic.md",
+    "max_lines": 150
+  },
+  "design_gate": {
+    "site_name": "Example Site",
+    "config_path": ".design-gate.json",
+    "base_url": "http://127.0.0.1:3100",
+    "reference_page": "/about",
+    "site_address": "https://www.example.org"
+  },
+  "scheduled_jobs": {
+    "registry_path": "jobs.json",
+    "alert_webhook_env_var": "JOB_ALERT_WEBHOOK",
+    "owner_name": "Alex Example",
+    "owner_contact": "name@example.org"
+  }
+}

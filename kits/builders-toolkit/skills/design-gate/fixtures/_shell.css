@@ -1,0 +1,34 @@
+/* Shared shell for the design-gate regression fixtures.
+
+   The fixtures exist because the gate must never depend on a live site staying
+   broken. The motivating defect (a 177px void on a live page) was fixed the same night; this directory reconstructs that defect
+   class synthetically so the detector keeps being tested after the real page is
+   healthy. */
+
+:root {
+  --paper: #faf7f0;
+  --ink: #1a2a24;
+  --rule: #cfc7b6;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #141716;
+    --ink: #ece7dc;
+    --rule: #38403c;
+  }
+}
+
+html, body { margin: 0; padding: 0; background: var(--paper); color: var(--ink); }
+body {
+  font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+main { max-width: 720px; margin: 0 auto; padding: 40px 24px; }
+h1 { font-size: 32px; margin: 0 0 16px; }
+h2 { font-size: 22px; margin: 0 0 12px; }
+p { margin: 0 0 16px; }
+.rule { height: 1px; background: var(--rule); border: 0; margin: 0; }
+.gap-80 { height: 80px; }
+/* The clean control's gaps have to survive the near-ceiling warn line
+   (0.9 × 120px = 108px), and a gap's measured height is the spacer PLUS the
+   margins collapsed either side of it. 80px + a 16px paragraph margin lands at
+   96px, comfortably legal and still visibly generous. */

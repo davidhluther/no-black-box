@@ -1,0 +1,46 @@
+{
+  "_note": "Copy this file to config.json and replace every example value with your own. Nothing else in the kit holds your organization's details. Never put passwords or API keys in this file; keys go in environment variables (see the shopping list).",
+  "business": {
+    "name": "Maple Hair Studio",
+    "type": "hair salon",
+    "service": "balayage color",
+    "town": "Maple Town",
+    "region": "Example County",
+    "owner_name": "Alex Example",
+    "website_domain": "example.org",
+    "competitors": ["Riverside Salon", "Town Cuts"]
+  },
+  "question_set": {
+    "file": "questions.md",
+    "version": "v1",
+    "frozen_on": ""
+  },
+  "same_names": [
+    { "name": "Maple Studio", "kind": "another business with a similar name", "tell_apart": "different town and different service" },
+    { "name": "maple", "kind": "everyday word", "tell_apart": "a tree, not a business" }
+  ],
+  "api_models": {
+    "openai": "gpt-6-astra",
+    "anthropic": "claude-sonnet-5-5",
+    "gemini": "gemini-4-hydrogen",
+    "perplexity": ""
+  },
+  "api_settings": {
+    "pause_seconds": 3,
+    "timeout_seconds": 120
+  },
+  "api_location": {
+    "city": "Maple Town",
+    "region": "Example State",
+    "country": "US",
+    "timezone": "America/New_York"
+  },
+  "analytics": {
+    "search_console_property": "https://example.org/",
+    "ga4_property_name": "Example site",
+    "ai_channel_name": "AI models"
+  },
+  "contact": {
+    "your_email": "name@example.org"
+  }
+}

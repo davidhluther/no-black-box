@@ -1,0 +1,14 @@
+Setting,Value,What it is
+Organization short name,,"The name you use day to day, such as ""Example Pantry""."
+Legal name,,Exactly as on your IRS letter. Funders match on this.
+EIN,,"Your nine-digit federal tax ID, like 00-0000000. It is on your IRS determination letter."
+Mailing address,,Where funders send letters and checks.
+Website address,,"Your main website, starting with https://"
+Grants contact name,,The one person funders should hear from.
+Grants contact email,,"Where alerts from the weekly search go. Use a shared address if you can, such as grants@example.org."
+Service area,,Counties or towns you serve. Funders ask for this on every form.
+Tier 1 minimum request ($),25000,Requests at or above this are Tier 1: large asks led by the board. Change it to fit your budget.
+Tier 2 minimum request ($),5000,"Requests at or above this, and below Tier 1, are Tier 2. Everything smaller is Tier 3."
+Planned grant income this fiscal year ($),,The grant income in your adopted budget. The Dashboard compares awards against it.
+This fiscal year started on (mm/dd/yyyy),,"The first day of your current fiscal year. Type it as a date, such as 07/01/2026."
+Kit version,0.1.0,Leave this alone. The check-up reads it.

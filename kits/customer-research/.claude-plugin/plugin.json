@@ -1,0 +1,14 @@
+{
+  "name": "customer-research",
+  "version": "0.1.0",
+  "description": "Learn the words your customers use from reviews, Reddit and search suggestions, then test your wording on a persona panel.",
+  "author": {
+    "name": "David Luther",
+    "url": "https://pigasus.group"
+  },
+  "license": "MIT",
+  "keywords": [
+    "cr",
+    "wave-2"
+  ]
+}

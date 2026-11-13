@@ -1,0 +1,9 @@
+Order,Report,Owner,Role in packet,In combined packet,Filename keyword,Active,Received this month,Link or note
+1,Agenda,Alex Rivera (Chair),agenda,Yes,agenda,Yes,,
+2,Director's report,Sam Okafor (Executive director),report,Yes,director,Yes,,
+3,Development update,Jordan Lee (Development),report,Yes,development,Yes,,
+4,Grants report,Casey Martin (Grants),report,Yes,grants,Yes,,
+5,Committee or special reports,Committee chairs,report,Yes,committee,Yes,,
+6,Monthly financials,Taylor Nguyen (Finance),report,No,financ,Yes,,
+7,Annual budget,Taylor Nguyen (Finance),report,No,budget,No,,Turn Active to Yes the month the budget is voted on.
+99,Prior meeting's minutes,Secretary Name,minutes,Yes,minutes,Yes,,

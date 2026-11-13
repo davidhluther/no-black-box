@@ -1,0 +1,13 @@
+Month,Cash in,Cash out,Net,Ending cash,Note
+"=TEXT(EDATE(Settings!$B$6,0),""yyyy-mm"")",18000,21000,"=IF(AND(B2="""",C2=""""),"""",B2-C2)","=IF(D2="""","""",Settings!$B$7+D2)",EXAMPLE numbers. Replace with your own
+"=TEXT(EDATE(Settings!$B$6,1),""yyyy-mm"")",22000,20500,"=IF(AND(B3="""",C3=""""),"""",B3-C3)","=IF(D3="""","""",E2+D3)",
+"=TEXT(EDATE(Settings!$B$6,2),""yyyy-mm"")",19500,22500,"=IF(AND(B4="""",C4=""""),"""",B4-C4)","=IF(D4="""","""",E3+D4)",
+"=TEXT(EDATE(Settings!$B$6,3),""yyyy-mm"")",21000,21500,"=IF(AND(B5="""",C5=""""),"""",B5-C5)","=IF(D5="""","""",E4+D5)",
+"=TEXT(EDATE(Settings!$B$6,4),""yyyy-mm"")",17500,23000,"=IF(AND(B6="""",C6=""""),"""",B6-C6)","=IF(D6="""","""",E5+D6)",
+"=TEXT(EDATE(Settings!$B$6,5),""yyyy-mm"")",20500,22000,"=IF(AND(B7="""",C7=""""),"""",B7-C7)","=IF(D7="""","""",E6+D7)",
+"=TEXT(EDATE(Settings!$B$6,6),""yyyy-mm"")",,,"=IF(AND(B8="""",C8=""""),"""",B8-C8)","=IF(D8="""","""",E7+D8)",
+"=TEXT(EDATE(Settings!$B$6,7),""yyyy-mm"")",,,"=IF(AND(B9="""",C9=""""),"""",B9-C9)","=IF(D9="""","""",E8+D9)",
+"=TEXT(EDATE(Settings!$B$6,8),""yyyy-mm"")",,,"=IF(AND(B10="""",C10=""""),"""",B10-C10)","=IF(D10="""","""",E9+D10)",
+"=TEXT(EDATE(Settings!$B$6,9),""yyyy-mm"")",,,"=IF(AND(B11="""",C11=""""),"""",B11-C11)","=IF(D11="""","""",E10+D11)",
+"=TEXT(EDATE(Settings!$B$6,10),""yyyy-mm"")",,,"=IF(AND(B12="""",C12=""""),"""",B12-C12)","=IF(D12="""","""",E11+D12)",
+"=TEXT(EDATE(Settings!$B$6,11),""yyyy-mm"")",,,"=IF(AND(B13="""",C13=""""),"""",B13-C13)","=IF(D13="""","""",E12+D13)",

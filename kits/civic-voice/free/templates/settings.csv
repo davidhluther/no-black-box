@@ -1,0 +1,7 @@
+Setting,Value,Notes
+your_name_or_group,,Who is speaking or asking (example: Example Neighbors Association)
+state,,Your state's name (example: Example State)
+body_name,,The meeting body you follow most (example: Example Town Planning Board)
+agenda_page_link,,Where the body posts agendas and packets (optional)
+records_office,,Where records requests go (optional)
+counties,,Counties you compare, separated by commas (optional)

@@ -1,0 +1,14 @@
+{
+  "name": "board-packet",
+  "version": "0.1.0",
+  "description": "Get the monthly board packet out: gather reports, write minutes from a recording, combine one PDF and draft the board email.",
+  "author": {
+    "name": "David Luther",
+    "url": "https://pigasus.group"
+  },
+  "license": "MIT",
+  "keywords": [
+    "bp",
+    "wave-1"
+  ]
+}

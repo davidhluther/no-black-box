@@ -1,0 +1,22 @@
+# Open Your Free Data Tools (Free, Guide 2)
+
+You will find your numbers in three free Google tools and bring last month's totals into your sheet. About 30 minutes the first time.
+
+1. **MM-FR-02-1.** Open [GA4](../glossary.md#ga4) (Google Analytics 4, Google's free tool that counts visits) at analytics.google.com and sign in with the Google account that manages your site. Click the gear icon at the bottom left (Admin), then "Property details". Copy the "Property ID", a number of about nine digits, into the "ga4_property_id" row of your sheet's Config tab.
+   You'll know it worked when you see a number in Property details. If there is no property, nobody has set up GA4 for your site yet; see E06. If you see "You don't have access", ask whoever owns the account to add you as Viewer, or Editor if you will also add [events](../glossary.md#event); see E04.
+
+2. **MM-FR-02-2.** Open [Search Console](../glossary.md#search-console) (Google's free report of how your site appears in search) at search.google.com/search-console. If your site is listed in the top-left menu, pick it. If not, click "Add property", choose "Domain" and type your site name without www (for example example.org), and follow Google's prompts to prove you own the site. Google shows a short line of text to add to your domain's settings, which whoever manages your domain name can do in a few minutes. Copy the site name exactly as the menu shows it ("example.org" becomes "sc-domain:example.org") into the "site_url" row of Config.
+   You'll know it worked when you see a Performance report with a graph. Data starts appearing one to three days after verification. If it says "not verified" or the property is missing, it's E07.
+
+3. **MM-FR-02-3.** Export last month's search numbers. In Search Console, click Performance, then the date button, then "Custom", and choose last calendar month. Click "Queries" under the graph, then click Export (top right) and "Download [CSV](../glossary.md#csv)". In the downloaded file, open Queries.csv; copy the top 50 rows; paste them into your "Search queries" tab under the header row, keeping the column order (month, query, clicks, impressions, ctr, position, page). Put the first day of the month in the month column. Search Console shows a [click-through rate](../glossary.md#click-through-rate) as a percentage; type it as a decimal (0.013 for 1.3 percent).
+   You'll know it worked when the tab shows real queries with numbers. If the numbers land in the wrong columns, it's E02. Search Console hides rare searches for privacy and shows only a limited number of rows, so the totals will not match the graph exactly. That is normal.
+
+4. **MM-FR-02-4.** Export last month's visit numbers. In GA4 click Reports, then Acquisition, then "Traffic acquisition". Set the date range to last month with the date button. Read the row "Organic Search": note its [Sessions](../glossary.md#session), Engaged sessions and [Key events](../glossary.md#key-event). A [session](../glossary.md#session) is one visit. Type them into a new row of your "Monthly traffic" tab. Do the same for the previous month so you can compare.
+   You'll know it worked when two months sit in two rows. If the numbers look very different from last month with no reason, don't explain them yet. Guide 5 shows how to check first. If Reports shows no data at all, it's E08.
+
+5. **MM-FR-02-5.** Optional but useful: add [Clarity](../glossary.md#clarity), Microsoft's free tool that shows how visitors click and scroll. Go to clarity.microsoft.com, sign in with a Microsoft or Google account, click "New project", and enter your site's address. Clarity gives you a short piece of code. If you use [Google Tag Manager](../glossary.md#google-tag-manager), the easiest way to install it is the Clarity [tag](../glossary.md#tag) type inside Tag Manager (guide 3 shows how Tag Manager works). Otherwise whoever edits your site can paste the code in. Clarity says it is free forever with no traffic limits (checked 11/13/2026).
+   You'll know it worked when, after a few hours, the Clarity dashboard shows recordings. If it stays empty after a day, it's E09.
+
+Next: [Add custom events with Tag Manager](MM-FR-03-add-custom-events-with-tag-manager.md).
+
+> **How to get help.** Write down the step ID where you got stuck (it looks like MM-FR-01-3). If your kit has a check-up button or command, run it and copy the support code it prints. Then send both to Pigasus Group at https://pigasus.group/contact. Setup questions are free.

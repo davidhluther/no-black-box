@@ -1,0 +1,14 @@
+{
+  "name": "books",
+  "version": "0.1.0",
+  "description": "Check your QuickBooks books without changing them, and turn them into a clear monthly treasurer report.",
+  "author": {
+    "name": "David Luther",
+    "url": "https://pigasus.group"
+  },
+  "license": "MIT",
+  "keywords": [
+    "bk",
+    "wave-1"
+  ]
+}

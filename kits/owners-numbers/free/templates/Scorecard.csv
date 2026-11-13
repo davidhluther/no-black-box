@@ -1,0 +1,46 @@
+Verdict,"=IF(B8>=0,""The month paid for itself"",""The month ran short"")&"", with ""&TEXT(ABS(B8),""$#,##0"")&IF(B8>=0,"" left over"","" missing"")&"" after operating costs.""",,One line to read first
+Month start,=Settings!D3,,
+Month end,=Settings!D4,,
+MONEY IN AND MONEY OUT,,,
+Money in,"=SUMIFS(Bank!C:C,Bank!C:C,"">0"",Bank!A:A,"">=""&Settings!D3,Bank!A:A,""<=""&Settings!D4,Bank!D:D,""<>transfer"")",actual,"Deposits and other money that arrived, transfers left out"
+Operating costs,"=-SUMIFS(Bank!C:C,Bank!C:C,""<0"",Bank!A:A,"">=""&Settings!D3,Bank!A:A,""<=""&Settings!D4,Bank!D:D,""<>transfer"",Bank!D:D,""<>owner_draw"")",actual,Everything paid out except transfers and owner draws
+Owner draws,"=-SUMIFS(Bank!C:C,Bank!A:A,"">=""&Settings!D3,Bank!A:A,""<=""&Settings!D4,Bank!D:D,""owner_draw"")",actual,Money you took out for yourself
+Net operating,=B5-B6,actual,Money in minus operating costs
+Cash on hand,=Settings!D5,=Settings!E5,From your bank balance on the last day
+Change in cash,=Settings!D5-Settings!D6,=Settings!E5,Cash now minus cash a month ago
+Runway in months,"=IF(B6-B5>0,Settings!D5/(B6-B5),""funded itself"")",=Settings!E5,Months of cash left at this month's burn
+Sales from the point-of-sale export,"=SUMIFS(Sales!E:E,Sales!A:A,"">=""&Settings!D3,Sales!A:A,""<=""&Settings!D4)",actual,What the register says you sold
+Sales last month,"=SUMIFS(Sales!E:E,Sales!A:A,"">=""&EDATE(Settings!D3,-1),Sales!A:A,""<""&Settings!D3)",actual,
+Sales change,"=IF(B13=0,""n/a"",B12/B13-1)",actual,
+Deposits minus sales,=B5-B12,actual,Usually card fees and timing
+WHAT ACTUALLY PAYS,,,
+Sales counted,"=SUMIFS(Sales!D:D,Sales!A:A,"">=""&Settings!D3,Sales!A:A,""<=""&Settings!D4)",actual,
+Average sale,"=IF(B17=0,"""",B12/B17)",actual,
+Cost of goods,"=-SUMIFS(Bank!C:C,Bank!A:A,"">=""&Settings!D3,Bank!A:A,""<=""&Settings!D4,Bank!D:D,""cogs"")",actual,Bank rows tagged cogs
+Variable costs,"=-SUMPRODUCT(SUMIFS(Bank!C:C,Bank!D:D,{""cogs"";""supplies"";""tax"";""other_variable""},Bank!A:A,"">=""&Settings!D3,Bank!A:A,""<=""&Settings!D4))",actual,"cogs, supplies, tax, other_variable"
+Variable cost per sale,"=IF(B17=0,"""",B20/B17)",actual,
+Fixed costs,"=-SUMPRODUCT(SUMIFS(Bank!C:C,Bank!D:D,{""rent"";""utilities"";""software"";""insurance"";""loan_payment"";""payroll"";""marketing"";""other_fixed""},Bank!A:A,"">=""&Settings!D3,Bank!A:A,""<=""&Settings!D4))",actual,"rent, utilities, software, insurance, loan_payment, payroll, marketing, other_fixed"
+Gross margin,"=IF(B12=0,""n/a"",(B12-B19)/B12)",actual,"Sales minus cost of goods, over sales"
+Payroll as share of sales,"=IF(B12=0,""n/a"",-SUMIFS(Bank!C:C,Bank!A:A,"">=""&Settings!D3,Bank!A:A,""<=""&Settings!D4,Bank!D:D,""payroll"")/B12)",actual,
+Kept by each average sale,=Settings!D8-Settings!D9,"=IF(COUNTIF(Settings!E8:E9,""what-if"")>0,""what-if"",""actual"")",After its own variable cost
+Share of price kept,"=IF(Settings!D8=0,""n/a"",B25/Settings!D8)",=C25,
+Break-even sales dollars,"=IF(B25>0,Settings!D10/B26,""no break-even"")","=IF(COUNTIF(Settings!E8:E10,""what-if"")>0,""what-if"",""actual"")",Sales needed a month to cover fixed costs
+Top five items by sales,,,
+,"=QUERY(Sales!A:E,""select B, sum(E) where A >= date '""&TEXT(Settings!D3,""yyyy-mm-dd"")&""' and A <= date '""&TEXT(Settings!D4,""yyyy-mm-dd"")&""' group by B order by sum(E) desc limit 5 label sum(E) ''"",0)",,
+,,,
+,,,
+,,,
+,,,
+,,,
+CUSTOMERS AND CAPACITY,,,
+Bookings this month,"=COUNTIFS(Bookings!A:A,"">=""&Settings!D3,Bookings!A:A,""<=""&Settings!D4)",actual,
+No-show rate,"=IF(B36=0,""n/a"",COUNTIFS(Bookings!A:A,"">=""&Settings!D3,Bookings!A:A,""<=""&Settings!D4,Bookings!E:E,""no_show"")/B36)",actual,
+Cancellation rate,"=IF(B36=0,""n/a"",COUNTIFS(Bookings!A:A,"">=""&Settings!D3,Bookings!A:A,""<=""&Settings!D4,Bookings!E:E,""canceled"")/B36)",actual,
+Clients served,"=IFERROR(COUNTA(UNIQUE(FILTER(Bookings!F2:F5000,(Bookings!A2:A5000>=Settings!D3)*(Bookings!A2:A5000<=Settings!D4)*(Bookings!E2:E5000=""completed"")))),0)",actual,Different people who completed a visit
+New clients,=B39-B41,actual,Not seen in any earlier month in your file
+Returning clients,"=IFERROR(COUNTA(UNIQUE(FILTER(Bookings!F2:F5000,(Bookings!A2:A5000>=Settings!D3)*(Bookings!A2:A5000<=Settings!D4)*(Bookings!E2:E5000=""completed"")*ISNUMBER(MATCH(Bookings!F2:F5000,FILTER(Bookings!F2:F5000,(Bookings!A2:A5000<Settings!D3)*(Bookings!E2:E5000=""completed"")),0))))),0)",actual,Also seen in an earlier month in your file
+Completed booked minutes,"=SUMIFS(Bookings!D:D,Bookings!E:E,""completed"",Bookings!A:A,"">=""&Settings!D3,Bookings!A:A,""<=""&Settings!D4)",actual,
+Lost minutes,"=SUMIFS(Bookings!D:D,Bookings!E:E,""no_show"",Bookings!A:A,"">=""&Settings!D3,Bookings!A:A,""<=""&Settings!D4)+SUMIFS(Bookings!D:D,Bookings!E:E,""canceled"",Bookings!A:A,"">=""&Settings!D3,Bookings!A:A,""<=""&Settings!D4)",actual,No-shows plus cancellations
+Capacity use,"=IF(Settings!D7=0,""n/a"",B42/Settings!D7)",=Settings!E7,Booked minutes over available minutes
+"THIS MONTH, LOOK AT",,,
+The one thing,"=IF(B8<0,""Cash. Operating costs ran past money in."",IF(AND(ISNUMBER(B37),B37>0.06),""No-shows and cancellations."",IF(AND(ISNUMBER(B44),B44<0.6),""Open capacity."",""Gross margin. Watch whether it holds."")))",actual,States an observation and stops

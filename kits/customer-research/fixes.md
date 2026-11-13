@@ -1,0 +1,25 @@
+# Fixes
+
+Find your code in the table. The [check-up](glossary.md#check-up) button prints a [support code](glossary.md#support-code) that contains the problem code (for example `CR-FR-01-4-E03-v0.1.0-7KQ`). Terms in this page are explained in the [glossary](glossary.md). If a fix does not work, send the code and the step ID to [Pigasus Group](https://pigasus.group/contact). Setup questions are free.
+
+| Code | What you see | Why | The fix | Step |
+|---|---|---|---|---|
+| E01 | Check-up says the [Config](glossary.md#config) [tab](glossary.md#tab) is missing | The tab was not imported, or its name has a typo or an extra space | Import `config.csv` again as a new sheet and name the tab exactly `Config` | CR-FR-01-2 |
+| E02 | Check-up says the Sources tab is missing or its headings differ | Same cause as E01, or a heading was edited | Import `sources.csv` again, name it exactly `Sources`, and leave the first row unchanged | CR-FR-01-3 |
+| E03 | Check-up says the Quotes tab is missing or its headings differ | Same cause, or a column was inserted before another | Import `quotes.csv` again, or move the columns back into the original order | CR-FR-01-4 |
+| E04 | Check-up says the [Themes](glossary.md#theme) tab is missing or its headings differ | Same cause | Import `themes.csv` again and name it exactly `Themes` | CR-FR-01-5 |
+| E05 | Check-up says the WordingTests tab is missing or its headings differ | Same cause, often a space in the name | Import `wording-tests.csv` and name it exactly `WordingTests` with no space | CR-FR-01-6 |
+| E06 | Check-up says the [Autocomplete](glossary.md#autocomplete) tab differs | The low-cost tab was not imported or was edited | Import `autocomplete.csv` and name it exactly `Autocomplete` | CR-LC-02-2 |
+| E07 | Check-up says the RunLog tab differs | Same cause | Import `runlog.csv` and name it exactly `RunLog` | CR-LC-02-3 |
+| E08 | Check-up lists Config settings that are still blank | The value column was not filled in | Fill in every blank setting the report names (the names are shown, never your answers) | CR-FR-02-1 |
+| E09 | Google sends you back to the sign-in page again and again | Your browser is signed in to two Google accounts, or blocks cookies | Open a private browsing window, sign in with one account only, and try again | CR-FR-01-1 |
+| E10 | The import replaced your spreadsheet, or all columns landed in one cell | "Replace spreadsheet" was chosen, or the file was opened as plain text | Use File, Import, "Insert new sheet(s)", and let Sheets detect separators automatically | CR-FR-01-2 |
+| E11 | No Help menu, or no Customer research menu | The page was not reloaded, or the script did not save | Reload the page and wait ten seconds. Open Extensions, [Apps Script](glossary.md#apps-script), save with the disk icon, and reload again | CR-FR-01-8 |
+| E12 | The suggestion pull logs FAILED, or says Google returned nothing | Google changed or blocked the suggestion address, or too many requests ran at once | Wait a day and run it once by hand. If it still fails, collect suggestions by typing your phrases into a search box and copying the list, as in guide CR-FR-02 | CR-LC-02-4 |
+| E13 | Google warns the app "hasn't been verified" | You wrote the script into your own Sheet, so Google has not reviewed it. That is expected | Click "Advanced", then "Go to Customer research (unsafe)", then Allow. The script only touches this Sheet and the public suggestion address | CR-FR-01-7 |
+| E14 | A quote the [AI model](glossary.md#ai-model) gave is not in the text you pasted | AI models sometimes write what sounds right instead of copying | Delete the row. Tell the model "that quote is not in the text," and re-run with fewer comments at a time | CR-FR-02-3 |
+| E15 | The AI model stops partway through a table or says the message is too long | The paste was larger than the free plan allows | Send half as many comments or quotes. Work in batches of 20 to 30 | CR-FR-02-3 |
+| E16 | A review or forum page will not load, or demands a sign-in | The site restricts visitors who are not signed in, or blocks automated reading | Choose a different source, or sign in as yourself and copy a few comments by hand. Do not use programs that copy whole sites | CR-FR-02-2 |
+| E17 | The simulated panel loves every version, or all [personas](glossary.md#persona) sound alike | Simulated panels lean agreeable, and thin persona cards give them little to work with | Add real objections from your quotes to each card, ask again with "be skeptical and short on time," and treat agreement as a warning | CR-FR-04-3 |
+| E18 | The RunLog has no row for this month | The monthly schedule was never set, was removed, or Google paused it | Choose Customer research, then "Schedule monthly pull" again, and run the pull once by hand | CR-LC-03-2 |
+| E19 | The [Project](glossary.md#project) will not accept the instructions text | The text is longer than your product's limit | Delete the persona examples and the competitor section, keep the hard rules, and try again | CR-LC-01-3 |

@@ -1,0 +1,14 @@
+{
+  "name": "ai-visibility",
+  "version": "0.1.0",
+  "description": "Ask AI models the questions your customers ask, and record whether you are named, cited or crowded out.",
+  "author": {
+    "name": "David Luther",
+    "url": "https://pigasus.group"
+  },
+  "license": "MIT",
+  "keywords": [
+    "av",
+    "wave-2"
+  ]
+}

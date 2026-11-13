@@ -1,0 +1,14 @@
+{
+  "name": "grants",
+  "version": "0.1.0",
+  "description": "Find funders, track deadlines, research each funder and draft applications whose every number traces to a source.",
+  "author": {
+    "name": "David Luther",
+    "url": "https://pigasus.group"
+  },
+  "license": "MIT",
+  "keywords": [
+    "gr",
+    "wave-1"
+  ]
+}

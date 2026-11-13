@@ -1,0 +1,14 @@
+{
+  "name": "idea-to-post",
+  "version": "0.1.0",
+  "description": "One flow from topic ideas to a published, measured post: research, draft, quality checks, images, export and publishing.",
+  "author": {
+    "name": "David Luther",
+    "url": "https://pigasus.group"
+  },
+  "license": "MIT",
+  "keywords": [
+    "ip",
+    "wave-2"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "_notes": "Default gate ceilings for score_batch.py --thresholds. These are starting points: they pass carefully edited prose and fail drafts full of hard tells. Copy this file and tune the numbers from your own published writing. Formatting-density features are listed in _warn_only: they print a warning and never fail the gate, so a gate never pushes anyone to strip headings, lists or bold. Language-tell ceilings still block.",
+  "composite_hard_per1k": 1.0,
+  "t1_vocab_per1k": 0.3,
+  "restricted_per1k": 0.5,
+  "neg_parallel_per1k": 0.3,
+  "neg_parallel_sibling_per1k": 0.3,
+  "title_case_head_frac": 0.2,
+  "colon_internal_per1k": 3.0,
+  "emdash_per1k": 2.0,
+  "_warn_only": [
+    "colon_internal_per1k",
+    "emdash_per1k"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "organization_name": "Example Organization",
+  "website_url": "https://www.example.org",
+  "landing_page_url": "https://www.example.org/join",
+  "audience": "Neighbors within ten miles who need or want our services",
+  "offer": "First-visit welcome event",
+  "tone_words": ["warm", "plain", "local"],
+  "words_to_avoid": ["cheap", "best", "guaranteed"],
+  "brand_colors": { "primary": "#1F6F5C", "accent": "#F2B134", "text": "#222222", "background": "#FFFFFF" },
+  "logo_file": "assets/logo.png",
+  "platforms": ["google-search", "facebook", "instagram", "x", "linkedin"],
+  "image_provider": "none",
+  "image_model": "",
+  "image_key_environment_variable": "OPENAI_API_KEY",
+  "output_folder": "output",
+  "approver": "Name of the person who approves posts",
+  "proof_documents_folder": "proof"
+}

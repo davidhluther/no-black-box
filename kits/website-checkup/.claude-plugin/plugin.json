@@ -1,0 +1,14 @@
+{
+  "name": "website-checkup",
+  "version": "0.1.0",
+  "description": "An outside-in check of your website and local listings, with fixes ranked by how much they matter.",
+  "author": {
+    "name": "David Luther",
+    "url": "https://pigasus.group"
+  },
+  "license": "MIT",
+  "keywords": [
+    "wc",
+    "wave-2"
+  ]
+}

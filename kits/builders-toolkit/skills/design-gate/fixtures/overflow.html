@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fixture — horizontal overflow</title>
+<link rel="stylesheet" href="_shell.css">
+<style>
+  /* A table that sets its own minimum width and is not wrapped in a scroller —
+     the most common way a page starts scrolling sideways on a phone. */
+  .wide { min-width: 900px; border-collapse: collapse; }
+  .wide td, .wide th { border: 1px solid var(--rule); padding: 8px 12px; text-align: left; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Horizontal overflow</h1>
+  <p>Severity-1 regression fixture. The gate must report overflow at the 390px
+     viewport. At 1440px this page is legal, which is the point: the defect is
+     viewport-conditional and only a real layout can see it.</p>
+
+  <section>
+    <table class="wide">
+      <thead><tr><th>Station</th><th>Elevation</th><th>Observed high</th><th>Observed low</th><th>Wind</th></tr></thead>
+      <tbody>
+        <tr><td>Hilltop</td><td>3,333 ft</td><td>68</td><td>44</td><td>NW 11 mph</td></tr>
+        <tr><td>Hilltop</td><td>3,566 ft</td><td>66</td><td>43</td><td>NW 14 mph</td></tr>
+      </tbody>
+    </table>
+  </section>
+</main>
+</body>
+</html>

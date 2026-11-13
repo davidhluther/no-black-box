@@ -1,0 +1,26 @@
+metric,value,basis,plain reading
+Unit contribution,=Settings!D8-Settings!D9,"=IF(COUNTIF(Settings!E8:E9,""what-if"")>0,""what-if"",""actual"")",What each sale keeps after its own cost
+Contribution ratio,"=IF(Settings!D8=0,""n/a"",B2/Settings!D8)",=C2,Cents kept per dollar of price
+Break-even sales count,"=IF(B2>0,Settings!D10/B2,""no break-even"")","=IF(COUNTIF(Settings!E8:E10,""what-if"")>0,""what-if"",""actual"")",Sales needed to cover fixed costs
+Break-even sales dollars,"=IF(B2>0,Settings!D10/B3,""no break-even"")",=C4,
+Price move break-even volume shift,"=IF((B2+Settings!D8*Settings!D26)>0,-Settings!D8*Settings!D26/(B2+Settings!D8*Settings!D26),""no volume recovers it"")","=IF(COUNTIF(Settings!E8:E9,""what-if"")+COUNTIF(Settings!E26,""what-if"")>0,""what-if"",""actual"")",Negative means room to lose volume. Positive means volume to win
+Contribution change under assumed volume,=((B2+Settings!D8*Settings!D26)*(1+Settings!D27))/B2-1,what-if,Always a what-if because the volume change is assumed
+Dollars a month under that assumption,=((B2+Settings!D8*Settings!D26)*(1+Settings!D27)-B2)*Settings!D28,what-if,
+Fixed share of costs,"=IFERROR(Scorecard!B22/(Scorecard!B22+Scorecard!B20),""n/a"")",actual,How much of your cost lands no matter what
+Runway in months,=Scorecard!B11,=Scorecard!C11,
+Overhead allocation rate per hour,"=IF(Settings!D12=0,""n/a"",Settings!D11/Settings!D12)","=IF(COUNTIF(Settings!E11:E12,""what-if"")>0,""what-if"",""actual"")",Overhead per hour of the allocation base
+Full cost of the line,=Settings!D14+B11*Settings!D13,"=IF(COUNTIF(Settings!E11:E14,""what-if"")>0,""what-if"",""actual"")",Direct cost plus its share of overhead
+Profit of the line after overhead,=Settings!D15-B12,"=IF(COUNTIF(Settings!E11:E15,""what-if"")>0,""what-if"",""actual"")",A busy line can still lose money here
+Gross margin,=Scorecard!B23,actual,
+Markup,"=IF(Settings!D9=0,""n/a"",(Settings!D8-Settings!D9)/Settings!D9)",=C2,Profit over cost
+Margin,=B3,=C2,Profit over price
+Price for the target margin,=Settings!D9/(1-Settings!D29),"=IF(COUNTIF(Settings!E9,""what-if"")+COUNTIF(Settings!E29,""what-if"")>0,""what-if"",""actual"")",The price that hits the margin you want
+Payroll as share of sales,=Scorecard!B24,actual,
+Hire monthly net,=Settings!D19-Settings!D18,"=IF(COUNTIF(Settings!E18:E19,""what-if"")>0,""what-if"",""actual"")",Added contribution minus loaded cost
+Months to pay back onboarding,"=IF(B19>0,Settings!D20/B19,""does not cover its cost"")","=IF(COUNTIF(Settings!E18:E20,""what-if"")>0,""what-if"",""actual"")",
+Capacity use,=Scorecard!B44,=Scorecard!C44,
+Customer lifetime in years,"=IF(AND(Settings!D17>=0,Settings!D17<1),1/(1-Settings!D17),""n/a"")","=IF(COUNTIF(Settings!E17,""what-if"")>0,""what-if"",""actual"")",
+Customer lifetime value,"=IF(ISNUMBER(B22),Settings!D16*B22,""n/a"")","=IF(COUNTIF(Settings!E16:E17,""what-if"")>0,""what-if"",""actual"")",Margin carried over a customer's lifetime
+Working capital,=Settings!D21-Settings!D22,"=IF(COUNTIF(Settings!E21:E22,""what-if"")>0,""what-if"",""actual"")",
+Current ratio,"=IF(Settings!D22=0,""n/a"",Settings!D21/Settings!D22)",=C24,
+Cash conversion in days,=Settings!D23+Settings!D24-Settings!D25,"=IF(COUNTIF(Settings!E23:E25,""what-if"")>0,""what-if"",""actual"")",Days between paying for work and getting paid

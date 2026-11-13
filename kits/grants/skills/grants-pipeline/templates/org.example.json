@@ -1,0 +1,144 @@
+{
+ "_comment": "Copy to orgs/<slug>.json. Keys starting with an underscore are ignored. Every key is documented in org.example.md.",
+ "org": {"name": "ECT", "full_name": "Example Community Trust"},
+ "exclude_names": ["Some Other Organization"],
+ "paths": {
+  "data_dir": "~/Documents/example-org-grants",
+  "xlsx_out": "ECT_Grants_Pipeline_Tracker.xlsx",
+  "html_out": "ect-funding-pipeline.html",
+  "drive_map_glob": "~/Documents/example-org-grants/drive-map-*.json"
+ },
+ "plugin": null,
+ "statuses": [
+  {"name": "Prospect", "role": "prospect", "class": "open"},
+  {"name": "LOI Submitted", "role": "loi", "class": "open"},
+  {"name": "Submitted", "role": "submitted", "class": "open"},
+  {"name": "Pending Decision", "role": "pending", "class": "open"},
+  {"name": "Awarded", "role": "awarded", "class": "won"},
+  {"name": "Awarded-Reduced", "role": "awarded_reduced", "class": "won"},
+  {"name": "Declined", "role": "declined", "class": "lost"},
+  {"name": "Not Pursued", "role": "not_pursued", "class": "open"},
+  {"name": "Outcome Unknown", "role": "unknown", "class": "unknown"},
+  {"name": "Closed", "role": "closed", "class": "open"}
+ ],
+ "stages": ["1 Land", "2 Build", "3 Buyer", "Repair"],
+ "dossier_tiers": {"order": ["A", "B", "C"], "default": "A"},
+ "tiers": {"t1_min": 25000, "t2_min": 5000, "names": ["T1 · Transform", "T2 · Sustain", "T3 · Automate"]},
+ "theme": {
+  "xlsx": {"head": "FF1E5A42", "title": "FF21503B", "sub": "FF55605A", "link": "FF1F4E9E",
+           "blue": "FF1F4E9E", "calc": "FFEDEEEA", "input": "FFFFF8DC", "confirm": "FFFFF2A8"},
+  "page": {
+   "fonts_url": "",
+   "display": "Georgia, serif",
+   "body": "system-ui, sans-serif",
+   "light": {"bg": "#f6f7f3", "panel": "#ffffff", "fg": "#1f2a24", "muted": "#5d6b62", "rule": "#d5ddd6",
+             "accent": "#2f6b4f", "won": "#2f6b4f", "lost": "#9a3b2a", "unknown": "#8a6a12", "open": "#36577f"},
+   "dark": {"bg": "#141a17", "panel": "#1b231f", "fg": "#e3eae5", "muted": "#9fb0a5", "rule": "#2e3a33",
+            "accent": "#7cc4a0", "won": "#7cc4a0", "lost": "#e58c78", "unknown": "#e0bd5c", "open": "#8fb4e3"}
+  }
+ },
+ "text": {
+  "xlsx": {
+   "pipeline_title": "Example Community Trust: Grants Pipeline Tracker",
+   "pipeline_sub": "One row per ask, past and planned. Fill the tinted scoring cells; grey columns calculate themselves. Yellow cells are unconfirmed.",
+   "confirm_marker": "CONFIRM",
+   "rubric": [
+    {"title": "How the scoring works"},
+    null,
+    {"h": "1 · Tier: set automatically by request size"},
+    ["Tier", "Request size", "Cadence / effort", "Who leads", "What it's for"],
+    ["T1 · Transform", "${t1} +", "One or two a year", "Treasurer + chair", "Describe the big asks."],
+    ["T2 · Sustain", "${t2}–${t1m1}", "Recurring", "Grant lead", "Describe the warm funders."],
+    ["T3 · Automate", "under ${t2}", "Batch", "Drafted from kit", "Describe the microgrants."],
+    null,
+    {"sub": "One sentence on why the tier cutoffs fit this organization's budget."},
+    null,
+    {"h": "2 · Fit score: rate each 1 (poor) to 5 (excellent)"},
+    ["Criterion", "Column", "What 5 looks like"],
+    ["Eligibility (hard gate)", "K", "Pass = Y. If N, stop."],
+    ["Mission alignment", "L", "Describe a perfect mission match."],
+    ["Fit /25 = sum of Mission + Geo + Fund-area + Reln + Report-ease"],
+    null,
+    {"h": "3 · Expected value: dollars earned per hour of work"},
+    ["EV ($/hr)  =  Request $  ×  P(win)%  ÷  Effort hours"]
+   ],
+   "dashboard": {
+    "title": "Dashboard: updates automatically",
+    "subtitle": "Refreshes as the Pipeline tab is filled in.",
+    "notes": {"asks": "", "declined": "", "unknown": "", "win_rate": "", "prospects": ""},
+    "plan": {"heading": "Against the fiscal-year plan", "planned_label": "Grant income planned",
+             "planned_amount": 25000, "planned_note": "Replace with the adopted budget figure.",
+             "since_label": "Awarded since 7/1/2026", "since_date": [2026, 7, 1],
+             "since_note": "Counts rows whose decision date is typed as a date."}
+   },
+   "intel_title": "Funder intel: funding streams and verdicts",
+   "intel_sub": "What the sources were checked against, and the date.",
+   "wider_title": "Wider net: funding beyond local relationships, by roadmap stage",
+   "wider_sub": "Where the research came from and how to read its confidence marks.",
+   "dossier_title": "Funder Dossier Index: every prospect, sorted by tier",
+   "dossier_sub": "What dossier tiers A, B and C mean (research depth, separate from the Pipeline tab's priority tiers 1 to 3) and how the index was built.",
+   "dossier_evidence_header": "Evidence"
+  },
+  "page": {
+   "title": "ECT Funding Pipeline",
+   "h1": "ECT Funding Pipeline",
+   "css_comment": "Layout: wide tables that scroll in place, prose at full width.",
+   "stat_labels": ["grant asks on record", "awarded", "awarded in all", "with no recorded outcome",
+                   "named prospects next", "in opening asks to test"],
+   "wider_intro": "Funding beyond the existing relationships.",
+   "pipeline_intro": "Every ask on record and the next prospects.",
+   "foot": "Research, not the record. Where this page disagrees with a grant letter, the books or the minutes, the source document wins.",
+   "link_labels": [["sheet", "Grants Pipeline Tracker (Google Sheet)"], ["doc", "This page as a Google Doc"],
+                   ["note", "What to move on soon"], ["folder", "Drive folder"]],
+   "status_filters": [["all", "All"], ["won", "Awarded"], ["unknown", "Outcome unknown"],
+                      ["open", "Prospects"], ["lost", "Declined"]]
+  }
+ },
+ "links": {
+  "skip_hosts": ["spam-aggregator.example"],
+  "minutes": {"name_template": "Board Meeting {m}/{d}/{y}", "label_template": "Minutes {m}/{d}/{y}"},
+  "rules": [
+   {"type": "urls"},
+   {"type": "research_slug", "pattern": "research/(?:wider-net-)?([\\w-]+)\\.md", "label": "Research: {slug}"},
+   {"type": "research_all", "token": "research/wider-net-*.md", "label": "Research: {slug}"},
+   {"type": "dossier_slug", "pattern": "Funder dossier: ([\\w-]+)", "label": "Dossier"},
+   {"type": "minutes_phrase", "pattern": "minutes ([\\d/,\\s]+)"},
+   {"type": "drive_path", "pattern": "(?:Grants/|Financial Reports/)([^;\"(]+)"},
+   {"type": "text_match", "pattern": "board notes 9/10", "label": "Board notes", "url": "https://docs.google.com/document/d/EXAMPLE/edit"},
+   {"type": "text_match", "pattern": "2023 application", "label": "2023 application", "drive_find": "Funder 2023 Grant Application", "folder_ok": false},
+   {"type": "text_match", "pattern": "Program notice", "label": "Program notice", "funder_url": "Example Funder Name"},
+   {"type": "text_match", "pattern": "10/7/2026 minutes", "minutes": "10/7/2026"}
+  ],
+  "row_rules": [
+   {"source_contains": "Program research", "name_contains": "Example Funder",
+    "add_dossier": [{"label": "Dossier", "slug": "example-funder"}]},
+   {"name_contains_any": ["Large employers", "Wider net"], "research": ["corporate"],
+    "research_all_if_name_contains": "Wider net"}
+  ],
+  "fallback_search_url": "https://projects.propublica.org/nonprofits/search?q="
+ },
+ "sweep": {
+  "keywords": {"land": ["community land trust"], "build": ["affordable housing construction"]},
+  "good_agencies": ["USDA-RD", "HUD"],
+  "bad_agencies": ["NSF", "NASA"],
+  "positive": ["housing", "affordable"],
+  "negative": ["research", "clinical"],
+  "strong": ["affordable housing", "homeownership"],
+  "off": ["clinical", "foreign"],
+  "user_agent": "ECT grants sweep (contact@example.org)",
+  "grants_gov": {"eligibilities": "12", "opp_statuses": "forecasted|posted", "rows": 50},
+  "news": {
+   "feeds": ["https://www.example-paper.com/search/"],
+   "terms": ["grant", "donation"],
+   "local_paths": ["/news/local/"],
+   "skip_paths": ["/ap/", "/national/"],
+   "hit_regex": "grant|award|donat|gift|fund|sponsor|raises|giving",
+   "max_age_days": 400,
+   "query": "?f=rss&t=article&l=50&s=start_time&sd=desc&q="
+  },
+  "scoring": {"base": 20, "good_agency": 25, "bad_agency": -30, "title_pos": 8, "title_pos_cap": 4,
+              "title_neg": 12, "syn_strong": 7, "syn_strong_cap": 5, "syn_off": 10,
+              "big_floor": 1000000, "big_floor_penalty": 15, "multi_stage": 5,
+              "tier2_min": 70, "tier3_min": 45, "news_score": 50, "score_synopsis_min": 30}
+ }
+}

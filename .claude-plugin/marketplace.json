@@ -1,0 +1,111 @@
+{
+  "name": "no-black-box",
+  "owner": {
+    "name": "David Luther",
+    "url": "https://pigasus.group"
+  },
+  "metadata": {
+    "description": "Free, plainly written kits for small businesses and nonprofits.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "grants",
+      "source": "./kits/grants",
+      "description": "Find funders, track deadlines, research each funder and draft applications whose every number traces to a source.",
+      "version": "0.1.0",
+      "category": "nonprofit"
+    },
+    {
+      "name": "board-packet",
+      "source": "./kits/board-packet",
+      "description": "Get the monthly board packet out: gather reports, write minutes from a recording, combine one PDF and draft the board email.",
+      "version": "0.1.0",
+      "category": "nonprofit"
+    },
+    {
+      "name": "books",
+      "source": "./kits/books",
+      "description": "Check your QuickBooks books without changing them, and turn them into a clear monthly treasurer report.",
+      "version": "0.1.0",
+      "category": "nonprofit"
+    },
+    {
+      "name": "plain-writing",
+      "source": "./kits/plain-writing",
+      "description": "House style rules, an AI-tell checker, a claims check and voice presets, so writing reads like a person who knows the subject.",
+      "version": "0.1.0",
+      "category": "small-business"
+    },
+    {
+      "name": "idea-to-post",
+      "source": "./kits/idea-to-post",
+      "description": "One flow from topic ideas to a published, measured post: research, draft, quality checks, images, export and publishing.",
+      "version": "0.1.0",
+      "category": "small-business"
+    },
+    {
+      "name": "website-checkup",
+      "source": "./kits/website-checkup",
+      "description": "An outside-in check of your website and local listings, with fixes ranked by how much they matter.",
+      "version": "0.1.0",
+      "category": "small-business"
+    },
+    {
+      "name": "ai-visibility",
+      "source": "./kits/ai-visibility",
+      "description": "Ask AI models the questions your customers ask, and record whether you are named, cited or crowded out.",
+      "version": "0.1.0",
+      "category": "small-business"
+    },
+    {
+      "name": "customer-research",
+      "source": "./kits/customer-research",
+      "description": "Learn the words your customers use from reviews, Reddit and search suggestions, then test your wording on a persona panel.",
+      "version": "0.1.0",
+      "category": "small-business"
+    },
+    {
+      "name": "owners-numbers",
+      "source": "./kits/owners-numbers",
+      "description": "A one-page monthly scorecard from your own exports, plus break-even and pricing what-ifs.",
+      "version": "0.1.0",
+      "category": "small-business"
+    },
+    {
+      "name": "continuity",
+      "source": "./kits/continuity",
+      "description": "The bus test: could the work go on if one person disappeared tomorrow? Score it, then write the runbooks.",
+      "version": "0.1.0",
+      "category": "small-business"
+    },
+    {
+      "name": "measure",
+      "source": "./kits/measure",
+      "description": "Set up analytics properly, see AI traffic, write a monthly report and check causes before claiming them.",
+      "version": "0.1.0",
+      "category": "small-business"
+    },
+    {
+      "name": "civic-voice",
+      "source": "./kits/civic-voice",
+      "description": "Show up prepared for public meetings, request public records, and pull your county's census numbers.",
+      "version": "0.1.0",
+      "category": "nonprofit"
+    },
+    {
+      "name": "builders-toolkit",
+      "source": "./kits/builders-toolkit",
+      "description": "For people building with Claude Code: design checks, capability ledgers, session briefs and the rule that scheduled jobs never fail quietly.",
+      "version": "0.1.0",
+      "category": "builders"
+    },
+    {
+      "name": "ad-and-social",
+      "source": "./kits/ad-and-social",
+      "description": "Ad copy, ad pictures and posts for X, Facebook and Instagram that sound like you.",
+      "version": "0.1.0",
+      "category": "small-business"
+    }
+  ]
+}

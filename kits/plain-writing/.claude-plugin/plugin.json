@@ -1,0 +1,14 @@
+{
+  "name": "plain-writing",
+  "version": "0.1.0",
+  "description": "House style rules, an AI-tell checker, a claims check and voice presets, so writing reads like a person who knows the subject.",
+  "author": {
+    "name": "David Luther",
+    "url": "https://pigasus.group"
+  },
+  "license": "MIT",
+  "keywords": [
+    "pw",
+    "wave-1"
+  ]
+}

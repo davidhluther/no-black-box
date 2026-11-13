@@ -1,0 +1,6 @@
+*.token
+.clarity*
+credentials.json
+*.clarity.json
+clarity-*.json
+__pycache__/

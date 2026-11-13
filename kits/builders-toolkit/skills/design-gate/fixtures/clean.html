@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The build stamp the target-fingerprint test asserts against. A real repo
+     writes its git SHA here; a fixture is not built, so the value is fixed.
+     It is in <head> and therefore renders no ink — this page must still
+     produce zero findings. -->
+<meta name="x-build-id" content="fixture-build-1b9d0c7">
+<title>Fixture — clean control</title>
+<link rel="stylesheet" href="_shell.css">
+</head>
+<body>
+<main>
+  <h1>Clean control</h1>
+  <p>This page must produce zero findings at every viewport and in both themes.
+     It is the fixture that proves the gate does not cry wolf.</p>
+
+  <section>
+    <h2>Generous but legal spacing</h2>
+    <p>The gap below is 80px — real breathing room, under the 120px ceiling and
+       under the 90px near-ceiling warn line.</p>
+  </section>
+
+  <div class="gap-80"></div>
+
+  <section>
+    <h2>A hairline between two gaps</h2>
+    <p>Below this block sits 80px of paper, a 1px rule, and another 80px of
+       paper. Read naively that is a 161px void and this page would fail. The
+       rule refinement in <code>analyse_ink</code> exists for exactly this
+       shape: a uniform segment no taller than <code>rule_max_px</code> whose
+       colour differs from both neighbours is ink, and it splits the void.</p>
+  </section>
+
+  <div class="gap-80"></div>
+  <hr class="rule">
+  <div class="gap-80"></div>
+
+  <section>
+    <h2>Closing block</h2>
+    <p>Ink at the foot of the page, so the trailing gap is bounded and the
+       capture ends on content rather than on paper.</p>
+  </section>
+</main>
+</body>
+</html>

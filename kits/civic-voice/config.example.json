@@ -1,0 +1,42 @@
+{
+  "kit": "civic-voice",
+  "kit_version": "0.1.0",
+  "who_is_speaking": {
+    "name": "Alex Example",
+    "group": "Example Neighbors Association",
+    "speaking_as": "resident",
+    "contact_for_correspondence": "name@example.org"
+  },
+  "state": "Example State",
+  "meeting_bodies": [
+    {
+      "name": "Example Town Planning Board",
+      "kind": "advisory board",
+      "agenda_page": "https://example.org/agendas",
+      "clerk_or_secretary": "Town Clerk",
+      "comment_rules_page": "https://example.org/public-comment",
+      "usual_schedule": "second Tuesday, 6:00 p.m."
+    }
+  ],
+  "records_offices": [
+    {
+      "agency": "Example Town",
+      "office": "Town Clerk",
+      "how_to_send": "online form or email",
+      "address_or_form": "https://example.org/records-request"
+    }
+  ],
+  "counties": ["Alpha", "Beta", "Gamma"],
+  "census": {
+    "year": "2024",
+    "include_state_row": true,
+    "key_environment_variable": "CENSUS_API_KEY"
+  },
+  "folders": {
+    "meetings": "Civic voice/Meetings",
+    "records_requests": "Civic voice/Records requests",
+    "transcripts": "Civic voice/Transcripts",
+    "county_tables": "Civic voice/County tables"
+  },
+  "tracker_sheet_url": "https://docs.google.com/spreadsheets/d/EXAMPLE"
+}

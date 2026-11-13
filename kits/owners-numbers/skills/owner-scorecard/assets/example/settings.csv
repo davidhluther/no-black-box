@@ -1,0 +1,14 @@
+name,value,note
+business_name,Example Hair Studio (invented),An example business made up for this kit
+month_start,2026-09-01,
+month_end,2026-09-30,
+cash_on_hand,21450,From the bank balance on 09/30/2026 (example)
+prior_cash_on_hand,22300,From the bank balance on 08/31/2026 (example)
+capacity_minutes,13200,Two chairs and 22 open days and 300 bookable minutes a day (example)
+price_per_sale,,Leave blank to use your sales export
+variable_cost_per_sale,,
+fixed_costs_monthly,,
+annual_margin_per_customer,,
+retention_rate,,
+hire_monthly_cost,,
+hire_added_contribution,,

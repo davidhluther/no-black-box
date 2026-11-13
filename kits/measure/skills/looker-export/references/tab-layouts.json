@@ -1,0 +1,8 @@
+{
+  "monthly-traffic": ["month", "organic_sessions", "organic_users", "engaged_sessions", "key_events", "search_clicks", "search_impressions", "search_ctr", "search_avg_position", "data_through"],
+  "search-queries": ["month", "query", "clicks", "impressions", "ctr", "position", "page"],
+  "top-pages": ["month", "page_url", "organic_sessions", "key_events", "engagement_rate", "search_clicks", "search_impressions", "search_position"],
+  "ai-referrals": ["month", "ai_source", "sessions", "engaged_sessions", "key_events", "note"],
+  "flagged-moves": ["month", "measure", "move", "top_cause", "grade", "sources_checked", "sources_agree", "action", "owner", "due"],
+  "actions": ["date_added", "action", "owner", "due", "status", "date_done"]
+}

@@ -1,0 +1,15 @@
+.DS_Store
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+/dist/
+# your own settings and keys never get committed
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+kits/*/config.json

@@ -1,0 +1,18 @@
+{
+ "_comment": "Example footprint for scripts/mine_990pf.py. Replace every value with your own state and service area. Keys starting with an underscore are ignored.",
+ "state": "OH",
+ "footprint": {
+  "Example County": {
+   "cities": ["EXAMPLEVILLE", "SAMPLE FALLS", "NORTH EXAMPLE"],
+   "zips": ["44000", "44001", "44002"]
+  },
+  "Sample County": {
+   "cities": ["SAMPLETON", "DEMO CREEK"],
+   "zips": ["44100", "44101"]
+  }
+ },
+ "regional_cities": ["EXAMPLE CITY", "SAMPLE CITY"],
+ "known_funders": ["EXAMPLE FAMILY FOUNDATION", "SAMPLE COMMUNITY FOUNDATION"],
+ "purpose_regex": "homeless|housing|shelter|hunger|food|emergency|poverty|crisis|rent assist|basic need",
+ "relevant_regex": "shelter|homeless|housing|habitat|food|pantry|kitchen|hunger|crisis|meals|united way|community action|health|family|children|outreach|emergency"
+}

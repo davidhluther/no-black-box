@@ -1,0 +1,35 @@
+{
+  "_comment": [
+    "Example house rules for the article checker, using the placeholder organization example.org.",
+    "Copy this file, change the values to your own site, and run: python3 scripts/validate_article.py draft.md --brand-rules my-rules.json",
+    "Leave a list empty ([]) or a patterns object empty ({}) to switch that check off. Every key below must stay in the file.",
+    "cms_template_checks: set to true only if every post on your site starts with a metadata table and has a Key Takeaways box."
+  ],
+  "brand": "Example Co",
+  "internal_links": {
+    "patterns": {
+      "example": "https://www\\.example\\.org/blog/[^\\s\\)\\\"]+"
+    },
+    "min_unique": 3,
+    "escalation": null,
+    "label": "Example Co blog posts"
+  },
+  "product_link_placement": {
+    "url_patterns": []
+  },
+  "upsell": {
+    "product_urls": [],
+    "heading_patterns": [],
+    "label": "Example Co"
+  },
+  "cta_patterns": [
+    "get a (free )?quote",
+    "schedule a (demo|call|visit)",
+    "talk to (our|a) (team|specialist|expert)",
+    "sign up",
+    "donate",
+    "volunteer with us"
+  ],
+  "faq_schema_match": false,
+  "cms_template_checks": false
+}

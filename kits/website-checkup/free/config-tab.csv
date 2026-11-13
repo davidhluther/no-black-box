@@ -1,0 +1,12 @@
+Setting,Value,Notes
+version,FR,"FR for the free version, LC if you added the AI plan and monthly pulls"
+business_name,,Exactly as it appears on the Google listing
+site_url,,Starts with https://
+business_type,,"From the list in the kit (for example restaurant, home services, dental)"
+city_region,,City or service area
+phone_as_published,,As written on your website
+competitor_1,,
+competitor_2,,
+competitor_3,,
+competitor_4,,
+competitor_5,,

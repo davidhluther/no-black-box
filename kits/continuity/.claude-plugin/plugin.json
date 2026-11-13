@@ -1,0 +1,14 @@
+{
+  "name": "continuity",
+  "version": "0.1.0",
+  "description": "The bus test: could the work go on if one person disappeared tomorrow? Score it, then write the runbooks.",
+  "author": {
+    "name": "David Luther",
+    "url": "https://pigasus.group"
+  },
+  "license": "MIT",
+  "keywords": [
+    "ck",
+    "wave-2"
+  ]
+}

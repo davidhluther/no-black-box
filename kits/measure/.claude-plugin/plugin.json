@@ -1,0 +1,14 @@
+{
+  "name": "measure",
+  "version": "0.1.0",
+  "description": "Set up analytics properly, see AI traffic, write a monthly report and check causes before claiming them.",
+  "author": {
+    "name": "David Luther",
+    "url": "https://pigasus.group"
+  },
+  "license": "MIT",
+  "keywords": [
+    "mm",
+    "wave-2"
+  ]
+}

@@ -1,0 +1,13 @@
+function,q1_written_down,q2_stranger_could_follow,q3_tested_by_someone_else,score,target_score,if_you_vanished,what_breaks_first,next_step
+Money and billing,,,,"=IF(B2="""","""",IF(B2<>""yes"",0,IF(C2<>""yes"",1,IF(D2<>""yes"",2,3))))",,,,
+Operations and fulfillment,,,,"=IF(B3="""","""",IF(B3<>""yes"",0,IF(C3<>""yes"",1,IF(D3<>""yes"",2,3))))",,,,
+Customers and relationships,,,,"=IF(B4="""","""",IF(B4<>""yes"",0,IF(C4<>""yes"",1,IF(D4<>""yes"",2,3))))",,,,
+Suppliers and tools,,,,"=IF(B5="""","""",IF(B5<>""yes"",0,IF(C5<>""yes"",1,IF(D5<>""yes"",2,3))))",,,,
+People and knowledge,,,,"=IF(B6="""","""",IF(B6<>""yes"",0,IF(C6<>""yes"",1,IF(D6<>""yes"",2,3))))",,,,
+,,,,,,,,
+Total out of 15,"=IF(COUNT(E2:E6)=5,SUM(E2:E6),""answer all five"")"
+Band,"=IF(ISNUMBER(B8),IF(B8>=13,""runnable by a stranger"",IF(B8>=10,""mostly runnable"",IF(B8>=5,""runnable in parts"",""runs on one person""))),"""")"
+Weakest function,"=IF(ISNUMBER(B8),INDEX(A2:A6,MATCH(MIN(E2:E6),E2:E6,0)),"""")"
+Strongest function,"=IF(ISNUMBER(B8),INDEX(A2:A6,MATCH(MAX(E2:E6),E2:E6,0)),"""")"
+Points to reach your targets,"=IF(AND(ISNUMBER(B8),COUNT(F2:F6)=5),SUM(F2:F6)-B8,"""")"
+Verdict,"=IF(ISNUMBER(B8),""Score ""&B8&"" of 15, ""&B9&"". The first gap to close is ""&LOWER(B10)&""."","""")"

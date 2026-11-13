@@ -1,0 +1,203 @@
+{
+  "_README": "CANONICAL word lists for the article checker, the AI-tell scorer and the copy linter. This file is the single source of truth: edit a list here and all three tools pick it up. Severity is encoded per category below. Add your own banned words to the restricted_words block (the key is the plain lemma, forms lists what is actually flagged).",
+  "tier1_vocab": {
+    "_severity": "error",
+    "_category": "VOCAB",
+    "_source": "shared-skills/writing-styleguide.md -> Tier 1 -> Vocabulary",
+    "words": [
+      "beacon",
+      "cacophony",
+      "commence",
+      "commendable",
+      "delve",
+      "delved",
+      "delving",
+      "elevate",
+      "empower",
+      "facilitate",
+      "foster",
+      "harness",
+      "illuminate",
+      "leverages",
+      "leveraging",
+      "multifaceted",
+      "paramount",
+      "realm",
+      "seamless",
+      "seamlessly",
+      "streamline",
+      "tapestry",
+      "testament",
+      "underscore",
+      "unlock",
+      "utilize"
+    ]
+  },
+  "restricted_words": {
+    "_severity": "error",
+    "_category": "RESTRICTED_WORD",
+    "_source": "the writing styleguide: banned or restricted words, each with a plain alternative",
+    "_note": "Keyed by the lemma named in the rulebook (the drift test asserts every rulebook lemma is a key here). 'forms' is what the validator actually flags — this lets us ban the metaphorical/jargon verb while protecting a legitimate noun sense (e.g. 'negotiating leverage', 'financial leverage' are fine; 'leveraging X' is not).",
+    "words": {
+      "leverage": {
+        "forms": [
+          "leveraging",
+          "leverages"
+        ],
+        "note": "noun sense (bargaining/financial leverage) allowed; ban jargon verb forms only"
+      },
+      "streamline": {
+        "forms": [
+          "streamline",
+          "streamlines",
+          "streamlined",
+          "streamlining"
+        ]
+      },
+      "robust": {
+        "forms": [
+          "robust"
+        ]
+      },
+      "comprehensive": {
+        "forms": [
+          "comprehensive"
+        ]
+      },
+      "navigate": {
+        "forms": [
+          "navigate",
+          "navigates",
+          "navigating"
+        ],
+        "note": "metaphorical only; literal UI navigation is rare in this content"
+      },
+      "landscape": {
+        "forms": [
+          "landscape"
+        ],
+        "note": "metaphorical 'market/industry landscape'; literal geography does not occur in B2B payments copy"
+      },
+      "empower": {
+        "forms": [
+          "empower",
+          "empowers",
+          "empowering"
+        ]
+      },
+      "unlock": {
+        "forms": [
+          "unlock",
+          "unlocks",
+          "unlocking",
+          "unlocked"
+        ]
+      },
+      "elevate": {
+        "forms": [
+          "elevate",
+          "elevates",
+          "elevating"
+        ]
+      },
+      "seamless": {
+        "forms": [
+          "seamless",
+          "seamlessly"
+        ]
+      },
+      "delve": {
+        "forms": [
+          "delve",
+          "delves",
+          "delving",
+          "delved"
+        ]
+      }
+    }
+  },
+  "puffery": {
+    "_severity": "error",
+    "_category": "PUFFERY",
+    "_source": "the validator's own puffery list",
+    "words": [
+      "revolutionize",
+      "revolutionizing",
+      "revolutionized",
+      "revolutionary",
+      "game-changer",
+      "game-changing",
+      "cutting-edge",
+      "best-in-class",
+      "world-class",
+      "state-of-the-art",
+      "breathtaking",
+      "stunning",
+      "must-see",
+      "nestled",
+      "unleash",
+      "unleashing",
+      "unleashed",
+      "skyrocket",
+      "skyrocketing",
+      "supercharge",
+      "supercharging"
+    ]
+  },
+  "transitions": {
+    "_severity": "error",
+    "_category": "AI_TELLS",
+    "_source": "the writing styleguide: formulaic transitions",
+    "words": [
+      "moreover",
+      "furthermore",
+      "in addition",
+      "on the other hand",
+      "that said",
+      "with that in mind",
+      "it goes without saying",
+      "needless to say",
+      "at the end of the day"
+    ]
+  },
+  "tier2_overuse": {
+    "_severity": "warn",
+    "_category": "AI_TELLS_T2",
+    "_threshold": "more than 1 per 500 body words",
+    "_source": "shared-skills/writing-styleguide.md -> Tier 2 -> Inflation adjectives / Copula replacements / Verbs",
+    "words": [
+      "key",
+      "crucial",
+      "vital",
+      "pivotal",
+      "significant",
+      "noteworthy",
+      "essential",
+      "vibrant",
+      "dynamic",
+      "innovative",
+      "stands as",
+      "serves as",
+      "represents",
+      "functions as",
+      "align with",
+      "ensure",
+      "leverage"
+    ]
+  },
+  "terminology": {
+    "_severity": "error",
+    "_category": "TERMINOLOGY",
+    "_source": "writing-styleguide.md -> Tier 4 'Terminology (owner rule, 2026-08-24)'",
+    "_note": "Owner rule (David, 2026-08-24): say 'AI models', never 'AI assistants'. WIRED 2026-08-31 (branch lint-validator-batch-2026-08-31): validate_article.py now derives category names and severities from THIS file rather than a hardcoded list, so this block is enforced as an error, and copy-lint's banned_terms() already picks up every error-severity block. Product names (ChatGPT, Claude, Gemini, Perplexity) are never flagged — they do not match these forms, and a sentence about a PRODUCT surface gets rewritten to name the app rather than substituted (see the 2026-08-24 ADDENDUM in shared-skills/INBOX.md). Bare 'assistant(s)' is deliberately NOT listed here: the styleguide covers it, but as an error-level regex it would fire across ~930+ instances of already-published content, which is the sweep this rule waits on.",
+    "words": {
+      "ai assistant": {
+        "forms": [
+          "ai assistant",
+          "ai assistants"
+        ],
+        "replacement": "AI model / AI models"
+      }
+    }
+  }
+}

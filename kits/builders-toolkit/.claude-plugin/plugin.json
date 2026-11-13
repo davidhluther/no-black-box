@@ -1,0 +1,14 @@
+{
+  "name": "builders-toolkit",
+  "version": "0.1.0",
+  "description": "For people building with Claude Code: design checks, capability ledgers, session briefs and the rule that scheduled jobs never fail quietly.",
+  "author": {
+    "name": "David Luther",
+    "url": "https://pigasus.group"
+  },
+  "license": "MIT",
+  "keywords": [
+    "bt",
+    "wave-2"
+  ]
+}

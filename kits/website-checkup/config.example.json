@@ -1,0 +1,29 @@
+{
+  "_note": "Copy this file to config.json and replace the example values. Never put passwords or keys in this file.",
+  "business_name": "Example Bakery",
+  "site_url": "https://www.example.org",
+  "business_type": "restaurant",
+  "city_region": "Exampleville",
+  "phone_as_published": "555-0100",
+  "gbp_listing_name_exact": "Example Bakery",
+  "competitors": [
+    "https://www.example.com",
+    "https://www.example.net"
+  ],
+  "owner_can_share": {
+    "search_console": true,
+    "bing_webmaster": false,
+    "analytics": false
+  },
+  "blog": {
+    "url_base": "example.org/blog/",
+    "sitemap_urls": ["https://www.example.org/sitemap.xml"],
+    "topics": {
+      "Hiring help": "Posts that help customers choose and prepare",
+      "Behind the scenes": "Posts about how the work is done"
+    },
+    "index_title": "Example Bakery blog index"
+  },
+  "output_folder": "checkup-output",
+  "speed_key_environment_variable": "PAGESPEED_API_KEY"
+}

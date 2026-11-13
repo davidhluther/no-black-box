@@ -1,0 +1,8 @@
+name,your_value,example_value,used_value,basis
+annual_departures,,2,"=IF(B2="""",C2,B2)","=IF(B2="""",""what-if"",""actual"")"
+onboarding_hours,,40,"=IF(B3="""",C3,B3)","=IF(B3="""",""what-if"",""actual"")"
+loaded_hourly_wage,,22,"=IF(B4="""",C4,B4)","=IF(B4="""",""what-if"",""actual"")"
+,,,,
+Cost per departure,=D3*D4,,,"=IF(COUNTIF(E3:E4,""what-if"")>0,""what-if"",""actual"")"
+Cost per year,=D2*B6,,,"=IF(COUNTIF(E2:E4,""what-if"")>0,""what-if"",""actual"")"
+Cost per month,=B7/12,,,=E7

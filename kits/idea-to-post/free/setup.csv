@@ -1,0 +1,10 @@
+key,value,required
+version,FR,yes
+org_name,,yes
+audience,,yes
+voice_notes,,yes
+site_url,,yes
+blog_path,/blog/,yes
+one_call_to_action,,yes
+search_console_property,,no
+bing_site_url,,no

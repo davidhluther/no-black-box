@@ -1,0 +1,9 @@
+id,claim,value,as_of,source,status
+ID-01,Legal name is Example Community Pantry,,current,Articles of incorporation (Drive folder Legal),source-verified
+ID-02,Incorporated in 1998,1998,1998,Articles of incorporation (Drive folder Legal),source-verified
+ID-03,Federal tax ID (EIN) 00-0000000,000000000,current,IRS determination letter,source-verified
+ID-04,Is a 501(c)(3) public charity,,current,IRS determination letter,source-verified
+PRG-01,Served households in the last full year (example number),1200,FY2025,FY2025 annual report p.3,source-verified
+PRG-02,Pounds of food distributed in the last full year (example number),240000,FY2025,FY2025 annual report p.3,source-verified
+FIN-01,Total expenses in the last audited year (example number),410000,FYE 06/30/2025,FY2025 audit p.4,source-verified
+FIN-02,Share of budget from individual donors (example number),55,FYE 06/30/2025,Treasurer's report 09/2025,unverified do not use until the treasurer confirms

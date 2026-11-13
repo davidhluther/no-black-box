@@ -1,0 +1,9 @@
+key,value,note
+organization_name,,Your organization's name. Example: Maple Street Food Bank
+what_we_offer,,One plain sentence about what you provide. Example: Free groceries every Tuesday and Saturday
+who_we_serve,,Who your customers or neighbors are. Example: Families and seniors in the east side of town
+area_served,,The town or region. Example: Springfield and nearby villages
+alternatives,,Other places your customers might go instead (separate with commas). Example: Other pantries; church meal programs
+seed_terms,,Two to five phrases a customer might type into a search box (separate with commas). Example: food pantry; free groceries
+max_seed_terms,3,How many seed terms the Apps Script pulls per run (keep at five or fewer)
+notify_email,,The address that gets a message if a scheduled pull fails. Example: name@example.org

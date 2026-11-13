@@ -1,0 +1,17 @@
+{
+  "_comment": "Copy this file to config.json and change the values. Everything specific to your organization lives here and nowhere else. Leave a value empty (\"\") if you don't have one.",
+  "kit": "plain-writing",
+  "kit_version": "0.1.0",
+  "organization_name": "Example Co",
+  "short_name": "Example",
+  "site_url": "https://www.example.org",
+  "contact_email": "name@example.org",
+  "house_style_file": "house-style-example-co.md",
+  "brand_rules_file": "my-rules.json",
+  "evidence_standard_file": "",
+  "known_bad_claims_file": "known-bad-claims.md",
+  "thresholds_file": "my-gate-thresholds.json",
+  "number_style": "spell out zero through ten, digits from 11 up",
+  "date_format": "mm/dd/yyyy",
+  "default_voice_preset": "analyst-memo"
+}

@@ -1,0 +1,21 @@
+Setting,Value,Notes
+org_name,Example Community Org,Your organization's name as it appears on the agenda.
+board_name,Board of Directors,What you call the board.
+mission_statement,,Optional. Printed at the top of the minutes if you fill it in.
+meeting_time,12:00 pm to 2:00 pm,Usual start and end time.
+meeting_location,In person at the community room and on video,Where the meeting happens.
+video_details,Video link: https://example.org/meeting (ID and passcode here),Pasted into every email. Change it only when the link changes.
+chair_name,Chair Name,The person who runs the meeting.
+secretary_name,Secretary Name,The person who signs the minutes.
+sender_name,Secretary Name,Name that signs the email.
+reviewer_name,,Optional. The person who proofreads the draft before it goes out.
+root_folder_name,Board Secretary Files,Exact name of the shared Drive folder from guide BP-FR-01.
+transcripts_folder_name,Board Meeting Transcripts (private),Exact name of the private Drive folder from guide BP-FR-01.
+email_subject_pattern,"[org_name] Board of Directors Meeting, [date] at [start_time]",Words in square brackets are filled in for you.
+contact_list_url,,Link to your board contact list (a Google Sheet or Doc).
+extra_link_1_label,,Optional. A link you want in every email.
+extra_link_1_url,,
+extra_link_2_label,,Optional. A second standing link.
+extra_link_2_url,,
+recurring_ask,Please check your details in the board contact list and email me any changes.,One sentence that goes in every email. Delete it if you do not need it.
+combined_packet_filename,board-packet-combined.pdf,Low-cost version only. The name of the one combined PDF in each month folder.

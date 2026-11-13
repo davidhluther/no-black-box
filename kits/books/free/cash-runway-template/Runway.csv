@@ -1,0 +1,12 @@
+Measure,Value,How it is worked out
+Cash now,"=LOOKUP(9.99E+307,'Monthly cash'!E2:E100)",The last Ending cash figure on the Monthly cash tab
+Restricted cash,"=SUMIF(Accounts!C2:C100,""Yes"",Accounts!D2:D100)",Books balance of every account marked Restricted = Yes
+Committed but unpaid,=SUM(Commitments!B2:B100),Everything listed on the Commitments tab
+Free cash,=B2-B3-B4,"Cash now, minus restricted cash, minus commitments"
+"Average monthly net, last three months","=IFERROR(AVERAGE(OFFSET('Monthly cash'!D1,COUNT('Monthly cash'!D2:D100)-2,0,3,1)),"""")",Average of the last three Net figures
+"Average monthly cash out, last three months","=IFERROR(AVERAGE(OFFSET('Monthly cash'!C1,COUNT('Monthly cash'!C2:C100)-2,0,3,1)),"""")",Average of the last three Cash out figures
+Months of runway,"=IF(B6="""","""",IF(B6>=0,""Not shrinking"",B5/-B6))",Free cash divided by the monthly shrinkage
+Months of reserve,"=IF(OR(B7="""",B7=0),"""",B5/B7)",Free cash divided by average monthly cash out
+Reserve target in months,=Settings!B4,From the Settings tab
+Gap to target (months),"=IF(B9="""","""",B9-B10)",Negative means below your target
+Months until cash falls below the floor,"=IF(B6="""","""",IF(B6>=0,""Not shrinking"",MAX(0,(B2-Settings!B5)/-B6)))","Cash now minus the floor, divided by the monthly shrinkage"

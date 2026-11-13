@@ -1,0 +1,18 @@
+{
+  "business_name": "Example Food Pantry (invented)",
+  "business_type": "small food pantry",
+  "contact_email": "coordinator@example.org",
+  "website": "https://www.example.org",
+  "cover_person": "Example Treasurer",
+  "cover_person_role": "volunteer treasurer",
+  "google_sheet_name": "Bus Test",
+  "runbook_folder": "Continuity runbooks",
+  "review_months": 3,
+  "target_scores": {
+    "money_and_billing": 3,
+    "operations_and_fulfillment": 2,
+    "customers_and_relationships": 2,
+    "suppliers_and_tools": 2,
+    "people_and_knowledge": 2
+  }
+}

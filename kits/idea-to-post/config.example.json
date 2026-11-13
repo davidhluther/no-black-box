@@ -1,0 +1,104 @@
+{
+  "_about": "Copy this file to config.json and replace every example value with your own. This is the only place your organization's details go. Never put passwords or API keys in this file; keys belong in environment variables or the app's own settings (see guides/keys-and-accounts.md).",
+  "kit_version": "0.1.0",
+
+  "organization": {
+    "name": "Example Community Pantry",
+    "kind": "a small food bank",
+    "audience": "neighbors who need food, volunteers, and local donors",
+    "what_we_want_readers_to_do": "visit during open hours, volunteer, or donate",
+    "voice_notes": "Plain and warm. Short sentences. Name real places and real numbers. No jargon. Never promise results."
+  },
+
+  "site": {
+    "url": "https://www.example.org",
+    "blog_path": "/blog/",
+    "sitemap_url": "https://www.example.org/sitemap.xml",
+    "internal_link_minimum": 3,
+    "contact_page": "https://www.example.org/contact"
+  },
+
+  "industry_intel": {
+    "window_days": 7,
+    "feeds": [
+      {"name": "Example search news blog", "url": "https://www.example.org/search-news/feed.xml"},
+      {"name": "Example nonprofit marketing newsletter", "url": "https://www.example.org/nonprofit-marketing/rss"},
+      {"name": "Example local news", "url": "https://www.example.org/local/rss"}
+    ],
+    "paste_in_folder": "ideas/pasted",
+    "notes_folder": "ideas/notes",
+    "baseline_note": "ideas/baseline.md"
+  },
+
+  "topic_screen": {
+    "demand_floor": 50,
+    "existing_threshold": 0.8,
+    "dedupe_threshold": 0.8,
+    "sitemap_url": "https://www.example.org/sitemap.xml",
+    "path_filter": "/blog/",
+    "board_dump": "queue/queue-export.csv",
+    "briefs_dir": "briefs",
+    "blocking_stages": ["Planned", "In production", "Review", "Ready to publish", "Live"]
+  },
+
+  "research": {
+    "competitors": ["www.example-neighbor-pantry.org", "www.example-regional-foodbank.org"],
+    "search_data_sources": ["Google Search Console", "Bing Webmaster Tools"],
+    "paid_keyword_tool": "none",
+    "briefs_folder": "briefs",
+    "synthetic_panel_allowed": false
+  },
+
+  "draft": {
+    "drafts_folder": "drafts",
+    "word_range": [900, 1800],
+    "style_guide_file": "style/voice-and-banned-words.md",
+    "one_call_to_action": "Find our open hours and visit",
+    "call_to_action_url": "https://www.example.org/visit"
+  },
+
+  "quality_gates": {
+    "banned_words_file": "style/voice-and-banned-words.md",
+    "max_paragraph_sentences": 6,
+    "require_sources_for_numbers": true
+  },
+
+  "images": {
+    "style_notes": "Real photos of our building and volunteers when we have them. Flat, warm illustration otherwise. No text inside images.",
+    "provider": "designer-brief-only",
+    "alt_text_required": true,
+    "images_folder": "images"
+  },
+
+  "social": {
+    "linkedin_page_name": "Example Community Pantry",
+    "post_variants": 3
+  },
+
+  "publish": {
+    "adapter": "manual-copy-package",
+    "site_id": "example-site",
+    "dry_run_first": true,
+    "require_human_confirmation": true,
+    "never_publish_from_scheduled_run": true
+  },
+
+  "measurement": {
+    "search_console_property": "sc-domain:example.org",
+    "bing_site_url": "https://www.example.org/",
+    "ga4_property_label": "Example site (GA4)",
+    "clarity_project_label": "Example site (Clarity)",
+    "checkpoints_weeks": [2, 6, 12],
+    "export_folder": "measure"
+  },
+
+  "queue": {
+    "stages": ["Idea", "Screened", "Planned", "In production", "Review", "Ready to publish", "Live"],
+    "pick_limit_per_run": 3
+  },
+
+  "support": {
+    "kit_id": "idea-to-post",
+    "kit_code": "IP"
+  }
+}

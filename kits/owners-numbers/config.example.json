@@ -1,0 +1,19 @@
+{
+  "business_name": "Example Hair Studio (invented)",
+  "business_type": "hair salon",
+  "contact_email": "owner@example.org",
+  "website": "https://www.example.org",
+  "month_start": "2026-09-01",
+  "month_end": "2026-09-30",
+  "data_folder": "owners-numbers-data",
+  "files": {
+    "sales": "sales.csv",
+    "bank": "bank.csv",
+    "bookings": "bookings.csv",
+    "settings": "settings.csv"
+  },
+  "google_sheet_name": "Owner's Scorecard",
+  "report_recipient": "Owner",
+  "report_sender": "Your name",
+  "roadmap_start_month": "2026-10"
+}
