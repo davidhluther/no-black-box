@@ -20,7 +20,7 @@ You will build the Google Sheet that tracks every post, copy the checklist, and 
 6. **IP-FR-01-6.** Add the check-up button. In the sheet, choose Extensions, then Apps Script (Google's tool for adding small programs to a sheet). Delete any code in the editor, paste in everything from [checkup.gs](../free/checkup.gs), and click the save icon.
    You'll know it worked when the editor shows your pasted code and no red error marks. If the menu does not appear in the next step, it's E05.
 
-7. **IP-FR-01-7.** Go back to your sheet and reload the page. After a few seconds a Help menu appears next to the other menus. Click Help, then Run check-up. Google asks you to allow the script. Click through the [prompts](../glossary.md#prompt) and allow it.
+7. **IP-FR-01-7.** Go back to your sheet and reload the page. After a few seconds a Kit help menu appears next to the other menus. Click Kit help, then Run check-up. Google asks you to allow the script. Click through the [prompts](../glossary.md#prompt) and allow it.
    You'll know it worked when a pop-up window appears. Google may say the app is not verified, because you wrote it yourself; this is expected, and E06 shows the clicks to take.
 
 8. **IP-FR-01-8.** Read the pop-up. It shows one [support code](../glossary.md#support-code) and the full report that would be shared. The report lists only tab names, header names, and whether each Setup value is filled or empty. It never shows what you typed.

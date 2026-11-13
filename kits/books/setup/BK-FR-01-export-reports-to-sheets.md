@@ -26,7 +26,7 @@ Guide BK-FR-02 uses the kit's own template files. You can download them now or w
    You'll know it worked when a file downloads, or a new Google Sheet opens. If you can't find an Export button, it's E01.
    Exporting writes a copy of what is on the screen. It does not touch your books.
 
-5. **BK-FR-01-5.** If a file downloaded, go back to the Google Sheet from step 1. Click File, then Import, then Upload, and drop the file in. Choose Insert new sheet(s), then Import data.
+5. **BK-FR-01-5.** If a file downloaded, go back to the Google Sheet from step 1. Click File, then Import, then Upload, and drop the file in. Change **Import location** from "Create new spreadsheet" to Insert new sheet(s), then click Import data.
    You'll know it worked when a new [tab](../glossary.md#tab) (a labeled page along the bottom of the sheet) appears with your report. If the numbers look like text with a dollar sign and cannot be added, it's E02.
 
 6. **BK-FR-01-6.** Repeat steps 3 to 5 for two more reports. For the [profit and loss report](../glossary.md#profit-and-loss-report), search "Profit and Loss", set the same accounting method, and run it once for the month and once for the fiscal year to date. Then, only if you will do the cash checks, export the [general ledger](../glossary.md#general-ledger) report for the month (search "General Ledger"). It lists every entry, one line each.

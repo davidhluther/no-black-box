@@ -1,5 +1,5 @@
 /**
- * Grants kit check-up (free version). Adds a "Help" menu with "Run check-up".
+ * Grants kit check-up (free version). Adds a "Kit help" menu with "Run check-up".
  *
  * What it does
  *   Looks at the SHAPE of this spreadsheet: are the expected tabs there, are the column
@@ -61,7 +61,7 @@ var KIT = {
 
 function onOpen() {
   var menu = SpreadsheetApp.getUi()
-    .createMenu('Help')
+    .createMenu('Kit help')
     .addItem('Run check-up', 'runCheckup');
   // The optional draft checker (draft-check.gs) adds its own item when it is installed.
   if (typeof addDraftMenuItem_ === 'function') {

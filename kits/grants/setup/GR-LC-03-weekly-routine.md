@@ -13,7 +13,7 @@ If you get stuck, the check-up (a button or command that tests your setup) print
 3. **GR-LC-03-3.** For each good notice, add a row to the Pipeline tab with Status Prospect. Write the notice link in the Funder link column. Change the Status cell on the Sweep tab to "added" or "not a fit".
    You'll know it worked when the Pipeline row's calculated columns fill in. If a status word is spelled differently from the Rubric tab, the check-up shows E12.
 
-4. **GR-LC-03-4.** Run the check-up (Help, then Run check-up) and glance at the Dashboard.
+4. **GR-LC-03-4.** Run the check-up (Kit help, then Run check-up) and glance at the Dashboard.
    You'll know it worked when the code shows E00 and the Dashboard's deadline count matches your calendar.
 
 > **How to get help.** Write down the step ID where you got stuck (it looks like GR-LC-01-3). If your kit has a check-up button or command, run it and copy the support code it prints. Then send both to Pigasus Group at https://pigasus.group/contact. Setup questions are free.

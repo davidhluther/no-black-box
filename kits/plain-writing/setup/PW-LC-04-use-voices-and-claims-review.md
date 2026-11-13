@@ -15,4 +15,4 @@ This guide assumes you finished `PW-LC-01` ([skills](../glossary.md#skill)) or `
 5. **PW-LC-04-5.** Have one person who didn't write it read the final piece, and ask them to try to disprove the three claims that matter most.
    You'll know it worked when they've found nothing, or you've fixed what they found.
 
-> **How to get help.** Write down the [step ID](../glossary.md#step-id) where you got stuck (it looks like PW-LC-03-5). If you set up the Google Docs word check, run Help, then Run check-up, and copy the [support code](../glossary.md#support-code) it prints. Then send both to Pigasus Group at https://pigasus.group/contact. Setup questions are free.
+> **How to get help.** Write down the [step ID](../glossary.md#step-id) where you got stuck (it looks like PW-LC-03-5). If you set up the Google Docs word check, run Kit help, then Run check-up, and copy the [support code](../glossary.md#support-code) it prints. Then send both to Pigasus Group at https://pigasus.group/contact. Setup questions are free.

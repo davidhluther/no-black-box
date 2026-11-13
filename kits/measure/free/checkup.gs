@@ -1,7 +1,7 @@
 /**
  * Measure what matters: check-up (kit MM, free version, v0.1.0)
  *
- * Adds a "Help" menu with "Run check-up". It looks at the STRUCTURE of this sheet only:
+ * Adds a "Kit help" menu with "Run check-up". It looks at the STRUCTURE of this sheet only:
  * which tabs exist, whether each tab's header row matches, and whether the Config cells
  * are filled in. It never reads, shows or sends the contents of your data rows, and it
  * never shows what you typed into Config (only "filled" or "empty").
@@ -12,6 +12,9 @@
  *   v0.1.0      kit version
  *   7KQ         a short fingerprint of the check result, so a helper can tell which checks passed
  * If nothing is wrong the code ends in E00.
+ *
+ * The line below asks Google for access to this one file only, not all your files.
+ * @OnlyCurrentDoc
  */
 var KIT_VERSION = 'v0.1.0';
 
@@ -27,7 +30,7 @@ var EXPECTED_TABS = {
 var CONFIG_KEYS = ['org_name', 'site_url', 'ga4_property_id', 'report_month'];
 
 function onOpen() {
-  SpreadsheetApp.getUi().createMenu('Help').addItem('Run check-up', 'runCheckup').addToUi();
+  SpreadsheetApp.getUi().createMenu('Kit help').addItem('Run check-up', 'runCheckup').addToUi();
 }
 
 function runCheckup() {

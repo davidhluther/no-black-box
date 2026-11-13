@@ -14,7 +14,7 @@ Time, about 45 minutes. The Questions tab already holds 28 questions with placeh
 4. **AV-FR-03-4.** Freeze the set. This is the point of no return, so read each question once more. If you need to change anything, change it now. Then on the Config tab type `v1` in `question_set_version` and today's date, as mm/dd/yyyy, in `question_set_frozen_on`.
    You'll know it worked when both cells hold values. From now on, never edit column D or column E. If you must retire a question, strike it through, write the date and why in column C, and add a new row with a new code, such as LD-08, and bump the version to v2. A run with a different version cannot be compared with older runs.
 
-5. **AV-FR-03-5.** Run Help, Run check-up.
+5. **AV-FR-03-5.** Run Kit help, Run check-up.
    You'll know it worked when the [support code](../glossary.md#support-code) shows E00, which means no problems found. If another code shows, find it in [fixes.md](../fixes.md).
 
 > **How to get help.** Write down the [step ID](../glossary.md#step-id) where you got stuck (it looks like AV-FR-03-2). If your kit has a check-up button or command, run it and copy the support code it prints. Then send both to Pigasus Group at https://pigasus.group/contact. Setup questions are free.

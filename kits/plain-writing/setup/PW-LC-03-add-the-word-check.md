@@ -1,6 +1,6 @@
 # PW-LC-03: Add the Word Check to Google Docs
 
-You'll end with two new menus in a Google Doc. One highlights banned words and phrases in yellow. The other, Help, runs a check-up that prints a [support code](../glossary.md#support-code). It takes about 15 minutes. You don't need the [command line](../glossary.md#command-line).
+You'll end with two new menus in a Google Doc. One highlights banned words and phrases in yellow. The other, Kit help, runs a check-up that prints a [support code](../glossary.md#support-code). It takes about 15 minutes. You don't need the [command line](../glossary.md#command-line).
 
 The menus come from Apps Script (a free tool inside Google Docs for adding small programs, like writing your own extra buttons). The [script](../glossary.md#script) reads only the Doc it's attached to. It never sends your text anywhere and never changes your words.
 
@@ -12,11 +12,11 @@ The menus come from Apps Script (a free tool inside Google Docs for adding small
    You'll know it worked when the editor shows the whole file, ending with a function called runCheckup. If words are missing, it's E11. If the check-up later says a pattern isn't valid, it's E12.
 4. **PW-LC-03-4.** Click the disk icon (Save [project](../glossary.md#project)). If it asks for a name, call it "Plain writing word check."
    You'll know it worked when the tab title shows your project name and the save icon turns gray.
-5. **PW-LC-03-5.** Choose the function `onOpen` from the drop-down near the top (it shows a function name next to Run and Debug). Click Run. Google asks you to review permissions. Pick your account. A warning that "Google hasn't verified this app" is normal for a script you added yourself (it's E07). Click Advanced, then the "Go to Plain writing word check" link, then Allow.
+5. **PW-LC-03-5.** Choose the function `onOpen` from the drop-down near the top (it shows a function name next to Run and Debug). Click Run. Google asks you to review permissions. Pick your account. Google usually goes straight to a page saying the script wants to "View and manage documents that this application has been installed in"; click **Continue**. If you see "Google hasn't verified this app" instead, that is normal for a script you added yourself (it's E07): click Advanced, then the "Go to Plain writing word check (unsafe)" link, then **Continue**.
    You'll know it worked when the execution log at the bottom says "Execution completed." If the permission box keeps coming back, it's E09.
 6. **PW-LC-03-6.** Go back to the Doc tab and reload the page (Ctrl+R on Windows, Command+R on a Mac).
-   You'll know it worked when the menu bar shows two new menus, Plain writing and Help. If they don't appear, it's E08. If the first menu click says the script can't read the Doc, it's E13.
-7. **PW-LC-03-7.** Choose Help, then Run check-up.
+   You'll know it worked when the menu bar shows two new menus, Plain writing and Kit help. If they don't appear, it's E08. If the first menu click says the script can't read the Doc, it's E13.
+7. **PW-LC-03-7.** Choose Kit help, then Run check-up.
    You'll know it worked when a box shows a support code like `PW-LC-03-0-OK-v0.1.0-XXX`, where the last three characters vary, and says "Setup looks right." If it shows a different code, the box says what failed. Use that code in the [fixes](../fixes.md) table. The box shows exactly what would be shared if you choose to send it. It holds test results only, never your text.
 8. **PW-LC-03-8.** Choose Plain writing, then Highlight banned words.
    You'll know it worked when words such as "robust," "testament," "seamless," "Moreover," and "In conclusion" turn yellow in the example draft, and a box says how many matches it highlighted. Rewrite each one, then choose Clear highlights.
@@ -25,4 +25,4 @@ The word lists are at the top of the script. To allow a word, delete it from the
 
 This check covers words and phrases only. It can't judge structure, so walk through your checklist (guide `PW-FR-02`) after it.
 
-> **How to get help.** Write down the [step ID](../glossary.md#step-id) where you got stuck (it looks like PW-LC-03-5). If you set up the Google Docs word check, run Help, then Run check-up, and copy the support code it prints. Then send both to Pigasus Group at https://pigasus.group/contact. Setup questions are free.
+> **How to get help.** Write down the [step ID](../glossary.md#step-id) where you got stuck (it looks like PW-LC-03-5). If you set up the Google Docs word check, run Kit help, then Run check-up, and copy the support code it prints. Then send both to Pigasus Group at https://pigasus.group/contact. Setup questions are free.

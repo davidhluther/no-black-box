@@ -15,6 +15,6 @@ Time, about 30 minutes. Before you ask a single question, find out what else ans
    You'll know it worked when each name you added has a web page you opened yourself. If the chat refuses or asks you to sign in, it's E15.
 
 5. **AV-FR-02-5.** Do the same with your competitor. Search the name of the one competitor you will track, the same four ways, and add look-alikes to SameNames. Repeat the AI question from step 4 for the owner name if you will use it.
-   You'll know it worked when SameNames covers both you and your competitor. Run Help, Run check-up. E11 should be gone.
+   You'll know it worked when SameNames covers both you and your competitor. Run Kit help, Run check-up. E11 should be gone.
 
 > **How to get help.** Write down the [step ID](../glossary.md#step-id) where you got stuck (it looks like AV-FR-02-3). If your kit has a check-up button or command, run it and copy the [support code](../glossary.md#support-code) it prints. Then send both to Pigasus Group at https://pigasus.group/contact. Setup questions are free.

@@ -16,8 +16,9 @@ The tabs come from four small files in the kit. Each is a CSV file (plain text w
 1. **BP-FR-02-1.** Open Google Sheets at sheets.google.com and sign in. Click **Blank spreadsheet**. Click the words "Untitled spreadsheet" at the top left and type `Board Packet Tracker`.
    You'll know it worked when you see an empty grid titled Board Packet Tracker. If you land in a sign-in loop, it's E26.
 
-2. **BP-FR-02-2.** Make the Settings tab. Click **File**, then **Import**, then **Upload**, and drag in `Settings.csv` (or click **Browse** and choose it from Downloads). Under **Import location** choose **Insert new sheet(s)**. Leave **Separator type** on "Detect automatically" and leave **Convert text to numbers, dates, and formulas** ticked. Click **Import data**.
-   You'll know it worked when a new tab named Settings appears at the bottom, with the headings Setting, Value, and Notes in the first row. If the tab has another name, double-click the tab name and type `Settings`. If every row sits in one column, the import used the wrong separator. Redo it and choose **Comma** (E05).
+2. **BP-FR-02-2.** Make the Settings tab. Click **File**, then **Import**, then **Upload**, and drag in `Settings.csv` (or click **Browse** and choose it from Downloads). **Import location** starts on "Create new spreadsheet"; change it to **Insert new sheet(s)**. Leave **Separator type** on "Detect automatically" and leave **Convert text to numbers, dates, and formulas** ticked. Click **Import data**.
+   A new tab appears at the bottom. Google may call it "Untitled" or name it after the file, so double-click the tab name, type `Settings`, and press Enter.
+   You'll know it worked when the Settings tab shows the headings Setting, Value, and Notes in the first row. If every row sits in one column, the import used the wrong separator. Redo it and choose **Comma** (E05).
 
 3. **BP-FR-02-3.** Do the same with `Reports.csv`. The new tab must be named `Reports`, and its first row must read Order, Report, Owner, Role in packet, In combined packet, Filename keyword, Active, Received this month, Link or note.
    You'll know it worked when you can see eight rows of example reports. If a heading is slightly different, retype it exactly (E06).

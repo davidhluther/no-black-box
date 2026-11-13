@@ -1,9 +1,12 @@
 /**
  * Ad and Social check-up (kit AS, free version, kit version 0.1.0).
  *
- * Adds a "Help" menu with "Run check-up". It looks only at tab names, header
+ * Adds a "Kit help" menu with "Run check-up". It looks only at tab names, header
  * rows, and whether the Config values are filled in. It never reads or shows
  * what you typed in any cell, and it never sees passwords or keys.
+ *
+ * The line below asks Google for access to this one file only, not all your files.
+ * @OnlyCurrentDoc
  */
 
 var KIT_VERSION = 'v0.1.0';
@@ -19,7 +22,7 @@ var REQUIRED_SETTINGS = ['Organization name', 'Website address', 'Main audience'
 
 function onOpen() {
   SpreadsheetApp.getUi()
-    .createMenu('Help')
+    .createMenu('Kit help')
     .addItem('Run check-up', 'runCheckup')
     .addToUi();
 }

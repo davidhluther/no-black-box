@@ -1,7 +1,7 @@
 /**
  * Continuity Kit check-up (Google Apps Script).
  *
- * Adds a Help menu with "Run check-up". It checks the structure of the
+ * Adds a Kit help menu with "Run check-up". It checks the structure of the
  * bus-test sheet only: the two tabs exist, the header rows match, the five
  * function names are in place, the answers are yes or no, and the score
  * formulas are still there. It counts things. It never reads, copies or
@@ -12,6 +12,9 @@
  * version, the guide step where the first problem sits, the problem code,
  * the kit version, a three-character check) plus an optional plain-text
  * report you can read before you share it.
+ *
+ * The line below asks Google for access to this one file only, not all your files.
+ * @OnlyCurrentDoc
  */
 var KIT = 'CK';
 var VERSION = 'v0.1.0';
@@ -23,7 +26,7 @@ var FUNCTIONS = ['Money and billing', 'Operations and fulfillment', 'Customers a
   'Suppliers and tools', 'People and knowledge'];
 
 function onOpen() {
-  SpreadsheetApp.getUi().createMenu('Help')
+  SpreadsheetApp.getUi().createMenu('Kit help')
     .addItem('Run check-up', 'runCheckup')
     .addToUi();
 }

@@ -13,7 +13,7 @@ Picture a small food bank, a youth program, a housing group or an animal shelter
 ## What you will have at the end
 
 1. **A tracker.** A Google Sheet with tabs for Settings, Pipeline (every ask, past and planned), Funders (what you learned about each one), Claims (every fact you may state about your organization, each with its source), Dashboard (win rate, dollars awarded, open asks, deadlines), Rubric and DraftCheck.
-2. **A [check-up](glossary.md#check-up)** (a Help menu button that tests the setup). It prints one short support code (a code that tells a helper which step you were on and what went wrong). The code holds none of your information.
+2. **A [check-up](glossary.md#check-up)** (a Kit help menu button that tests the setup). It prints one short support code (a code that tells a helper which step you were on and what went wrong). The code holds none of your information.
 3. **Paste-in prompts** (messages you paste into ChatGPT, Claude or Gemini). They help you read a funder's guidelines, build your [claims register](glossary.md#claims-register), draft a letter of inquiry (a short first letter some funders ask for), and review it with fresh eyes.
 4. **A draft checker.** It lists every number in a draft that does not match a verified claim.
 5. **Checklists and a board page.** Funder research, before you submit, giving channels, and a one-page set of approval rules for the board.

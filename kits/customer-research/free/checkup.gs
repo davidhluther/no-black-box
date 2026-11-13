@@ -1,6 +1,6 @@
 /**
  * Customer Research kit: check-up (Apps Script)
- * Adds a "Help" menu with "Run check-up". It tests that the expected tabs and
+ * Adds a "Kit help" menu with "Run check-up". It tests that the expected tabs and
  * column headings exist and that the Config tab is filled in, then shows one
  * support code and an optional plain-text report.
  *
@@ -8,6 +8,9 @@
  * Config setting names are blank, and row counts. It never includes cell
  * contents, quotes, email addresses, passwords, or keys. The dialog shows the
  * exact report text before you decide to copy it.
+ *
+ * The line below asks Google for access to this one file only, not all your files.
+ * @OnlyCurrentDoc
  */
 
 var KIT = 'CR';
@@ -37,7 +40,7 @@ var CONFIG_CODE = 'E08';
 // (low-cost version), its menu is added here too.
 function onOpen() {
   SpreadsheetApp.getUi()
-    .createMenu('Help')
+    .createMenu('Kit help')
     .addItem('Run check-up', 'runCheckup')
     .addToUi();
   if (typeof addPullMenu_ === 'function') { addPullMenu_(); }

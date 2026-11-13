@@ -1,8 +1,8 @@
 /**
- * AI visibility kit (AV), free version: Help menu with "Run check-up".
+ * AI visibility kit (AV), free version: Kit help menu with "Run check-up".
  *
  * What this does
- *   Adds a "Help" menu to your Google Sheet. "Run check-up" looks at the
+ *   Adds a "Kit help" menu to your Google Sheet. "Run check-up" looks at the
  *   structure of your sheet (are the tabs there, are the column headings
  *   right, are your setup cells filled in, are the question codes in your
  *   results real) and shows one support code, such as
@@ -62,7 +62,7 @@ var PROBLEM_TEXT = {
 
 function onOpen() {
   SpreadsheetApp.getUi()
-    .createMenu('Help')
+    .createMenu('Kit help')
     .addItem('Run check-up', 'runCheckup')
     .addToUi();
   // The low-cost version adds a second file with its own menu.

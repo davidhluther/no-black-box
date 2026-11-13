@@ -6,7 +6,7 @@ Every technical word used in this kit, in plain words. Terms are listed alphabet
 
 **API.** A way for two programs to talk, like a waiter carrying orders between you and the kitchen. A program asks for numbers, and the service sends them back.
 
-**Apps Script.** Google's free tool for adding small programs to a Google Sheet. It lives under Extensions in the sheet's menu and adds things like a Help menu or a button that pulls numbers in.
+**Apps Script.** Google's free tool for adding small programs to a Google Sheet. It lives under Extensions in the sheet's menu and adds things like a Kit help menu or a button that pulls numbers in.
 
 **channel group.** A way of sorting visits into labeled buckets such as Organic Search, Direct, Email and Referral. A custom channel group is your own set of buckets, for example one called AI Traffic.
 

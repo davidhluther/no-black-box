@@ -13,4 +13,4 @@ You'll end with a Project (a workspace that keeps your instructions and files fo
 5. **PW-LC-02-5.** Optional. To share the setup with a colleague, create a [Custom GPT](../glossary.md#custom-gpt) from the same instructions and files (ChatGPT, Explore GPTs, Create). Turn off web browsing if you want it to stay on your documents. Don't upload donor lists or private notes.
    You'll know it worked when your colleague can open the GPT and get the same review table.
 
-> **How to get help.** Write down the [step ID](../glossary.md#step-id) where you got stuck (it looks like PW-LC-03-5). If you set up the Google Docs word check, run Help, then Run check-up, and copy the [support code](../glossary.md#support-code) it prints. Then send both to Pigasus Group at https://pigasus.group/contact. Setup questions are free.
+> **How to get help.** Write down the [step ID](../glossary.md#step-id) where you got stuck (it looks like PW-LC-03-5). If you set up the Google Docs word check, run Kit help, then Run check-up, and copy the [support code](../glossary.md#support-code) it prints. Then send both to Pigasus Group at https://pigasus.group/contact. Setup questions are free.

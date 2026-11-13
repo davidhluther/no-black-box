@@ -10,7 +10,7 @@ Every technical term used in this kit, in plain words. Terms are listed alphabet
 
 **Bcc.** <a id="bcc"></a>Short for blind carbon copy. People you put in Bcc receive the email, but nobody can see their addresses. A board email uses it so addresses stay private and nobody replies to everyone by accident.
 
-**Check-up.** <a id="check-up"></a>The kit's built-in test, found under the Help menu of your tracker sheet. It looks at the shape of your setup and prints a support code. It never reads what you typed into cells.
+**Check-up.** <a id="check-up"></a>The kit's built-in test, found under the Kit help menu of your tracker sheet. It looks at the shape of your setup and prints a support code. It never reads what you typed into cells.
 
 **Claude Code.** <a id="claude-code"></a>A program from Anthropic that runs on your own computer and lets Claude, an AI model, read and change files in a folder you choose and run tools for you. The full version of this kit uses it.
 

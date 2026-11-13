@@ -18,7 +18,7 @@ Every technical term used anywhere in this kit, in plain words. Terms are listed
 
 **Chart of accounts.** The master list of every account in your books, such as checking, rent, or donations. <a id="chart-of-accounts"></a>
 
-**Check-up.** A button in the kit's Google Sheet, under a Help menu, that tests whether your sheet is set up correctly and prints one support code. <a id="check-up"></a>
+**Check-up.** A button in the kit's Google Sheet, under a Kit help menu, that tests whether your sheet is set up correctly and prints one support code. <a id="check-up"></a>
 
 **Client ID.** A public label for your Intuit developer app, like a username for the app. <a id="client-id"></a>
 

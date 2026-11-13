@@ -6,31 +6,31 @@ If you get stuck, the check-up (a button or command that tests your setup) print
 
 If any step goes differently from what it says, the "if" line tells you which code to look up in [fixes](../fixes.md).
 
-1. **GR-FR-01-1.** Open Google Sheets at sheets.google.com and sign in with the Google account your organization will use. Click the large "Blank" box to start a new spreadsheet. Click the title at the top left ("Untitled spreadsheet") and type Grants tracker.
+1. **GR-FR-01-1.** Open Google Sheets at sheets.google.com and sign in with the Google account your organization will use. Click the large "Blank" box to start a new spreadsheet. If a Gemini panel opens on the right, close it with its X; you don't need it. Click the title at the top left ("Untitled spreadsheet") and type Grants tracker.
    You'll know it worked when you see an empty grid and your title on the top left. If you see a sign-in loop that keeps returning to the sign-in page, it's E17. If you applied for Google Workspace for Nonprofits (Google's free offer of its office apps to eligible nonprofits) and it is still waiting, use a regular Google account for now, which is E18.
 
 2. **GR-FR-01-2.** Get the kit's files. Follow the shared guide [get the kit files](../../../guides/get-the-files.md) (steps NB-FR-07-1 to NB-FR-07-6) to download the kit from https://github.com/davidhluther/no-black-box and unzip it. The folder is named "no-black-box-main". Inside it, open the folders in this order: kits, grants, free, tracker. If you only want to try one file, the same guide shows how to download just that file.
    You'll know it worked when you see seven CSV files (plain tables saved as text) such as Settings.csv and Pipeline.csv. Google turns each one into a tab. If you can't find the tracker folder or the files open as text in your browser, it's E19.
 
-3. **GR-FR-01-3.** Bring in the Settings tab. In your Google Sheet, click File, then Import, then the Upload tab, then "Browse". Choose Settings.csv. Under "Import location", pick "Insert new sheet(s)". Spreadsheets run formulas (calculations typed into a cell). Leave the box labelled "Convert text to numbers, dates, and formulas" ticked, because the Pipeline tab's formulas work out Tier, Fit and Dollars per hour, and they stop working if the box is unticked. Click "Import data".
-   You'll know it worked when a new tab named Settings appears at the bottom with 14 rows of labels. If your existing tab was overwritten instead, press Ctrl+Z (Command+Z on a Mac) to undo, then pick "Insert new sheet(s)", which is E09. If the tab has a different name, double-click the name and type Settings exactly.
+3. **GR-FR-01-3.** Bring in the Settings tab. In your Google Sheet, click File, then Import, then the Upload tab, then "Browse". Choose Settings.csv. Under "Import location", which starts on "Create new spreadsheet", pick "Insert new sheet(s)". Spreadsheets run formulas (calculations typed into a cell). Leave the box labelled "Convert text to numbers, dates, and formulas" ticked, because the Pipeline tab's formulas work out Tier, Fit and Dollars per hour, and they stop working if the box is unticked. Click "Import data".
+   You'll know it worked when a new tab appears at the bottom with 14 rows of labels. Google usually names it "Untitled" or after the file, so double-click the tab's name, type Settings exactly, and press Enter. Name every tab you import this way, because the check-up and the formulas look for these exact names. If your existing tab was overwritten instead, press Ctrl+Z (Command+Z on a Mac) to undo, then pick "Insert new sheet(s)", which is E09.
 
-4. **GR-FR-01-4.** Bring in the Pipeline tab the same way, using Pipeline.csv ("Insert new sheet(s)", conversion box ticked).
+4. **GR-FR-01-4.** Bring in the Pipeline tab the same way, using Pipeline.csv ("Insert new sheet(s)", conversion box ticked), and name the new tab Pipeline.
    You'll know it worked when the tab named Pipeline has a first row of headings that ends with Tier, Fit (out of 25) and Dollars per hour, and the example row shows Tier 2, 20 and 500 in those three columns. If those three show an error such as #REF! or #ERROR!, it's E04. If everything landed in column A, it's E09.
 
-5. **GR-FR-01-5.** Bring in the Funders tab, using Funders.csv.
+5. **GR-FR-01-5.** Bring in the Funders tab, using Funders.csv, and name it Funders.
    You'll know it worked when a tab named Funders has 19 column headings starting with Funder and ending with Next step. If the headings are wrong, it's E02.
 
-6. **GR-FR-01-6.** Bring in the Claims tab, using Claims.csv. This is your claims register (a table of every fact you may state about your organization, each with its source).
+6. **GR-FR-01-6.** Bring in the Claims tab, using Claims.csv, and name it Claims. This is your claims register (a table of every fact you may state about your organization, each with its source).
    You'll know it worked when a tab named Claims shows the headings ID, Claim, Value, As of, Source and Status, plus two example rows. If not, it's E02.
 
-7. **GR-FR-01-7.** Bring in the Dashboard tab, using Dashboard.csv.
+7. **GR-FR-01-7.** Bring in the Dashboard tab, using Dashboard.csv, and name it Dashboard.
    You'll know it worked when the Value column fills with numbers, such as 1 beside "Prospects (count)" and 10000 beside "Prospects ($ requested)". If you see #REF! or #ERROR!, it's E04. If numbers look odd or formulas fail, check the region setting described in E04.
 
-8. **GR-FR-01-8.** Bring in the Rubric tab, using Rubric.csv.
+8. **GR-FR-01-8.** Bring in the Rubric tab, using Rubric.csv, and name it Rubric.
    You'll know it worked when a tab named Rubric lists the rules for tiers, fit scores and status words. If not, it's E02.
 
-9. **GR-FR-01-9.** Bring in the DraftCheck tab, using DraftCheck.csv. You'll use it in guide 4.
+9. **GR-FR-01-9.** Bring in the DraftCheck tab, using DraftCheck.csv, and name it DraftCheck. You'll use it in guide 4.
    You'll know it worked when a tab named DraftCheck shows three instruction lines and the headings "Number found", "Matches your Claims tab?" and "Claim IDs" in row 5. If not, it's E02.
 
 10. **GR-FR-01-10.** Delete the empty starter tab. Right-click the tab called Sheet1 at the bottom, choose Delete, and confirm.

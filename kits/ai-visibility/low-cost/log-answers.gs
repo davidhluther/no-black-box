@@ -29,7 +29,7 @@
 var ANSWER_CELL_LIMIT = 45000;
 
 // checkup.gs owns the single onOpen function and calls this one when it
-// exists, so the Help menu and this menu both appear.
+// exists, so the Kit help menu and this menu both appear.
 function onOpenLogging() {
   SpreadsheetApp.getUi()
     .createMenu('AI visibility')
@@ -48,7 +48,7 @@ function logAnswer(form) {
   var qsh = ss.getSheetByName('Questions');
   var rsh = ss.getSheetByName('Results');
   if (!cfg.business_name || !rsh || !qsh) {
-    throw new Error('Run the Help > Run check-up first. The Config, Questions, or Results tab is not ready.');
+    throw new Error('Run the Kit help > Run check-up first. The Config, Questions, or Results tab is not ready.');
   }
   if (!cfg.question_set_version) {
     throw new Error('Freeze your question set first (Config tab, question_set_version). Guide AV-FR-03, step 4.');

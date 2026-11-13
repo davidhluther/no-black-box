@@ -1,6 +1,6 @@
 # ON-FR-01 Copy the Sheet and Add the Check-Up
 
-You will build the empty scorecard Sheet from six template files and add a Help menu that tests it. Nothing here needs your real data yet.
+You will build the empty scorecard Sheet from six template files and add a Kit help menu that tests it. Nothing here needs your real data yet.
 
 1. **ON-FR-01-1.** Open [Google Sheets](../glossary.md#google-sheets) (Google's free spreadsheet app) at sheets.google.com and sign in with a Google account. For help with accounts, see the [keys and accounts guide](../../../guides/keys-and-accounts.md).
    You'll know it worked when you see a page of blank or recent spreadsheets. If you loop back to the sign-in page, or Google says the account is not allowed, it's E15.
@@ -16,7 +16,7 @@ You will build the empty scorecard Sheet from six template files and add a Help 
    You'll know it worked when the basis column on Settings later shows grey text for example values. Nothing changes visibly yet.
 7. **ON-FR-01-7.** Add the [check-up](../glossary.md#check-up). In the Sheet choose Extensions, then [Apps Script](../glossary.md#apps-script). ([Apps Script](../glossary.md#apps-script) is Google's way of adding a small program to a Sheet.) Delete the sample code, open `free/checkup.gs` from the kit in any text editor, copy all of it, paste it into the Apps Script window, and click the save icon. Name the project Owner's Numbers Check-Up.
    You'll know it worked when the window shows the pasted code with no red marks. If you cannot find an Extensions menu, it's E15.
-8. **ON-FR-01-8.** Close the Apps Script tab and reload the Sheet. Wait a few seconds. A Help menu appears next to the other menus. Choose Help, then Run check-up. Google asks you to authorize the program. Click Continue, pick your account, click Advanced, then "Go to Owner's Numbers Check-Up", then Allow. The program only works on this one Sheet.
-   You'll know it worked when a box titled Check-up result opens with a [support code](../glossary.md#support-code). At this point it will list problems about empty data tabs. That is normal. If no Help menu appears, it's E16.
+8. **ON-FR-01-8.** Close the Apps Script tab and reload the Sheet. Wait a few seconds. A Kit help menu appears next to the other menus. Choose Kit help, then Run check-up. Google asks you to authorize the program. Click Continue, pick your account, click Advanced, then "Go to Owner's Numbers Check-Up", then Allow. The program only works on this one Sheet.
+   You'll know it worked when a box titled Check-up result opens with a [support code](../glossary.md#support-code). At this point it will list problems about empty data tabs. That is normal. If no Kit help menu appears, it's E16.
 
 > **How to get help.** Write down the step ID where you got stuck (it looks like ON-FR-01-3). If your kit has a check-up button or command, run it and copy the support code it prints. Then send both to Pigasus Group at https://pigasus.group/contact. Setup questions are free.

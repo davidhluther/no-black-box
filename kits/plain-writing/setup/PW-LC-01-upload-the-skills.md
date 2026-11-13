@@ -19,4 +19,4 @@ A skill (a folder of instructions an [AI model](../glossary.md#ai-model) reads w
 
 Programs bundled inside a skill (the [Python](../glossary.md#python) checkers) need a place to run. Claude with code execution on can run them. If yours can't, the skill still gives you the rules and the method, and the Google Docs word check in guide `PW-LC-03` covers the banned words.
 
-> **How to get help.** Write down the [step ID](../glossary.md#step-id) where you got stuck (it looks like PW-LC-03-5). If you set up the Google Docs word check, run Help, then Run check-up, and copy the [support code](../glossary.md#support-code) it prints. Then send both to Pigasus Group at https://pigasus.group/contact. Setup questions are free.
+> **How to get help.** Write down the [step ID](../glossary.md#step-id) where you got stuck (it looks like PW-LC-03-5). If you set up the Google Docs word check, run Kit help, then Run check-up, and copy the [support code](../glossary.md#support-code) it prints. Then send both to Pigasus Group at https://pigasus.group/contact. Setup questions are free.

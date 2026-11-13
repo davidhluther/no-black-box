@@ -13,6 +13,6 @@ You will set up a saved workspace where an [AI model](../glossary.md#ai-model) i
 5. **CK-LC-01-5.** Test with the invented example. In a new chat in the project, type Run the bus test on my business. Say you run an example food pantry with one coordinator, and answer the questions with the answers in `free/examples-bus-test.md`.
    You'll know it worked when the AI model asks one question at a time, stops at the first no for each function, and finishes with a total out of 15 and a band. If it skips a question or scores without asking, it's E10.
 6. **CK-LC-01-6.** Optional. If you want the Sheet too, follow [CK-FR-01](CK-FR-01-run-the-bus-test.md) steps 1 to 3 so you have a place to keep the scores.
-   You'll know it worked when the Help menu appears in your Sheet.
+   You'll know it worked when the Kit help menu appears in your Sheet.
 
 > **How to get help.** Write down the step ID where you got stuck (it looks like CK-LC-01-3). If your kit has a [check-up](../glossary.md#check-up) button or command, run it and copy the [support code](../glossary.md#support-code) it prints. Then send both to Pigasus Group at https://pigasus.group/contact. Setup questions are free.

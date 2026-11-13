@@ -62,10 +62,10 @@ Claude Code is a program that lets an AI model (a program that reads and writes 
    The other engine files have their own headers in the templates folder: funder-intel.csv, wider-net.csv and dossier-index.csv. The Funders tab fills dossier-index.csv and wider-net.csv.
    You'll know it worked when each CSV has its engine header row and at least one data row. The builders stop on an empty file, which is E28.
 
-6. **GR-FU-01-6.** Run the check. In the same terminal, run the command below and copy the support code it prints.
+6. **GR-FU-01-6.** Run the check. In the same terminal, from the folder where you downloaded the kit, run the command below and copy the support code it prints. The end of the line tells the check where you keep your settings file; change it if you used another folder.
 
    ```bash
-   python3 support/doctor.py grants
+   python3 support/doctor.py grants --config ~/Documents/my-org-grants/config.json
    ```
 
    You'll know it worked when the last line shows a code containing E00. Any other code is in [fixes](../fixes.md).

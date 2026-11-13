@@ -57,7 +57,7 @@ def parse_version(text):
     return tuple(int(n) for n in nums[:3]) or (0,)
 
 
-def run_checks(kit_id, root):
+def run_checks(kit_id, root, config_path=None):
     """Return (checks, meta). Each check is dict(kind, name, ok, severity, code, step)."""
     checks = []
     kit_dir = root / "kits" / kit_id
@@ -85,8 +85,12 @@ def run_checks(kit_id, root):
 
     # config.json
     config_name = expect.get("config_file", "config.json")
-    cfg_path = kit_dir / config_name
-    if kit_ok:
+    if config_path:
+        cfg_path = Path(config_path).expanduser()
+        config_name = cfg_path.name
+    elif config_name:
+        cfg_path = kit_dir / config_name
+    if kit_ok and config_name:
         if not cfg_path.is_file():
             add("config", config_name + " present", False, CODES["config_missing"])
         else:
@@ -161,6 +165,8 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description="Check-up for a no-black-box kit (full version).")
     ap.add_argument("kit_id")
     ap.add_argument("--root", default=None, help="repo folder (default: parent of support/)")
+    ap.add_argument("--config", default=None,
+                    help="your settings file, if you keep it outside the kit folder")
     ap.add_argument("--report", action="store_true", help="write the report file without asking")
     ap.add_argument("--no-prompt", action="store_true", help="never ask questions")
     a = ap.parse_args(argv)
@@ -169,7 +175,7 @@ def main(argv=None):
         print("Kit id should look like 'grants' or 'board-packet'.")
         return 2
 
-    checks, meta = run_checks(a.kit_id, root)
+    checks, meta = run_checks(a.kit_id, root, a.config)
     for c in checks:
         mark = "ok  " if c["ok"] else ("skip" if c["severity"] == "optional" else "FAIL")
         print("[%s] %s" % (mark, c["name"]))

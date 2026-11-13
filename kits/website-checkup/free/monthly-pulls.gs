@@ -3,12 +3,12 @@
  * Kit code WC, low-cost version, kit version 0.1.0
  *
  * What this does
- *   Once a month (or when you pick "Pull speed now" from the Help menu) it asks
+ *   Once a month (or when you pick "Pull speed now" from the Kit help menu) it asks
  *   Google's PageSpeed Insights for the mobile result of each address listed on
  *   the Pages tab (column A) and of your home page, then writes the numbers
  *   into the Pages tab and adds one line to the Monthly tab.
  *
- * Put this file in the same Apps Script project as checkup.gs. The Help menu
+ * Put this file in the same Apps Script project as checkup.gs. The Kit help menu
  * in checkup.gs adds the "Pull speed now" item when this file is present.
  *
  * Your key

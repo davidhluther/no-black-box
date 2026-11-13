@@ -1,7 +1,7 @@
 /**
  * Books kit check-up (Google Apps Script), kit code BK, free version.
  *
- * Adds a "Help" menu to the sheet with "Run check-up". The check-up tests the
+ * Adds a "Kit help" menu to the sheet with "Run check-up". The check-up tests the
  * sheet's setup and shows ONE support code, plus an optional plain-text report.
  *
  * What it looks at: tab names, whether each tab's header row matches, whether
@@ -18,6 +18,9 @@
  *   check    three characters computed from the other parts, so a typo shows
  *            up: base-36 of ((hash * 31 + character code) mod 46656), run over
  *            the text "<step>|<problem>|<version>".
+ *
+ * The line below asks Google for access to this one file only, not all your files.
+ * @OnlyCurrentDoc
  */
 var KIT_VERSION = '0.1.0';
 var KIT_CODE = 'BK-FR';
@@ -37,7 +40,7 @@ var SETTINGS_ROWS = [2, 3, 4, 5, 6, 7];
 
 function onOpen() {
   SpreadsheetApp.getUi()
-    .createMenu('Help')
+    .createMenu('Kit help')
     .addItem('Run check-up', 'runCheckup')
     .addToUi();
 }

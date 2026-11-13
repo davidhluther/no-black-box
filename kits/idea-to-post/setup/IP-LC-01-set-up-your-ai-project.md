@@ -3,7 +3,7 @@
 The low-cost version adds one paid AI plan so your rules and files stay in place and you stop pasting them into every chat. You will keep the Google Sheet from the free version. Allow about an hour. Menu names in AI products change often, so where a step names a menu, the vendor's own help page is the final word.
 
 1. **IP-LC-01-1.** Finish guide [IP-FR-01](IP-FR-01-make-your-workspace.md) first, so you have the Sheet, the folders, and a passing [check-up](../glossary.md#check-up). Then change the version row on the Setup tab from FR to LC.
-   You'll know it worked when the Sheet's check-up (Help, then Run check-up) shows a code beginning IP-LC. If it does not, see E04.
+   You'll know it worked when the Sheet's check-up (Kit help, then Run check-up) shows a code beginning IP-LC. If it does not, see E04.
 
 2. **IP-LC-01-2.** Choose one AI product for the paid plan: Claude, ChatGPT, or Gemini. Do not pay for two. Review the price on the vendor's pricing page and the account steps in the [keys and accounts guide](../../../guides/keys-and-accounts.md). Claude Pro is $20 a month when billed monthly (checked 11/13/2026).
    You'll know it worked when you can sign in and the plan shows as active on your account page.

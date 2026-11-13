@@ -1,5 +1,5 @@
 /**
- * Grants kit draft checker (optional). Adds "Check draft numbers" to the Help menu.
+ * Grants kit draft checker (optional). Adds "Check draft numbers" to the Kit help menu.
  *
  * What it does
  *   Reads the draft you pasted into the DraftCheck tab (cell B1), finds every number and
@@ -13,7 +13,7 @@
  *   reads DraftCheck B1 and B2 and the Claims tab, and writes results into DraftCheck rows 6
  *   and down on this same spreadsheet.
  *
- * It needs checkup.gs in the same project, which supplies the Help menu.
+ * It needs checkup.gs in the same project, which supplies the Kit help menu.
  * To install, follow GR-FR-04 in the kit's setup folder.
  *
  * @OnlyCurrentDoc
@@ -100,7 +100,7 @@ function checkDraftNumbers() {
   var claimsSheet = ss.getSheetByName('Claims');
   var ui = SpreadsheetApp.getUi();
   if (!sheet || !claimsSheet) {
-    ui.alert('The DraftCheck and Claims tabs are needed. Run Help, then Run check-up, and look for code E01.');
+    ui.alert('The DraftCheck and Claims tabs are needed. Run Kit help, then Run check-up, and look for code E01.');
     return;
   }
   var draft = sheet.getRange('B1').getDisplayValue();

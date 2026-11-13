@@ -1,6 +1,6 @@
 # WC-FR-02: Make Your Scorecard Sheet
 
-You will build a [Google Sheet](../glossary.md#google-sheet) with seven tabs, add a "Help" menu that checks the sheet for you, and fill in your business details. About 30 minutes.
+You will build a [Google Sheet](../glossary.md#google-sheet) with seven tabs, add a "Kit help" menu that checks the sheet for you, and fill in your business details. About 30 minutes.
 
 If you get stuck, the check-up button in your sheet prints a [support code](../glossary.md#support-code), a short code that tells a helper which step failed. The box at the bottom says where to send it.
 
@@ -19,7 +19,7 @@ If you get stuck, the check-up button in your sheet prints a [support code](../g
 5. **WC-FR-02-5.** Add the check-up button. In the sheet, choose Extensions, then [Apps Script](../glossary.md#apps-script). This opens [Apps Script](../glossary.md#apps-script), Google's free tool for adding small programs to a sheet. Delete the sample code in the editor, open `checkup.gs` from the kit's `free` folder, copy everything, paste it into the editor, and click the disk icon to save. Name the [project](../glossary.md#project) "Website check-up".
    You'll know it worked when the editor shows the pasted code and no red error marks. If you see an error saying a name is not defined, you pasted only part of the file, and it's E10.
 
-6. **WC-FR-02-6.** Go back to the sheet and reload the page. After a few seconds a "Help" menu appears next to the usual menus. Click Help, then Run check-up. The first time, Google asks you to allow the script. Choose your account, click "Advanced", then "Go to Website check-up (unsafe)", then Allow. That warning shows for every personal script. This script reads only this sheet and sends nothing out.
-   You'll know it worked when a window opens with a [support code](../glossary.md#support-code) and says "All checks passed". If the Help menu never appears, it's E10. If Google blocks the allow screen, it's E09. Any other message lists a code to look up in the fixes table.
+6. **WC-FR-02-6.** Go back to the sheet and reload the page. After a few seconds a "Kit help" menu appears next to the usual menus. Click Kit help, then Run check-up. The first time, Google asks you to allow the script. Choose your account, click "Advanced", then "Go to Website check-up (unsafe)", then tick **Select all** and click **Continue**. That warning shows for every personal script. This script reads only this sheet and sends nothing out.
+   You'll know it worked when a window opens with a [support code](../glossary.md#support-code) and says "All checks passed". If the Kit help menu never appears, it's E10. If Google blocks the allow screen, it's E09. Any other message lists a code to look up in the fixes table.
 
 > **How to get help.** Write down the step ID where you got stuck (it looks like WC-FR-02-3). If your kit has a check-up button or command, run it and copy the support code it prints. Then send both to Pigasus Group at https://pigasus.group/contact. Setup questions are free.

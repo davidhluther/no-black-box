@@ -1,0 +1,9 @@
+{
+  "steps": {
+    "python": "01-2",
+    "kit": "01-6",
+    "config": "04-1"
+  },
+  "code": "PW",
+  "version": "0.1.0"
+}

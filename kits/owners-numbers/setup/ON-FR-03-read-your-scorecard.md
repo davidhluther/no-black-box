@@ -14,7 +14,7 @@ You will tell the Sheet which month you are reading and look at the one-page res
    You'll know it worked when the basis beside that measure on the Metrics tab changes to actual.
 6. **ON-FR-03-6.** Print or save the Scorecard as a page. Choose File, then Print, set Scale to Fit to width, and pick Selected sheet. To share it, choose Save as PDF as the destination.
    You'll know it worked when the preview shows the Scorecard on one page.
-7. **ON-FR-03-7.** Run Help, then Run [check-up](../glossary.md#check-up) again.
+7. **ON-FR-03-7.** Run Kit help, then Run [check-up](../glossary.md#check-up) again.
    You'll know it worked when the lines about Scorecard and Metrics say they show 0 error cells. Error cells (such as #NAME? or #REF!) are E10 on Scorecard and E14 on Metrics. A message that Settings [formulas](../glossary.md#formula) are missing is E13. Copy the formulas from [formulas.md](../free/formulas.md) back into column D and E.
 
 > **How to get help.** Write down the step ID where you got stuck (it looks like ON-FR-01-3). If your kit has a check-up button or command, run it and copy the [support code](../glossary.md#support-code) it prints. Then send both to Pigasus Group at https://pigasus.group/contact. Setup questions are free.

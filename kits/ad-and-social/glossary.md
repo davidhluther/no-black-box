@@ -10,7 +10,7 @@ Every technical word used in this kit, in plain terms.
 
 **API key.** A long secret code that proves a request comes from your account, like a hotel key card. Whoever holds it can spend your money.
 
-**Apps Script.** Google's built-in way to add small helper programs to a Google Sheet, such as the Help menu in this kit.
+**Apps Script.** Google's built-in way to add small helper programs to a Google Sheet, such as the Kit help menu in this kit.
 
 **Aspect ratio.** The shape of a picture as width to height. 4:5 is a tall rectangle, 1:1 is a square.
 

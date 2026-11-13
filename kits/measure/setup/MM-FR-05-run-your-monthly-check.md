@@ -3,7 +3,7 @@
 This is the routine you repeat each month. It takes about 45 minutes once the sheet is set up. The point is to check a number before anyone explains it.
 
 1. **MM-FR-05-1.** Update the sheet. Add last month's rows to "Monthly traffic", "Search queries", "Top pages" and "AI referrals" the way guide 2 and guide 4 showed. Write the date each source runs through in the "data_through" column. [Search Console](../glossary.md#search-console) runs a few days behind.
-   You'll know it worked when the newest row in every tab has last month's date. Click Help, then "Run check-up" and confirm the code ends in E00; if not, see fixes.md.
+   You'll know it worked when the newest row in every tab has last month's date. Click Kit help, then "Run check-up" and confirm the code ends in E00; if not, see fixes.md.
 
 2. **MM-FR-05-2.** Find the moves. Compare this month's row with last month's. Mark any measure that moved by more than 20 percent and has at least 100 [events](../glossary.md#event) behind it. Small numbers swing by chance, so a 50 percent change on eight visits is not a finding.
    You'll know it worked when you have a short list of measures to look at, possibly none. None is a fine answer.

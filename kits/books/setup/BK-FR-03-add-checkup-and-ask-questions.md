@@ -1,6 +1,6 @@
 # BK-FR-03: Add the Check-Up Button and Ask Your First Question
 
-You will end with a Help menu in your sheet that tests your setup, and one real question answered about your books by an AI model. About 25 minutes. Nothing here connects to QuickBooks.
+You will end with a Kit help menu in your sheet that tests your setup, and one real question answered about your books by an AI model. About 25 minutes. Nothing here connects to QuickBooks.
 
 ## Steps
 
@@ -10,13 +10,13 @@ You will end with a Help menu in your sheet that tests your setup, and one real 
 2. **BK-FR-03-2.** Delete everything in the editor. Open `free/checkup.gs` from this kit, select all of it, copy, and paste it into the editor. Click the disk icon to save.
    You'll know it worked when the editor shows the new code starting with a long comment about the "Books kit [check-up](../glossary.md#check-up)". The program reads only this sheet. It never reads QuickBooks and it reports counts and yes or no answers only, never amounts or names.
 
-3. **BK-FR-03-3.** Click Run (the triangle) with the function onOpen chosen at the top. Google will ask you to review permissions. Click Review permissions, pick your account, and if you see "Google hasn't verified this app", click Advanced, then Go to the project name, then Allow.
-   You'll know it worked when the run finishes with no red message. Google words this permission broadly because Apps Script permissions are broad. The code is short, and you can read it first. If you decide not to allow it, the free version still works without the check-up (E06).
+3. **BK-FR-03-3.** Click Run (the triangle) with the function onOpen chosen at the top. Google will ask you to review permissions. Click Review permissions, pick your account, and if you see "Google hasn't verified this app", click Advanced, then "Go to" followed by the project name and "(unsafe)". On the next page, tick **Select all** and click **Continue**.
+   You'll know it worked when the run finishes with no red message. The check-up asks to view and manage this one spreadsheet only. The code is short, and you can read it first. If you decide not to allow it, the free version still works without the check-up (E06).
 
 4. **BK-FR-03-4.** Go back to your sheet and reload the page. Look at the menu bar.
-   You'll know it worked when a Help menu appears next to the other menus. If it does not, wait ten seconds and reload once more (E05).
+   You'll know it worked when a Kit help menu appears next to the other menus. If it does not, wait ten seconds and reload once more (E05).
 
-5. **BK-FR-03-5.** Click Help, then Run check-up. A box opens with a [support code](../glossary.md#support-code), a result line, and a report.
+5. **BK-FR-03-5.** Click Kit help, then Run check-up. A box opens with a [support code](../glossary.md#support-code), a result line, and a report.
    You'll know it worked when the code ends in "E00" before the version number, such as BK-FR-03-5-E00-v0.1.0 followed by three characters. That means every check passed. Any other E number is in `fixes.md`, and the step shown in the code is the step to repeat.
    A support code is a short code that tells a helper which step failed and what went wrong. It holds none of your figures. The box shows exactly what the optional report contains before you copy anything.
 

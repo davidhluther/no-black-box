@@ -1,0 +1,15 @@
+{
+  "config_file": null,
+  "steps": {
+    "python": "03-1",
+    "kit": "03-2",
+    "env": "03-3"
+  },
+  "required_env": [
+    "QBO_CLIENT_ID",
+    "QBO_CLIENT_SECRET",
+    "QBO_REALM_ID"
+  ],
+  "code": "BK",
+  "version": "0.1.0"
+}

@@ -19,7 +19,7 @@ Find the code the [check-up](glossary.md#check-up) or [script](glossary.md#scrip
 | E13 | Settings formulas are missing | Column D or E was overwritten | Copy the formulas back from `free/formulas.md` (Settings section) into rows 5 to 29 | ON-FR-03-7 |
 | E14 | Metrics shows an error value | A Settings input is text or a formula points at a moved row | Check Settings column D has numbers. If you inserted rows, undo them | ON-FR-03-7 |
 | E15 | Sign-in loop, an account that is not allowed, or no Extensions menu | The wrong account, a work account that blocks add-ons, or a plan limit | Sign in with a personal Google account. If you use a work account, ask its administrator whether [Apps Script](glossary.md#apps-script) is on | ON-FR-01-1 |
-| E16 | No Help menu, or Google blocks the check-up | The page was not reloaded, or the program was not authorized | Reload the Sheet and wait a few seconds. Authorize again through Advanced, then Go to the project | ON-FR-01-8 |
+| E16 | No Kit help menu, or Google blocks the check-up | The page was not reloaded, or the program was not authorized | Reload the Sheet and wait a few seconds. Authorize again through Advanced, then Go to the project | ON-FR-01-8 |
 | E17 | An imported file replaced another tab | The Import location was set to replace the sheet | Choose Edit, Undo. Import again with "Insert new sheet(s)" | ON-FR-01-3 |
 | E20 | The script prints "Missing file" | A [CSV](glossary.md#csv) is not in the folder or has a different name | Name the files exactly sales.csv, bank.csv, bookings.csv and settings.csv. Bookings is optional | ON-FU-03-2 |
 | E21 | The script prints "missing columns" | A header differs from the layout | Match the header row in `free/templates/` | ON-FU-02-2 |

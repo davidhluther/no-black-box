@@ -11,7 +11,7 @@ All three versions use the same method. They differ in who does the typing. You 
 | AI traffic channel | You create the [channel group](glossary.md#channel-group) by hand | Same, plus a pull of the AI rows | Same, plus Clarity's AI channel through the script |
 | Dashboard | [Looker Studio](glossary.md#looker-studio) from your sheet | Same, filled automatically | Same, with a header and format check before you import |
 | Time each month | About 45 minutes | About 20 minutes | About 30 minutes, mostly reading |
-| Checks the setup | Help menu in the sheet: Run check-up | Same | `python3 support/doctor.py measure` |
+| Checks the setup | Kit help menu in the sheet: Run check-up | Same | `python3 support/doctor.py measure` |
 | Cost | No cost for the tools in this version, but see each vendor page for current terms | One AI plan; see ChatGPT's and Claude's price pages | A Claude plan that includes Claude Code, plus free tools |
 | Where it works | Any browser | Any browser | Claude Code (full version) |
 | Setup guides | [FR-01 to FR-05](setup/MM-FR-01-set-up-your-measurement-sheet.md) | [LC-01 to LC-03](setup/MM-LC-01-pull-search-console-into-your-sheet.md) | [FU-01 to FU-03](setup/MM-FU-01-install-the-skills.md) |

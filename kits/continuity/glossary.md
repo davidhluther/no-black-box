@@ -10,7 +10,7 @@ Plain meanings for every technical term in this kit. Entries are in alphabetical
 
 **Bus test.** A thought experiment. If the person who runs the business disappeared tomorrow, could a capable stranger keep the work going for two weeks from what is written down? The name comes from the old phrase "hit by a bus".
 
-**Check-up.** A button in the Sheet (Help menu, then Run check-up) that tests whether your setup is right and prints a short support code. It counts tabs and answers. It never reads the sentences you wrote.
+**Check-up.** A button in the Sheet (Kit help menu, then Run check-up) that tests whether your setup is right and prints a short support code. It counts tabs and answers. It never reads the sentences you wrote.
 
 **CSV.** A plain text file where each row of a spreadsheet is one line and the columns are separated by commas. Almost every program can export one, and every spreadsheet can open one.
 

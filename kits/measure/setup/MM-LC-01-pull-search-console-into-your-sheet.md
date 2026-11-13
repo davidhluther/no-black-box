@@ -16,7 +16,7 @@ You will add a small program to your measurement sheet that fills in last month'
    You'll know it worked when a pop-up says "Added Search Console rows for" and two dates. If you get a red error mentioning 403 or "no access", it's E19. If the "unverified app" notice never lets you through, it's E11.
 
 5. **MM-LC-01-5.** Check the rows. Go back to the sheet. "Monthly traffic" has a new row with search clicks, [impressions](../glossary.md#impression), [click-through rate](../glossary.md#click-through-rate) and average position. "Search queries" has up to 50 rows and "Top pages" up to 30. Leave the [GA4](../glossary.md#ga4) columns for guide 2.
-   You'll know it worked when real numbers appear. Search Console shows a limited set of rows and hides rare searches, so the page may not match the Search Console graph exactly. Click Help, then "Run check-up" to confirm the sheet's headers still match.
+   You'll know it worked when real numbers appear. Search Console shows a limited set of rows and hides rare searches, so the page may not match the Search Console graph exactly. Click Kit help, then "Run check-up" to confirm the sheet's headers still match.
 
 Next: [Pull GA4 into your sheet](MM-LC-02-pull-ga4-into-your-sheet.md).
 

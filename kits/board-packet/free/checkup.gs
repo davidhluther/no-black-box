@@ -1,7 +1,7 @@
 /**
  * Board packet check-up (free version of the board-packet kit, MIT license).
  *
- * What it does: adds a "Help" menu to your tracker Google Sheet with one item,
+ * What it does: adds a "Kit help" menu to your tracker Google Sheet with one item,
  * "Run check-up". It looks at the shape of your setup (are the four tabs there,
  * are the column headings right, are the required settings filled in, do your
  * Drive folders exist) and prints one support code plus an optional plain-text
@@ -18,6 +18,9 @@
  *   v0.1.0      the kit version
  *   7KQ         a three-character check value made from the full list of problems
  * A clean check-up prints BP-FR-00-0-E00-v0.1.0 plus the check value.
+ *
+ * The line below asks Google for access to this one file only, not all your files.
+ * @OnlyCurrentDoc
  */
 
 var BP_KIT = 'BP';
@@ -45,7 +48,7 @@ var BP_REQUIRED_SETTINGS = [
 
 function onOpen() {
   SpreadsheetApp.getUi()
-    .createMenu('Help')
+    .createMenu('Kit help')
     .addItem('Run check-up', 'bpRunCheckup')
     .addToUi();
   // The low-cost version adds its own menu from packet.gs.

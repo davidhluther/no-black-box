@@ -16,7 +16,7 @@ Every technical term used in this kit, in plain words.
 
 **Channel group.** <a id="channel-group"></a>Your own rule in GA4 for sorting visits into labeled buckets, such as "AI models".
 
-**Check-up.** <a id="check-up"></a>The Help, Run check-up button in your sheet. It tests the sheet's setup and prints a support code.
+**Check-up.** <a id="check-up"></a>The Kit help, Run check-up button in your sheet. It tests the sheet's setup and prints a support code.
 
 **Citation.** <a id="citation"></a>A web address an AI answer lists as a source. Being cited means your website is one of them.
 

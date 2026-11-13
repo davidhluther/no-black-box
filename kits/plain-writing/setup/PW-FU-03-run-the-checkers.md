@@ -7,14 +7,14 @@ You'll end having run all three checkers on the example draft and read what they
 2. **PW-FU-03-2.** Run article-check, the validator (a program that checks a document against rules):
 
    ```
-   python3 [skills](../glossary.md#skill)/article-check/[scripts](../glossary.md#script)/validate_article.py free/example-draft.md --prose
+   python3 skills/article-check/scripts/validate_article.py free/example-draft.md --prose
    ```
 
    You'll know it worked when it prints a list of errors and ends with `VALIDATION FAILED`. For the example draft, that's the right answer. It should flag "in today's ever-evolving," "it's important to note," "in conclusion," "moreover," "testament," "seamless," "robust," and the [title-case](../glossary.md#title-case) heading. If it says `FATAL: could not load canonical style rules`, it's E15. If you run it on a short memo without `--prose` and it complains about internal links or a FAQ, it's E17.
 3. **PW-FU-03-3.** Run tell-scorer's gate (a gate is a check that must pass before something goes out):
 
    ```
-   python3 skills/tell-scorer/scripts/score_batch.py --md-glob free/example-draft.md --thresholds skills/tell-scorer/gate-thresholds.default.[json](../glossary.md#json) --out scores.[csv](../glossary.md#csv)
+   python3 skills/tell-scorer/scripts/score_batch.py --md-glob free/example-draft.md --thresholds skills/tell-scorer/gate-thresholds.default.json --out scores.csv
    ```
 
    You'll know it worked when you see `GATE:` followed by a count of breaches and the rules that were passed, such as `composite_hard_per1k`. A clean draft prints `GATE: clean`. Run the same line on `free/example-draft-fixed.md` and compare.

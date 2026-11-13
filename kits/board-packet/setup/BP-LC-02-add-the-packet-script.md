@@ -25,16 +25,16 @@ Each step has an ID. If you get stuck, note the ID. Once the [check-up](../gloss
    You'll know it worked when the cell is not blank. If it is blank, the check-up reports E20.
 
 5. **BP-LC-02-5.** Go back to the sheet and reload the page. Wait about 10 seconds.
-   You'll know it worked when a new menu called **Board packet** appears, next to the **Help** menu. If only **Help** shows, it's E29.
+   You'll know it worked when a new menu called **Board packet** appears, next to the **Kit help** menu. If only **Kit help** shows, it's E29.
 
 6. **BP-LC-02-6.** Click **Board packet**, then **1. Make this month's folder**. Google asks for permission.
-   Click **Review permissions**, pick your account, and click **Advanced**, then **Go to Board packet kit (unsafe)**, then **Allow**. Google words one of the permissions as "Read, compose, send, and permanently delete all your email from Gmail". That is Google's single, broad Gmail permission, and it is the only one Apps Script offers for creating drafts. This script uses only the part that creates a draft. Step BP-LC-02-7 shows you how to confirm that.
+   Click **Review permissions**, pick your account, and click **Advanced**, then **Go to Board packet kit (unsafe)**. On the next page, tick **Select all** and click **Continue**. Google words one of the permissions as "Read, compose, send, and permanently delete all your email from Gmail". That is Google's single, broad Gmail permission, and it is the only one Apps Script offers for creating drafts. This script uses only the part that creates a draft. Step BP-LC-02-7 shows you how to confirm that.
    You'll know it worked when, after you allow it, a box tells you this month's folder is ready, with a link. If you get an error beginning E15, E16, or E20, the Month tab or a folder name does not match your Drive (E15, E16, E20).
 
 7. **BP-LC-02-7.** Check the "never sends" promise yourself. In the Apps Script editor, click inside `packet.gs`, press Ctrl+F (Command+F on a Mac), and search for `send(`. Then search for `MailApp`.
    You'll know it worked when both searches find nothing. The one Gmail call in the file is `createDraft`. If either search finds something, stop and send the support code (see the box below), because the file has been changed from the kit's version.
 
-8. **BP-LC-02-8.** Run **Help**, then **Run check-up** once more.
+8. **BP-LC-02-8.** Run **Kit help**, then **Run check-up** once more.
    You'll know it worked when the support code starts with `BP-FR-00-0`. If not, fix the problems listed and rerun.
 
 > **How to get help.** Write down the step ID where you got stuck (it looks like BP-LC-02-3). If your kit has a check-up button or command, run it and copy the support code it prints. Then send both to Pigasus Group at https://pigasus.group/contact. Setup questions are free.

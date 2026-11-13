@@ -5,14 +5,14 @@ You'll end with one command that runs all the checks on a file, and optionally a
 1. **PW-FU-05-1.** Run the [gate](../glossary.md#gate) on the example draft. From the `plain-writing` folder:
 
    ```
-   python3 [skills](../glossary.md#skill)/plain-writing/[scripts](../glossary.md#script)/prepublish_gate.py free/example-draft.md
+   python3 skills/plain-writing/scripts/prepublish_gate.py free/example-draft.md
    ```
 
    You'll know it worked when you see three sections called article-check, tell-scorer gate, and copy-lint, then `GATE FAILED` with the checks that failed. That's the right answer for the example. Run it on `free/example-draft-fixed.md` and you should see `GATE PASSED`.
 2. **PW-FU-05-2.** Run it on your own file with your own rules and limits:
 
    ```
-   python3 skills/plain-writing/scripts/prepublish_gate.py --rules my-rules.[json](../glossary.md#json) --thresholds my-gate-thresholds.json my-post.md
+   python3 skills/plain-writing/scripts/prepublish_gate.py --rules my-rules.json --thresholds my-gate-thresholds.json my-post.md
    ```
 
    You'll know it worked when the three sections run and a verdict prints. If it says `Could not find these skills`, it's E18. Keep `article-check`, `tell-scorer`, `copy-lint`, and `plain-writing` side by side in one folder, or add `--skills-dir` with that folder's path.

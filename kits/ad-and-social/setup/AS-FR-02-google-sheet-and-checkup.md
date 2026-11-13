@@ -1,6 +1,6 @@
 # AS-FR-02: Make Your Google Sheet and Check-Up Button
 
-Time about 25 minutes. You'll finish with a Google Sheet that holds your [voice sheet](../glossary.md#voice-sheet), a log of ad versions you test, your settings, and a Help menu with a check-up.
+Time about 25 minutes. You'll finish with a Google Sheet that holds your [voice sheet](../glossary.md#voice-sheet), a log of ad versions you test, your settings, and a Kit help menu with a check-up.
 
 1. **AS-FR-02-1.** Open [Google Sheets](../glossary.md#google-sheets) at sheets.google.com and sign in. Click "Blank spreadsheet." Name it "Ad and Social."
    You'll know it worked when you see a blank grid with your title at the top left. If you see a sign-in loop, it's E01.
@@ -14,8 +14,8 @@ Time about 25 minutes. You'll finish with a Google Sheet that holds your [voice 
    You'll know it worked when no required row is blank (E12).
 6. **AS-FR-02-6.** Open the menu Extensions, then Apps Script (Google's built-in place for small helper programs). Delete any text in the editor. Copy everything from [checkup.gs](../free/checkup.gs), paste it in, and click the disk icon to save. Name the [project](../glossary.md#project) "Ad and Social."
    You'll know it worked when the file saves with no red message. Close the Apps Script tab and reload your sheet.
-7. **AS-FR-02-7.** After the sheet reloads, look for a new menu called Help next to the others. Click Help, then "Run check-up." Google asks for permission the first time. Click through, choose your account, and if it warns the app isn't verified, choose Advanced and continue. The script is plain text you just pasted, and it reads only this sheet.
-   You'll know it worked when a box opens with a support code and a short report. If there's no Help menu, it's E09. If Google's permission screen confuses you, it's E13.
+7. **AS-FR-02-7.** After the sheet reloads, look for a new menu called Kit help next to the others. Click Kit help, then "Run check-up." Google asks for permission the first time. Click through, choose your account, and if it warns the app isn't verified, choose Advanced and continue. The script is plain text you just pasted, and it reads only this sheet.
+   You'll know it worked when a box opens with a support code and a short report. If there's no Kit help menu, it's E09. If Google's permission screen confuses you, it's E13.
 8. **AS-FR-02-8.** Read the report. A code with "-OK-" in the middle (for example AS-FR-02-7-OK-v0.1.0 followed by three letters) means every tab, heading and setting is in place. Anything else, look up its problem code in [fixes](../fixes.md).
    You'll know it worked when the report shows "found, headings match" for all three tabs.
 

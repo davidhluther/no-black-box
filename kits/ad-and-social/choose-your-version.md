@@ -10,7 +10,7 @@ All three versions use the same method. They differ in how much you paste by han
 | Ad copy and [variants](glossary.md#variant) | Paste-in prompt, you copy results to the Variants tab | Same prompt, built in, remembers your voice | Skill writes a variants file for you |
 | Social posts | Paste-in prompt per idea | Built in | Skill drafts all platforms in one run |
 | Pictures | Free [Canva](glossary.md#canva) by hand, or a [designer brief](glossary.md#designer-brief) | Canva, with the AI plan helping write the prompts | Canva first, then an [image service](glossary.md#image-service) if you add a key, else a designer brief |
-| Check-up button | Yes, a Help menu in your Google Sheet | Yes, same sheet | `python3 support/doctor.py ad-and-social` |
+| Check-up button | Yes, a Kit help menu in your Google Sheet | Yes, same sheet | `python3 support/doctor.py ad-and-social` |
 | Typical setup time | About 45 minutes | About an hour | About two hours |
 | Cost | $0 (see current Canva plans at https://www.canva.com/pricing/) | The AI plan price; see the vendor's page | The AI plan, plus image service use if you choose it |
 | What you give up | Some pasting; no memory between chats | Little | Needs a comfortable relationship with typed commands |

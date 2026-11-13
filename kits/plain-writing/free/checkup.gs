@@ -4,7 +4,7 @@
  * What it does
  *   Adds two menus to a Google Doc:
  *   - "Plain writing": highlight banned words and phrases, clear the highlights, and show a count report.
- *   - "Help": run a check-up that tests this script's setup and prints one support code.
+ *   - "Kit help": run a check-up that tests this script's setup and prints one support code.
  *
  * What it never does
  *   It never sends your text anywhere, never changes your words, and never reads or
@@ -14,6 +14,9 @@
  *
  * Kit: plain-writing   Version: 0.1.0   Code: PW
  * Setup guide: setup/PW-LC-03-add-the-word-check.md
+ *
+ * The line below asks Google for access to this one file only, not all your files.
+ * @OnlyCurrentDoc
  */
 
 var KIT_CODE = 'PW';
@@ -53,7 +56,7 @@ function onOpen() {
     .addItem('Clear highlights', 'clearHighlights')
     .addItem('Show count report', 'showReport')
     .addToUi();
-  ui.createMenu('Help')
+  ui.createMenu('Kit help')
     .addItem('Run check-up', 'runCheckup')
     .addToUi();
 }

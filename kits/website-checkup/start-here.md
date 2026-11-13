@@ -18,7 +18,7 @@ Most owners learn how their website is doing by paying someone to tell them. The
 2. A list of the 16 basics every business should have in place before spending on ads or content, with a mark beside each one.
 3. A short action plan: what to do this week, this month, and later.
 4. A one-page monthly habit, so you notice when something breaks.
-5. A "Help" menu in the sheet. One click runs a check-up of the sheet itself and prints a [support code](glossary.md#support-code) you can send if you get stuck.
+5. A "Kit help" menu in the sheet. One click runs a check-up of the sheet itself and prints a [support code](glossary.md#support-code) you can send if you get stuck.
 
 ## What it checks
 

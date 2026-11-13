@@ -1,0 +1,14 @@
+{
+  "steps": {
+    "python": "01-3",
+    "kit": "01-5",
+    "config": "02-1",
+    "command": "01-4"
+  },
+  "optional_commands": [
+    "ffmpeg",
+    "whisper"
+  ],
+  "code": "BP",
+  "version": "0.1.0"
+}

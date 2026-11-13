@@ -18,9 +18,9 @@ Free version, guide 1. You will make one [Google Sheet](https://sheets.google.co
    You'll know it worked when the editor shows the pasted code with no red marks. If you cannot find Extensions, you are probably in a different Google app (not Sheets).
 
 6. **CV-FR-01-6.** Go back to your sheet tab and reload the page (press F5, or Command and R on a Mac). Wait a few seconds.
-   You'll know it worked when a new menu called Help appears in the menu bar (Google has its own Help menu as well; yours holds "Run check-up"). If it does not appear, it's E04.
+   You'll know it worked when a new menu called Kit help appears at the right end of the menu bar, after Google's own Help menu. Kit help holds "Run check-up". If it does not appear, it's E04.
 
-7. **CV-FR-01-7.** Click Help, then "Run check-up." The first time, Google asks for permission. Because you pasted the [script](../glossary.md#script) yourself, Google shows a warning that the app is not verified. Click Review permissions, pick your account, click Advanced, then "Go to Civic voice check-up (unsafe)," then Allow. (The script is limited to this one spreadsheet, and you can read all of it in the Apps Script tab first.) Run the check-up again if it did not open the result.
+7. **CV-FR-01-7.** Click Kit help, then "Run check-up." The first time, Google asks for permission. Because you pasted the [script](../glossary.md#script) yourself, Google shows a warning that the app is not verified. Click Review permissions, pick your account, click Advanced, then "Go to Civic voice check-up (unsafe)," then tick **Select all** and click **Continue**. (The script is limited to this one spreadsheet, and you can read all of it in the Apps Script tab first.) Run the check-up again if it did not open the result.
    You'll know it worked when a window shows a [support code](../glossary.md#support-code) ending with "OK," such as CV-FR-01-7-OK-v0.1.0 followed by three characters, and a report box that lists your tabs, whether headers match, and whether three settings are filled. If it shows a different code, find it in the [fixes table](../fixes.md). If the permission screen will not let you through, it's E05.
 
 ## What the check-up reads and never reads

@@ -12,7 +12,7 @@ All three versions run the same monthly cycle. They differ in how much the compu
 | Transcript | You supply it (Meet, Zoom, or your typed notes) | Same | Can make one from a recording on your own computer with [Whisper](glossary.md#whisper) |
 | Combined PDF | By hand, using a free merge route on your computer | Numbered PDF copies made for you, then a short manual merge | Converted, ordered, blank pages removed, and merged in one step |
 | Board email | A template you fill in and paste into Gmail | Written as a Gmail draft for you, never sent | Written as a Gmail draft, or saved as a file if drafts are not available |
-| [Check-up](glossary.md#check-up) | A Help menu in the [tracker sheet](glossary.md#tracker-sheet) that prints a [support code](glossary.md#support-code) | The same menu | A command named `doctor` that prints a code |
+| [Check-up](glossary.md#check-up) | A Kit help menu in the [tracker sheet](glossary.md#tracker-sheet) that prints a [support code](glossary.md#support-code) | The same menu | A command named `doctor` that prints a code |
 | Works in | Google Docs, Sheets, Drive, Gmail, and any AI model | Google tools plus ChatGPT or Claude | Claude Code only |
 
 ## What you give up at each step

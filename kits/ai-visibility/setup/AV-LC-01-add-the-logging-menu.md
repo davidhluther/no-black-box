@@ -9,7 +9,7 @@ Time, about 20 minutes. You will add a second [Apps Script](../glossary.md#apps-
    You'll know it worked when the editor shows the code with no red marks. If Save fails, it's E12.
 
 3. **AV-LC-01-3.** Make sure Code.gs still holds the [check-up](../glossary.md#check-up) code from the free version. The check-up file calls the logging file when it opens the sheet, so both menus appear. Go back to the sheet and reload the page.
-   You'll know it worked when the top menu bar shows both Help and AI visibility. If AI visibility is missing, it's E22.
+   You'll know it worked when the top menu bar shows both Kit help and AI visibility. If AI visibility is missing, it's E22.
 
 4. **AV-LC-01-4.** Click AI visibility, then Log an answer. Google asks you to authorize the new script. Follow the same steps as in AV-FR-01-5. It only asks to see and change this spreadsheet.
    You'll know it worked when a form opens with boxes for question code, AI product, answer text, sources, other businesses named, and run label. If Google keeps asking, it's E13.

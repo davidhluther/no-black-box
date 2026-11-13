@@ -8,12 +8,12 @@ Terms are defined in the [glossary](glossary.md).
 
 1. **NB-FR-02-1.** Go to chatgpt.com and sign in. A free account is fine for the free version of every [kit](glossary.md#kit).
    You'll know it worked when you see the message box. If you loop on sign-in, try another browser.
-2. **NB-FR-02-2.** Look in the sidebar and in your profile menu for an item named Skills or Plugins.
-   You'll know it worked when you find it. If you don't see either, your plan may not offer uploads yet, so use route two.
-3. **NB-FR-02-3.** Download the skill's zip from the kit's Releases page on GitHub and upload it in that screen.
-   You'll know it worked when the skill appears in your list. If ChatGPT rejects the file, use route two.
-4. **NB-FR-02-4.** Start a new chat, turn the skill on if it asks, and describe your job in plain words.
-   You'll know it worked when ChatGPT follows the kit's steps instead of improvising.
+2. **NB-FR-02-2.** In the left sidebar, open **Plugins**. On that page, choose **Skills** in the side list, then click **Add** and choose **Upload from your computer**.
+   You'll know it worked when a file picker opens. If you don't see Plugins or Skills, your plan may not offer uploads yet, so use route two.
+3. **NB-FR-02-3.** Download the skill's zip from the kit's Releases page on GitHub and choose it in the file picker.
+   You'll know it worked when the skill appears in your list. ChatGPT may rewrite the skill's short description and add an icon; that is normal. If ChatGPT rejects the file, use route two.
+4. **NB-FR-02-4.** Open the skill and click **Try in chat**, then describe your job in plain words.
+   You'll know it worked when ChatGPT follows the kit's steps instead of improvising. In our test on 11/13/2026, uploaded skills ran only in ChatGPT's Work mode, which has its own usage limit. In an ordinary chat, ChatGPT said the skill was not available. If that happens to you, use route two, which works in any chat.
 
 Whether ChatGPT can run a skill's bundled scripts is also not confirmed. Skills labeled "Claude Code (full version)" depend on scripts, so treat them as Claude-only for now.
 

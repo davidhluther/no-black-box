@@ -23,7 +23,7 @@ You do not need technical skills. Every term is explained where it first appears
 - A first month of results from four AI products, a [baseline](glossary.md#baseline) you can compare with next month.
 - A check for same-name businesses (the official term is a "[preflight](glossary.md#preflight)"), so a look-alike does not inflate your numbers.
 - A custom channel in GA4 (Google Analytics 4, Google's free visitor counter) that shows visits from AI products.
-- A Help menu in the sheet with a "Run [check-up](glossary.md#check-up)" button that prints one [support code](glossary.md#support-code) if something is off.
+- A Kit help menu in the sheet with a "Run [check-up](glossary.md#check-up)" button that prints one [support code](glossary.md#support-code) if something is off.
 
 ## The honest limits
 

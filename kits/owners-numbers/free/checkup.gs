@@ -1,7 +1,7 @@
 /**
  * Owner's Numbers check-up (Google Apps Script).
  *
- * Adds a Help menu with "Run check-up". It checks the structure of the
+ * Adds a Kit help menu with "Run check-up". It checks the structure of the
  * sheet only: tab names, header rows, whether the Settings dates are real
  * dates, whether Bank rows have a known category, and whether result cells
  * show an error. It counts things. It never reads, copies or shows the
@@ -12,6 +12,9 @@
  * (kit and version, the guide step where the first problem sits, the
  * problem code, the kit version, a three-character check) plus an optional
  * plain-text report you can read before you share it.
+ *
+ * The line below asks Google for access to this one file only, not all your files.
+ * @OnlyCurrentDoc
  */
 var KIT = 'ON';
 var VERSION = 'v0.1.0';
@@ -30,7 +33,7 @@ var BANK_CATEGORIES = ['sales_deposit', 'other_income', 'cogs', 'supplies', 'pay
   'other_variable', 'owner_draw', 'transfer'];
 
 function onOpen() {
-  SpreadsheetApp.getUi().createMenu('Help')
+  SpreadsheetApp.getUi().createMenu('Kit help')
     .addItem('Run check-up', 'runCheckup')
     .addToUi();
   // Only present when export-csv.gs is also in this project (low cost version).

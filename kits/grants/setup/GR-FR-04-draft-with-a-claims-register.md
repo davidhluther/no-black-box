@@ -13,12 +13,12 @@ Drafts are drafts. A person reviews and sends them. Nothing in this guide sends 
    You'll know it worked when every claim you will use has a Source and a status. The check-up shows E13 if a verified claim has no Source.
 
 3. **GR-FR-04-3.** Install the draft checker. Open Extensions, then Apps Script (a free Google tool that runs small programs inside a spreadsheet). In the left list, click the plus sign beside Files and choose Script. Name it draft-check. Delete the starter text, open draft-check.gs from the free folder in Notepad or TextEdit, copy everything, paste it in, and save. Close the tab and reload your tracker.
-   You'll know it worked when the Help menu now lists "Check draft numbers" below "Run check-up". If it doesn't, it's E15. Google may ask for permission again, as in GR-FR-02-6.
+   You'll know it worked when the Kit help menu now lists "Check draft numbers" below "Run check-up". If it doesn't, it's E15. Google may ask for permission again, as in GR-FR-02-6.
 
 4. **GR-FR-04-4.** Write a first draft. Use Prompt 5 in a free AI model (a program that reads and writes text when you message it, such as ChatGPT, Claude or Gemini), pasting in your dossier (a short file of what you have learned about one funder), your program and only the rows of your claims register that are usable. The prompt makes the AI model tag each fact with its claim ID and leave a [CONFIRM] note where a fact is missing.
    You'll know it worked when the draft has claim IDs in square brackets and a [CONFIRM] note wherever it needed a fact you had not given.
 
-5. **GR-FR-04-5.** Check the numbers. On the DraftCheck tab, paste the draft into cell B1. In B2, type the numbers that are not claims, such as the ask amount and deadlines, separated by commas. Click Help, then "Check draft numbers".
+5. **GR-FR-04-5.** Check the numbers. On the DraftCheck tab, paste the draft into cell B1. In B2, type the numbers that are not claims, such as the ask amount and deadlines, separated by commas. Click Kit help, then "Check draft numbers".
    You'll know it worked when rows appear from row 6 down listing each number and a verdict. "NOT IN REGISTER" means you must either fix the draft or add a verified claim with a source. If nothing appears, or the sheet says it is empty, it's E16.
 
 6. **GR-FR-04-6.** Get a fresh pair of eyes. Open a brand-new chat and paste Prompt 6 with the funder's guidelines and your draft, then walk through the before you submit checklist with a second person.

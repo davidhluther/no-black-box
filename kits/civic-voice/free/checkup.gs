@@ -2,7 +2,7 @@
  * @OnlyCurrentDoc
  *
  * Civic voice kit: check-up
- * Adds a "Help" menu with "Run check-up". It tests whether this spreadsheet is set up the
+ * Adds a "Kit help" menu with "Run check-up". It tests whether this spreadsheet is set up the
  * way the kit expects, then shows one support code and an optional plain-text report.
  *
  * What it reads: tab names, the header row of each tab, and whether three Settings cells are
@@ -42,7 +42,7 @@ var STEP_FOR = { 'E01': 2, 'E02': 3, 'E03': 4 };
 
 function onOpen() {
   SpreadsheetApp.getUi()
-    .createMenu('Help')
+    .createMenu('Kit help')
     .addItem('Run check-up', 'runCheckup')
     .addToUi();
   // If you also installed deadlines.gs, this adds its menu too.

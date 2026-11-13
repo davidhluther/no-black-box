@@ -12,7 +12,7 @@ Every technical or specialist term used anywhere in the Grants and Giving kit, i
 
 **CAPTCHA.** The "prove you are human" test on some websites, such as picking pictures of traffic lights. Never try to get a program past one.
 
-**check-up.** The Help menu button in your tracker that tests whether the spreadsheet is set up correctly and prints a support code.
+**check-up.** The Kit help menu button in your tracker that tests whether the spreadsheet is set up correctly and prints a support code.
 
 **claims register.** A table of every fact you may state about your organization, each with its source and how sure you are of it. A grant draft may use only facts from this table.
 

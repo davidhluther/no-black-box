@@ -1,11 +1,14 @@
 /**
  * Idea to Live Post kit: check-up (version 0.1.0).
- * Adds a "Help" menu with "Run check-up". It checks the workbook's setup
+ * Adds a "Kit help" menu with "Run check-up". It checks the workbook's setup
  * (expected tabs, header rows, required Setup values) and shows one support code.
  *
  * Privacy: the report lists tab names, header names and whether a Setup value is
  * filled in or empty. It never includes cell contents, passwords or keys.
  * Nothing is sent anywhere. You copy the report yourself if you choose to share it.
+ *
+ * The line below asks Google for access to this one file only, not all your files.
+ * @OnlyCurrentDoc
  */
 var KIT_ID = 'IP';
 var KIT_VERSION = '0.1.0';
@@ -19,7 +22,7 @@ var EXPECTED = {
 var REQUIRED_SETUP = ['org_name', 'audience', 'voice_notes', 'site_url', 'blog_path', 'one_call_to_action'];
 
 function onOpen() {
-  SpreadsheetApp.getUi().createMenu('Help')
+  SpreadsheetApp.getUi().createMenu('Kit help')
     .addItem('Run check-up', 'runCheckup')
     .addToUi();
   // Other kit scripts in the same project add their own menus through these hooks.

@@ -19,7 +19,7 @@ Six [skills](glossary.md#skill), each a plain-language method with the small too
 - A read-only [Search Console](glossary.md#search-console) reader that compares two weeks and says plainly what the data cannot show.
 - A Microsoft [Clarity](glossary.md#clarity) reader that respects the tool's hard limits, flags AI visits as a floor, and notes what Clarity's own wording does and does not support.
 
-For this public kit David generalized all of it for organizations without technical staff. The free version works from exports and a Help menu in a Google Sheet that finds setup mistakes. The low-cost version adds small programs that pull the numbers. The full version is the original set of tools.
+For this public kit David generalized all of it for organizations without technical staff. The free version works from exports and a Kit help menu in a Google Sheet that finds setup mistakes. The low-cost version adds small programs that pull the numbers. The full version is the original set of tools.
 
 ## What it changed
 

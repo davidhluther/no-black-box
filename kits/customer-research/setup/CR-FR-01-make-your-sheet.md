@@ -21,10 +21,10 @@ You will build one Google Sheet with five [tabs](../glossary.md#tab) and add the
    You'll know it worked when the heading row starts with test_id and ends with decision. Problems show as E05 or E10.
 
 7. **CR-FR-01-7.** Add the check-up button. In your Sheet choose Extensions, then Apps Script (a tool built into Google Sheets that lets you attach small programs). A code editor opens with a file called Code.gs. Delete everything in it, open `checkup.gs` from the free folder in any text editor, copy all of it, paste it in, and click the disk icon to save. Name the [project](../glossary.md#project) "Customer research" if it asks.
-   You'll know it worked when the editor shows your pasted text and no red error mark. The first time you run it, Google may say the app "hasn't been verified" because you wrote it yourself, not a company. Click "Advanced", then "Go to Customer research (unsafe)", then Allow. That warning is E13, and the script only reads your own Sheet.
+   You'll know it worked when the editor shows your pasted text and no red error mark. The first time you run it, Google may say the app "hasn't been verified" because you wrote it yourself, not a company. Click "Advanced", then "Go to Customer research (unsafe)", then tick **Select all** and click **Continue**. That warning is E13, and the script only reads your own Sheet.
 
-8. **CR-FR-01-8.** Close the Apps Script tab, go back to your Sheet, and reload the page. A new menu called "Help" appears after a few seconds. Click Help, then "Run check-up".
-   You'll know it worked when a box shows a [support code](../glossary.md#support-code) and a report that says all checks passed, except that the Config settings still need filling in, which is the next guide. If no Help menu appears, it's E11. If the report lists a missing tab, find that code in [fixes](../fixes.md) and go back to the step it names.
+8. **CR-FR-01-8.** Close the Apps Script tab, go back to your Sheet, and reload the page. A new menu called "Kit help" appears after a few seconds. Click Kit help, then "Run check-up".
+   You'll know it worked when a box shows a [support code](../glossary.md#support-code) and a report that says all checks passed, except that the Config settings still need filling in, which is the next guide. If no Kit help menu appears, it's E11. If the report lists a missing tab, find that code in [fixes](../fixes.md) and go back to the step it names.
 
 When the check-up passes the tab checks, go on to [CR-FR-02](CR-FR-02-collect-quotes.md).
 

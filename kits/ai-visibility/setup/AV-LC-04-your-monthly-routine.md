@@ -8,7 +8,7 @@ Time, about one hour. This guide is the loop. It does not add new setup.
 2. **AV-LC-04-2.** Ask the 28 questions in fresh chats in each of the four products, outside your [Project](../glossary.md#project), following guide AV-FR-04. Use the Log an answer menu after each one.
    You'll know it worked when each answer produces a row on Results and a copy on the Answers tab.
 
-3. **AV-LC-04-3.** Run Help, Run [check-up](../glossary.md#check-up). Fix anything it shows.
+3. **AV-LC-04-3.** Run Kit help, Run [check-up](../glossary.md#check-up). Fix anything it shows.
    You'll know it worked when the code shows E00.
 
 4. **AV-LC-04-4.** Run the noise check with the Project (guide AV-LC-03). Then type this run's label in cell B1 of the Summary tab.

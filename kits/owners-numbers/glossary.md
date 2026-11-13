@@ -14,7 +14,7 @@ Plain meanings for every technical term in this kit. Entries are in alphabetical
 
 **Cash conversion.** The number of days between paying for the things you sell and getting paid for them. A big number means your money sits trapped for a while.
 
-**Check-up.** A button in the Sheet (Help menu, then Run check-up) that tests whether your setup is right and prints a short support code. It looks at tab names and counts, never at what is in your cells.
+**Check-up.** A button in the Sheet (Kit help menu, then Run check-up) that tests whether your setup is right and prints a short support code. It looks at tab names and counts, never at what is in your cells.
 
 **Command line.** A window where you type short instructions to your computer instead of clicking. The full version uses it for a few copy-and-paste commands. Also called the terminal.
 

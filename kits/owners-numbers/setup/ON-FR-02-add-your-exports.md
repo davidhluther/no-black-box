@@ -18,7 +18,7 @@ You will bring last month's real numbers into the Sheet. Work on one month at fi
    You'll know it worked when the status column holds only completed, no_show and canceled. An empty tab is allowed but it's E11 as a reminder that customer and capacity numbers stay empty.
 8. **ON-FR-02-8.** Make sure dates are real dates. Click a date cell. Real dates sit on the right side of the cell. Text dates sit on the left. If they sit on the left, select the date column, choose Format, then Number, then Date.
    You'll know it worked when all dates in the column align right. Text dates are E09.
-9. **ON-FR-02-9.** Run Help, then Run [check-up](../glossary.md#check-up).
+9. **ON-FR-02-9.** Run Kit help, then Run [check-up](../glossary.md#check-up).
    You'll know it worked when every line about the Sales, Bank and Bookings tabs says OK. Any FIX line names a code. Look it up in [fixes.md](../fixes.md).
 
 > **How to get help.** Write down the step ID where you got stuck (it looks like ON-FR-01-3). If your kit has a check-up button or command, run it and copy the [support code](../glossary.md#support-code) it prints. Then send both to Pigasus Group at https://pigasus.group/contact. Setup questions are free.

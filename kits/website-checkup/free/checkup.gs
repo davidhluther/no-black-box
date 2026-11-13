@@ -3,7 +3,7 @@
  * Kit code WC, kit version 0.1.0
  *
  * What this does
- *   Adds a "Help" menu to your Google Sheet with one item, "Run check-up".
+ *   Adds a "Kit help" menu to your Google Sheet with one item, "Run check-up".
  *   It checks that the tabs and column headings the kit expects are present,
  *   that the Config tab is filled in, and (for the low-cost version) that a
  *   speed-check key has been saved. Then it shows ONE support code and an
@@ -17,6 +17,9 @@
  *
  * How to add it (the setup guide WC-FR-02 walks through this)
  *   Extensions > Apps Script, delete the sample code, paste this file, save.
+ *
+ * The line below asks Google for access to this one file only, not all your files.
+ * @OnlyCurrentDoc
  */
 
 var KIT_CODE = 'WC';
@@ -40,7 +43,7 @@ var REQUIRED_SETTINGS = ['business_name', 'site_url', 'business_type', 'city_reg
 var ALLOWED_RESULTS = ['Pass', 'Partial', 'Fail', 'Unknown', ''];
 
 function onOpen() {
-  var menu = SpreadsheetApp.getUi().createMenu('Help').addItem('Run check-up', 'runCheckup');
+  var menu = SpreadsheetApp.getUi().createMenu('Kit help').addItem('Run check-up', 'runCheckup');
   // The low-cost version adds monthly-pulls.gs, which defines pullSpeedNow.
   if (typeof pullSpeedNow === 'function') {
     menu.addSeparator().addItem('Pull speed now', 'pullSpeedNow');

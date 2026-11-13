@@ -8,7 +8,7 @@ You will have your Google Sheet collect the week's headlines from [feeds](../glo
 2. **IP-LC-02-2.** Open Extensions, then [Apps Script](../glossary.md#apps-script). Click the plus beside Files, choose Script, name it feeds, and paste in [feeds.gs](../free/feeds.gs). Click save. Make sure the [project](../glossary.md#project) also contains the [check-up](../glossary.md#check-up) code from IP-FR-01 as its own file.
    You'll know it worked when the editor shows two or more files and no red error marks. If the check-up menu stops appearing, it's E05.
 
-3. **IP-LC-02-3.** Reload the Sheet. A new Ideas menu appears next to Help. Click Ideas, then Fetch feeds now, and allow the permissions when Google asks.
+3. **IP-LC-02-3.** Reload the Sheet. A new Ideas menu appears next to Kit help. Click Ideas, then Fetch feeds now, and allow the permissions when Google asks.
    You'll know it worked when new rows appear on the Ideas tab and a Log tab appears. Google may warn the app is unverified because you wrote it; E06 shows the clicks.
 
 4. **IP-LC-02-4.** Open the Log tab. Each feed shows ok, empty, or FAILED with a reason.

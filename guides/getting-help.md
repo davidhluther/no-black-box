@@ -10,7 +10,7 @@ Terms are in the [glossary](glossary.md). If your trouble is finding or opening 
    You'll know it worked when you have something like "BP-FR-02-4" on a note. If a step has no ID, copy its first few words.
 2. **NB-FR-06-2.** Look for the matching problem code. If the guide said "it's E14," open the kit's fixes page and find E14. It lists what you see, why it happens, and the fix. For the shared guides, use the table below.
    You'll know it worked when you find a row that matches what is on your screen. If nothing matches, go on to step 3.
-3. **NB-FR-06-3.** Run the [check-up](glossary.md#check-up) if your kit has one. In a Google Sheet, open the Help menu and choose Run check-up. In the full version, type `python3 support/doctor.py <kit-id>` into your terminal (the window where you type commands). Either way you get one [support code](glossary.md#support-code) and, if you choose, a plain-text report.
+3. **NB-FR-06-3.** Run the [check-up](glossary.md#check-up) if your kit has one. In a Google Sheet, open the Kit help menu and choose Run check-up. In the full version, type `python3 support/doctor.py <kit-id>` into your terminal (the window where you type commands). Either way you get one [support code](glossary.md#support-code) and, if you choose, a plain-text report.
    You'll know it worked when a code like `GR-FR-03-2-E14-v0.1.0-7KQ` appears.
 
 The report never contains passwords, keys, donor or client data, or the contents of your files. It shows you exactly what it will share before you copy anything. The code format is explained in [support-code-format](../support/support-code-format.md).
@@ -39,7 +39,7 @@ These codes belong to the shared guides, whose step IDs begin NB.
 | E12 | You can't find the downloaded kit files, or the folder looks empty | The ZIP was not unzipped, or it is in a different folder than you expected | Follow [get the kit files](get-the-files.md) from the step that finds the Downloads folder | NB-FR-07-3 |
 | E90 | The check-up says your [Python](glossary.md#python) is too old | The program that runs the kit's scripts is out of date | Install the current Python from python.org | any |
 | E91 | The check-up can't find the kit folder | You ran it from the wrong place | Open the terminal in the folder that contains `kits` | any |
-| E92 | The check-up can't find config.json | You haven't copied config.example.json yet | Copy it to config.json and fill it in | any |
+| E92 | The check-up can't find config.json | You haven't copied config.example.json yet | Copy it to config.json and fill it in. If you keep it in another folder, add `--config` and the file's location to the check-up command | any |
 | E93 | The check-up says config.json isn't valid | A missing quote or comma | Same fix as E07 | any |
 | E94 | The check-up says a key name isn't set | The line is missing from your `.env` file | Add the line, see [keys and accounts](keys-and-accounts.md) | any |
 | E95 | The check-up says an optional tool isn't installed | The kit works without it, but one feature won't | Install it, or skip that feature | any |

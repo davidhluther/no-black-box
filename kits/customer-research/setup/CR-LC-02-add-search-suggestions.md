@@ -11,7 +11,7 @@ You will add an [Apps Script](../glossary.md#apps-script) that collects the sugg
 3. **CR-LC-02-3.** Make the RunLog tab by importing `runlog.csv` the same way and naming it exactly `RunLog`.
    You'll know it worked when the tab shows five columns starting with run_time. If the check-up reports it, it's E07.
 
-4. **CR-LC-02-4.** Reload the Sheet. A new menu, "Customer research", appears next to Help. Choose "Pull search suggestions now" and allow the permissions when asked (see E13 if Google warns you). Wait about two minutes.
+4. **CR-LC-02-4.** Reload the Sheet. A new menu, "Customer research", appears next to Kit help. Choose "Pull search suggestions now" and allow the permissions when asked (see E13 if Google warns you). Wait about two minutes.
    You'll know it worked when the Autocomplete tab fills with rows and the RunLog tab shows a row with status ok. If the log says FAILED, or an alert says Google returned nothing, it's E12.
 
 5. **CR-LC-02-5.** Paste the suggestions into [prompt](../glossary.md#prompt) P7 in the Project (or any [AI model](../glossary.md#ai-model)) to group them. Add the useful ones to the Quotes tab with the source type "search suggestion", and mark the kept column yes for the ones you use.

@@ -12,7 +12,7 @@ Website numbers tend to arrive in a black box. A dashboard says traffic fell 12 
 
 ## What you will have at the end
 
-- A Google Sheet with six tabs that holds your monthly numbers, and a Help menu that checks the sheet is set up correctly.
+- A Google Sheet with six tabs that holds your monthly numbers, and a Kit help menu that checks the sheet is set up correctly.
 - Tracking for the three to six actions that matter, added through [Google Tag Manager](glossary.md#google-tag-manager) without editing or breaking anything that already works, and tested before anyone sees it.
 - A separate line in [GA4](glossary.md#ga4) for visits from AI tools. It is a floor, not a total, and the kit explains why.
 - A [Looker Studio](glossary.md#looker-studio) dashboard that redraws itself each month.

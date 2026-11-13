@@ -12,7 +12,7 @@ You will test a price change, ask the Sheet a [what-if](../glossary.md#what-if) 
    You'll know it worked when the draft has the headings What happened, One naive look ahead, Where the money sits and Decisions for next quarter, and the look ahead is marked what-if. If the draft shows numbers that are not in your Sheet, it's E30.
 5. **ON-FR-04-5.** Draft the advisory letter with [prompt 6](../free/prompts.md). It is about 200 words and ends with a question.
    You'll know it worked when the letter states one thing to look at and does not tell the reader what to decide.
-6. **ON-FR-04-6.** Make your monthly routine. Each month, add the new rows to Sales, Bank and Bookings, change the two dates on Settings, update cash on hand, run Help, then Run [check-up](../glossary.md#check-up), and read the Scorecard. Also try a 12-month roadmap with [prompt 7](../free/prompts.md), leaving any target you have not chosen as "to set".
+6. **ON-FR-04-6.** Make your monthly routine. Each month, add the new rows to Sales, Bank and Bookings, change the two dates on Settings, update cash on hand, run Kit help, then Run [check-up](../glossary.md#check-up), and read the Scorecard. Also try a 12-month roadmap with [prompt 7](../free/prompts.md), leaving any target you have not chosen as "to set".
    You'll know it worked when the check-up says everything checked out for the new month.
 
 > **How to get help.** Write down the step ID where you got stuck (it looks like ON-FR-01-3). If your kit has a check-up button or command, run it and copy the [support code](../glossary.md#support-code) it prints. Then send both to Pigasus Group at https://pigasus.group/contact. Setup questions are free.
