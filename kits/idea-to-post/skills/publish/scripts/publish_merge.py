@@ -23,7 +23,7 @@ Needs the GitHub command-line tool (gh) signed in to an account that can merge o
 Records are kept in ./.publish-store (or the folder named in PUBLISH_STORE_DIR).
 
 Commands:
-    publish_merge.py bind   --site example.org --authority "merge 12" --approval-id 2026-11-13-a
+    publish_merge.py bind   --site example.org --authority "merge 12" --approval-id 2026-11-13-a --head 3f9c2a1
     publish_merge.py run    --site example.org --approval-id 2026-11-13-a [--yes]
     publish_merge.py status --site example.org 12
 """
@@ -288,8 +288,11 @@ def head_seen_at(site, sha, runner=subprocess.run):
     return min(datetime.fromisoformat(t.replace("Z", "+00:00")) for t in stamps) if stamps else None
 
 
-def bind(site_id, authority, approval_id, runner=subprocess.run) -> dict:
-    """Record the owner's approval: the pull request number, the time, and PR N's head exactly as GitHub shows it now."""
+def bind(site_id, authority, approval_id, reviewed_head=None, runner=subprocess.run) -> dict:
+    """Record the owner's approval: the pull request number, the time, and the head the owner reviewed.
+
+    reviewed_head is the commit id (at least seven characters) the owner looked at. If PR N's head on
+    GitHub is anything else now, nothing is bound, so a push made after the review can't ride along."""
     site = merge_site(site_id)
     number = parse_authority(authority)
     if number is None:
@@ -301,6 +304,12 @@ def bind(site_id, authority, approval_id, runner=subprocess.run) -> dict:
         head = view(site, number, runner).get("headRefOid")
         if not isinstance(head, str) or not SHA.match(head):
             raise Refused(f"PR {number} has no readable head; nothing was merged.")
+        want = (reviewed_head or "").strip().lower()
+        if len(want) < 7 or not re.fullmatch(r"[0-9a-f]+", want):
+            raise Refused("Give the commit id you reviewed (--head, at least seven characters); nothing was bound.")
+        if not head.lower().startswith(want):
+            raise Refused(f"PR {number} is now at {head[:12]}, not the {want[:12]} you reviewed. "
+                          f"Review the new version and approve again; nothing was bound.")
         binding = {"pr": number, "authority_at": datetime.now(timezone.utc).isoformat(), "head_sha": head}
         stored = record.bind_message(approval_id, binding)
         if stored["pr"] != number:
@@ -412,6 +421,7 @@ def main(argv=None) -> int:
     b.add_argument("--site", required=True, help="site id from the sites folder, e.g. example.org")
     b.add_argument("--authority", required=True, help='the exact words "merge N"')
     b.add_argument("--approval-id", required=True, help="any unique text for this approval")
+    b.add_argument("--head", required=True, help="the commit id you reviewed (at least seven characters)")
     r = sub.add_parser("run", help="check readiness, and merge and verify when --yes is given")
     r.add_argument("--site", required=True)
     r.add_argument("--approval-id", required=True)
@@ -423,7 +433,7 @@ def main(argv=None) -> int:
     args = parser.parse_args(argv)
     try:
         if args.cmd == "bind":
-            print(json.dumps({"ok": True, **bind(args.site, args.authority, args.approval_id)}))
+            print(json.dumps({"ok": True, **bind(args.site, args.authority, args.approval_id, args.head)}))
             return 0
         if args.cmd == "run":
             data = run(args.site, args.approval_id, yes=args.yes, wait=args.wait)

@@ -33,10 +33,10 @@ python3 -c "import sys; sys.path.insert(0,'scripts'); import site_registry as r;
 3. **One change per post.** Put each post on its own branch, named with the site's prefix (for example `blog-my-topic`), and open one pull request for it. Never bundle two posts in one pull request: "merge N" publishes exactly one thing.
 4. **Review.** Look at the preview deployment on your phone and check the title, the images, the links, and the page's address.
 5. **Approve.** When you are happy, say the exact words `merge 12` (the number of that pull request). Only those words count. "Looks good" does not.
-6. **Bind the approval.** This records which pull request you approved, when, and the exact version (the head SHA, a fingerprint of the last saved change) you were looking at:
+6. **Bind the approval.** This records which pull request you approved, when, and the exact version you were looking at. Pass `--head` with the commit id shown on the preview or the pull request (the head SHA, a fingerprint of the last saved change; seven characters is enough). If anyone pushed after your review, bind refuses and you review again:
 
    ```bash
-   python3 scripts/publish_merge.py bind --site example.org --authority "merge 12" --approval-id 2026-11-13-a
+   python3 scripts/publish_merge.py bind --site example.org --authority "merge 12" --approval-id 2026-11-13-a --head 3f9c2a1
    ```
 
 7. **Check, then merge.** Without `--yes` the script only reports whether the merge would go ahead:
