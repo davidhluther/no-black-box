@@ -1,0 +1,3 @@
+slot_date,site,run_type,planned_owner,status,started,finished,data_dates,reason_if_missed,retry_date,flagged_to,flagged_date,notes
+01/05/2026,Example US,baseline refresh,Alex Example,planned,,,,,,,,Example row. Replace with your own slots.
+01/05/2026,Example US,technical audit,Alex Example,planned,,,,,,,,"Example row. Status values are planned, done, missed, failed, retried."

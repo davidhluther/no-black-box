@@ -1,0 +1,14 @@
+{
+  "name": "team-operations",
+  "version": "0.1.0",
+  "description": "Keep a team's scheduled jobs, shipped capabilities and handoffs from failing quietly: job-failure rule, capability ledgers, session briefs and design checks.",
+  "author": {
+    "name": "David Luther",
+    "url": "https://pigasus.group"
+  },
+  "license": "MIT",
+  "keywords": [
+    "to",
+    "wave-1"
+  ]
+}

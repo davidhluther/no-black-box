@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "site_id": "example.org",
+  "entity": "Example Org",
+  "origin": "https://example.org",
+  "blog": {
+    "source": "git",
+    "post_path": "content/posts/{slug}.md",
+    "url": "/blog/{slug}",
+    "title_fields": ["title"],
+    "title_suffixes": [" | Example Org"]
+  },
+  "publish": {
+    "kind": "git_pr",
+    "authority": "merge_n",
+    "repo": "example-org/website",
+    "base": "main",
+    "lane_prefix": "blog-",
+    "production_environment": "Production",
+    "contract": "One pull request per post. Merge only when the owner types the exact words merge N for that pull request.",
+    "store": "example_merges"
+  },
+  "checks": {
+    "tell_thresholds": null,
+    "copy_lint": true,
+    "live_title": true,
+    "brand_rules": "@SKILLS/article-check/data/brand-rules/example.json"
+  }
+}

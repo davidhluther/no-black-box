@@ -1,0 +1,14 @@
+{
+  "name": "search-gaps",
+  "version": "0.1.0",
+  "description": "Find where competitors win: backlink gaps, cannibalization, consolidation, internal links, technical fixes, competitor content, review mining and a persona jury to test wording.",
+  "author": {
+    "name": "David Luther",
+    "url": "https://pigasus.group"
+  },
+  "license": "MIT",
+  "keywords": [
+    "sg",
+    "wave-1"
+  ]
+}

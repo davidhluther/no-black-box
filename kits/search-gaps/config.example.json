@@ -1,0 +1,60 @@
+{
+  "_note": "Copy this file to config.json and replace every example value. This is the only file that holds your team's details. Never put passwords or API keys in it. Keys go in environment variables.",
+  "team_name": "Example Marketing Team",
+  "output_folder": "gap-review-output",
+  "sites": [
+    {
+      "name": "Example US",
+      "site_url": "https://www.example.org",
+      "market": "US",
+      "language": "en",
+      "business_type": "B2B software",
+      "owner": "Alex Example",
+      "search_console_property": "https://www.example.org/",
+      "crawl_file": "gap-review-output/example-us/internal_all.csv",
+      "competitors": [
+        "https://www.example.com",
+        "https://www.example.net"
+      ]
+    },
+    {
+      "name": "Example UK",
+      "site_url": "https://www.example.org/uk",
+      "market": "UK",
+      "language": "en",
+      "business_type": "B2B software",
+      "owner": "Sam Example",
+      "search_console_property": "https://www.example.org/uk/",
+      "crawl_file": "gap-review-output/example-uk/internal_all.csv",
+      "competitors": [
+        "https://www.example.com/uk"
+      ]
+    }
+  ],
+  "cadence": {
+    "baseline_refresh": { "every": "month", "owner": "Alex Example" },
+    "technical_audit": { "every": "month", "owner": "Alex Example" },
+    "cannibalization_and_internal_links": { "every": "month", "owner": "Sam Example" },
+    "backlink_gap": { "every": "quarter", "owner": "Alex Example" },
+    "competitor_content_and_keywords": { "every": "quarter", "owner": "Sam Example" },
+    "customer_language": { "every": "half year", "owner": "Sam Example" }
+  },
+  "platforms": {
+    "link_database": "Ahrefs",
+    "link_database_key_environment_variable": "AHREFS_API_KEY",
+    "speed_key_environment_variable": "GOOGLE_API_KEY",
+    "second_opinion_sources": ["Bing Webmaster Tools", "GA4"]
+  },
+  "reporting": {
+    "summary_goes_to": "Example Director",
+    "where_it_is_posted": "Team channel or shared folder",
+    "slot_failures_flagged_to": "Alex Example"
+  },
+  "customer_research": {
+    "what_we_offer": "Payments software for mid-sized companies",
+    "who_we_serve": "Finance and procurement teams",
+    "alternatives": ["Example Competitor One", "Example Competitor Two"],
+    "seed_terms": ["accounts payable automation", "supplier payments", "invoice approval"],
+    "max_seed_terms": 3
+  }
+}

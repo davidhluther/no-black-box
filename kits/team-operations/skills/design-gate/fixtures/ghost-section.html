@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fixture — zero-ink section</title>
+<link rel="stylesheet" href="_shell.css">
+<style>
+  /* A section that is present in the DOM, carries its text, reserves its box —
+     and renders nothing. On a real site this is a colour token that resolved to
+     the ground, a component that returned its wrapper without its body, or an
+     image that 404'd inside a fixed-height figure. The gate reads all three the
+     same way: a box with area and no ink. */
+  #ghost { min-height: 300px; color: var(--paper); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Zero-ink section</h1>
+  <p>Severity-1 regression fixture. The gate must report section
+     <code>#ghost</code> as occupying area and rendering no ink, and must say
+     that its DOM text is present — the distinction between "the section is
+     missing" and "the section is there and invisible" is the whole diagnostic
+     value of the finding.</p>
+
+  <section id="ghost">
+    <h2>Conditions at a glance</h2>
+    <p>Every word of this section is in the HTML and none of it is on the page.
+       A source review sees the copy and passes. A person sees a blank slab.</p>
+  </section>
+
+  <section>
+    <h2>Block below</h2>
+    <p>Ink here so the ghost's box is bounded and the page does not simply end
+       in paper.</p>
+  </section>
+</main>
+</body>
+</html>

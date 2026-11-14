@@ -1,0 +1,21 @@
+{
+  "config_required_keys": [
+    "team",
+    "owners",
+    "site",
+    "queue",
+    "schedule"
+  ],
+  "optional_commands": [
+    "claude",
+    "gh"
+  ],
+  "steps": {
+    "command": "01-1",
+    "python": "01-2",
+    "kit": "01-3",
+    "config": "01-4"
+  },
+  "code": "CE",
+  "version": "0.1.0"
+}

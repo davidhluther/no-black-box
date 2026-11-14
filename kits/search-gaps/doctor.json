@@ -1,0 +1,16 @@
+{
+  "code": "SG",
+  "version": "0.1.0",
+  "steps": {
+    "python": "01-1",
+    "kit": "01-3",
+    "config": "01-4"
+  },
+  "config_required_keys": [
+    "team_name",
+    "sites"
+  ],
+  "optional_commands": [
+    "claude"
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "_note": "Copy this file to config.json in your program folder and replace every example value with your own. This is the program-level file: who owns what, when runs are due, which sites are tracked. Each site also has its own config.json (copied from the single-site kit's config.example.json) that holds that site's business details and questions. Never put passwords or API keys in either file; keys go in environment variables. Keys that start with an underscore are ignored.",
+  "program": {
+    "name": "Example Co AI visibility program",
+    "owner_name": "Alex Example",
+    "owner_role": "SEO manager",
+    "backup_owner_name": "Sam Example",
+    "reviewer_name": "Jordan Example",
+    "reporting_audience": "marketing leadership",
+    "run_day_of_month": 3,
+    "grace_days": 2,
+    "review_days": 5,
+    "max_attempts": 2,
+    "retry_wait_minutes": 30,
+    "runner": "scripts/run_api_battery.py",
+    "alert": {
+      "webhook_env": "PROGRAM_ALERT_WEBHOOK",
+      "email": "seo-team@example.org"
+    }
+  },
+  "sites": [
+    {
+      "id": "example-us",
+      "name": "Example Co (United States)",
+      "config_file": "sites/example-us/config.json",
+      "market": "US",
+      "language": "en",
+      "owner_name": "Alex Example"
+    },
+    {
+      "id": "example-ca",
+      "name": "Example Co (Canada)",
+      "config_file": "sites/example-ca/config.json",
+      "market": "CA",
+      "language": "en",
+      "owner_name": "Sam Example"
+    }
+  ],
+  "providers": ["openai", "anthropic", "gemini", "perplexity"],
+  "sources": {
+    "search_console": { "property": "https://example.org/", "export_file": "imports/search-console-queries.csv" },
+    "bing_webmaster": { "site": "https://example.org/", "export_file": "imports/bing-queries.csv" },
+    "ga4": { "property_name": "Example site", "ai_channel_name": "AI models" },
+    "paid_platforms": [
+      { "name": "Example platform", "export_file": "imports/example-platform.csv" }
+    ]
+  },
+  "reporting": {
+    "cadence": "monthly",
+    "review_meeting": "second Tuesday",
+    "leader_report_file": "reports/leader-report.md"
+  }
+}

@@ -1,0 +1,4 @@
+event_name,what_counts,fires_when,parameters,key_event,question_it_answers,status
+prospect_lead,A completed contact or demo form from a possible customer,Form success message in the data layer,"form_id, form_type",yes,Which pages and sources produce leads,EXAMPLE
+content_download,A click on a PDF or other file link,Click on a link ending in .pdf or .docx,"asset_title, file_url",no,Which downloads get used,EXAMPLE
+phone_click,A click on a tel: link,Click on a link starting with tel:,"link_url, click_location",yes,Who calls from the site,EXAMPLE

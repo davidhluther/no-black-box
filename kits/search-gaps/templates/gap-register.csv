@@ -1,0 +1,2 @@
+id,date_found,site,type,finding,page_or_domain,evidence_source,evidence_date,proposed_fix,impact_score,effort_score,owner,status,due_date,shipped_date,check_back_date,result_note
+G-001,01/05/2026,Example US,technical,Example finding. Replace with your own,https://www.example.org/example-page,Crawl export,01/05/2026,Example fix,,,Alex Example,open,01/30/2026,,,

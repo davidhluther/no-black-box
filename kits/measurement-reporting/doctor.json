@@ -1,0 +1,22 @@
+{
+  "steps": {
+    "python": "01-1",
+    "kit": "01-2",
+    "config": "01-3",
+    "env": "02-2",
+    "command": "01-1"
+  },
+  "config_required_keys": [
+    "org_name",
+    "site_url",
+    "search_console_site",
+    "ga4_property_id",
+    "report_owner",
+    "data_owner"
+  ],
+  "optional_commands": [
+    "python3"
+  ],
+  "code": "MR",
+  "version": "0.1.0"
+}

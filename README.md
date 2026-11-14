@@ -1,6 +1,6 @@
 # No Black Box
 
-Free, plainly written kits for small businesses and nonprofits.
+Free, plainly written kits for small businesses, nonprofits, and in-house marketing teams.
 
 So much of how technology and business works is kept in a black box. Part of that is real complexity. Part of it is that people profit from holding the knowledge and selling it back to you. The internet was supposed to be a web of sharing, and it has turned into a commercial utility, like the power company. You end up buying something that doesn't fit because the seller offers the same thing to everyone, or you hire an expert who applies the same template to every customer.
 
@@ -28,6 +28,22 @@ Pick the need, open the page. Each start-here page says what you will have at th
 | Write ads and posts for X, Facebook, and Instagram | [Ad and social](kits/ad-and-social/start-here.md) | Early |
 
 "Ready" means the kit is in the first release and its free version has been written end to end. "Early" means the pages exist and the method is sound, but it has had less testing, so expect rough edges and tell us where they are.
+
+## For in-house marketing and SEO teams
+
+You run many pages through a CMS (content management system, the tool your team publishes pages with), pay for SEO and analytics platforms, and get asked "how do we know" by people who sign the budget. These five kits are the full versions built for that job: scheduled, multi-platform, and honest about what the data can and can't show.
+
+| What your team needs | Kit |
+|---|---|
+| Run AI visibility as a program across models, competitors, and citations | [AI visibility program](kits/ai-visibility-program/start-here.md) |
+| Ship briefs to published pages with quality and evidence gates | [Content engine](kits/content-engine/start-here.md) |
+| Find competitor, backlink, and cannibalization gaps | [Search and competitor gaps](kits/search-gaps/start-here.md) |
+| Answer "how do we know" across analytics, search, and AI-visibility platforms | [Measurement and exec reporting](kits/measurement-reporting/start-here.md) |
+| Keep scheduled jobs, handoffs, and shipped work from failing quietly | [Team operating discipline](kits/team-operations/start-here.md) |
+
+These kits run in Claude Code and reuse the same skills as the small-business kits, set up for team scale. A smaller team can start with the free versions of [AI visibility check](kits/ai-visibility/start-here.md), [Idea to live post](kits/idea-to-post/start-here.md), [Website check-up](kits/website-checkup/start-here.md), or [Measure what matters](kits/measure/start-here.md).
+
+Want them fitted to your stack, your CMS, and your reporting cadence? Pigasus Group sets these up for in-house teams. Start at [pigasus.group/contact](https://pigasus.group/contact).
 
 ## Free, low cost, and full
 

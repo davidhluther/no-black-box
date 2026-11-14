@@ -1,0 +1,14 @@
+{
+  "name": "measurement-reporting",
+  "version": "0.1.0",
+  "description": "Answer \"how do we know\" with analytics events, cross-platform checks before claiming a cause, AI-traffic views and a monthly report leaders can read.",
+  "author": {
+    "name": "David Luther",
+    "url": "https://pigasus.group"
+  },
+  "license": "MIT",
+  "keywords": [
+    "mr",
+    "wave-1"
+  ]
+}

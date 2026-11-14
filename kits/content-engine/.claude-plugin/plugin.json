@@ -1,0 +1,14 @@
+{
+  "name": "content-engine",
+  "version": "0.1.0",
+  "description": "Take a team from topic slate to published page: screening, briefs, drafts, quality and AI-tell gates, evidence checks, CMS handoff and refreshes.",
+  "author": {
+    "name": "David Luther",
+    "url": "https://pigasus.group"
+  },
+  "license": "MIT",
+  "keywords": [
+    "ce",
+    "wave-1"
+  ]
+}

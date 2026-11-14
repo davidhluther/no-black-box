@@ -106,6 +106,41 @@
       "description": "Ad copy, ad pictures and posts for X, Facebook and Instagram that sound like you.",
       "version": "0.1.0",
       "category": "small-business"
+    },
+    {
+      "name": "ai-visibility-program",
+      "source": "./kits/ai-visibility-program",
+      "description": "Run AI visibility as a team program: a fixed question set across AI models, competitor share, citations, trends and fixes, with noise checks before anyone reports a change.",
+      "version": "0.1.0",
+      "category": "teams"
+    },
+    {
+      "name": "content-engine",
+      "source": "./kits/content-engine",
+      "description": "Take a team from topic slate to published page: screening, briefs, drafts, quality and AI-tell gates, evidence checks, CMS handoff and refreshes.",
+      "version": "0.1.0",
+      "category": "teams"
+    },
+    {
+      "name": "search-gaps",
+      "source": "./kits/search-gaps",
+      "description": "Find where competitors win: backlink gaps, cannibalization, consolidation, internal links, technical fixes, competitor content, review mining and a persona jury to test wording.",
+      "version": "0.1.0",
+      "category": "teams"
+    },
+    {
+      "name": "measurement-reporting",
+      "source": "./kits/measurement-reporting",
+      "description": "Answer \"how do we know\" with analytics events, cross-platform checks before claiming a cause, AI-traffic views and a monthly report leaders can read.",
+      "version": "0.1.0",
+      "category": "teams"
+    },
+    {
+      "name": "team-operations",
+      "source": "./kits/team-operations",
+      "description": "Keep a team's scheduled jobs, shipped capabilities and handoffs from failing quietly: job-failure rule, capability ledgers, session briefs and design checks.",
+      "version": "0.1.0",
+      "category": "teams"
     }
   ]
 }

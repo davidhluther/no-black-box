@@ -1,0 +1,47 @@
+{
+  "team_name": "Example Marketing Team",
+  "team": {
+    "workstreams": [
+      {
+        "name": "Organic reporting",
+        "folder": "~/work/organic-reporting",
+        "owner": "Alex Example",
+        "backup": "Sam Example"
+      },
+      {
+        "name": "AI visibility tracking",
+        "folder": "~/work/ai-visibility",
+        "owner": "Sam Example",
+        "backup": "Alex Example"
+      }
+    ],
+    "report_reader": "Marketing leadership",
+    "report_day": "Monday",
+    "flag_channel_note": "The #marketing-ops-alerts channel, read by the on-call owner each morning"
+  },
+  "workspace": {
+    "projects_folder": "~/work",
+    "routing_table": "~/work/ROUTING.md"
+  },
+  "ledger": {
+    "path": "CAPABILITIES.md",
+    "max_age_days": 30
+  },
+  "brief": {
+    "path": "BRIEF-example-topic.md",
+    "max_lines": 150
+  },
+  "design_gate": {
+    "site_name": "Example Site",
+    "config_path": ".design-gate.json",
+    "base_url": "http://127.0.0.1:3100",
+    "reference_page": "/about",
+    "site_address": "https://www.example.org"
+  },
+  "scheduled_jobs": {
+    "registry_path": "jobs.json",
+    "alert_webhook_env_var": "JOB_ALERT_WEBHOOK",
+    "owner_name": "Marketing ops on-call",
+    "owner_contact": "name@example.org"
+  }
+}

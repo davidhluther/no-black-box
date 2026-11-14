@@ -1,0 +1,14 @@
+{
+  "name": "ai-visibility-program",
+  "version": "0.1.0",
+  "description": "Run AI visibility as a team program: a fixed question set across AI models, competitor share, citations, trends and fixes, with noise checks before anyone reports a change.",
+  "author": {
+    "name": "David Luther",
+    "url": "https://pigasus.group"
+  },
+  "license": "MIT",
+  "keywords": [
+    "ap",
+    "wave-1"
+  ]
+}

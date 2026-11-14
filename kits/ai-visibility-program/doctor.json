@@ -1,0 +1,19 @@
+{
+  "steps": {
+    "python": "01-1",
+    "kit": "01-2",
+    "config": "01-4",
+    "env": "01-5",
+    "command": "01-1"
+  },
+  "config_required_keys": [
+    "program",
+    "sites"
+  ],
+  "optional_commands": [
+    "claude",
+    "python3"
+  ],
+  "code": "AP",
+  "version": "0.1.0"
+}

@@ -1,0 +1,133 @@
+{
+  "_about": "Copy this file to config.json and replace every example value. Make one copy per site or market (config.example-site.json, config.example-market.json) and pass it to each command with --config. This is the only place your team's details go. Never put a password, key or token here; keys live in environment variables (see guides/keys-and-accounts.md). The skills read the blocks site, queue, industry_intel, topic_screen, research, draft, quality_gates, publish and measurement. The team, owners, schedule and reporting blocks are for your team, the job log and the check-up; the skills do not read them.",
+  "kit_version": "0.1.0",
+
+  "team": {
+    "name": "Example Co content team",
+    "kind": "an in-house B2B marketing team",
+    "sites_in_scope": ["example-site"],
+    "markets": ["en-US"]
+  },
+
+  "owners": {
+    "content_lead": "Content lead (name@example.org)",
+    "seo_owner": "SEO manager (name@example.org)",
+    "editor": "Managing editor (name@example.org)",
+    "publisher": "Web publisher (name@example.org)",
+    "analyst": "Marketing analyst (name@example.org)",
+    "ops_owner": "Content ops owner (name@example.org)",
+    "backup_for_each_role": "yes"
+  },
+
+  "organization": {
+    "name": "Example Co",
+    "kind": "a B2B software company",
+    "audience": "finance and operations leaders at mid-sized companies",
+    "what_we_want_readers_to_do": "request a demo or download the guide",
+    "voice_notes": "Plain and specific. Short sentences. Name the product feature and the real constraint. No hype. Never promise results."
+  },
+
+  "site": {
+    "id": "example-site",
+    "url": "https://www.example.org",
+    "blog_path": "/blog/",
+    "sitemap_url": "https://www.example.org/sitemap.xml",
+    "internal_link_minimum": 3,
+    "contact_page": "https://www.example.org/contact"
+  },
+
+  "industry_intel": {
+    "window_days": 7,
+    "feeds": [
+      {"name": "Example search news blog", "url": "https://www.example.org/search-news/feed.xml"},
+      {"name": "Example industry newsletter", "url": "https://www.example.org/industry/rss"},
+      {"name": "Example analyst blog", "url": "https://www.example.org/analyst/rss"}
+    ],
+    "paste_in_folder": "ideas/pasted",
+    "notes_folder": "ideas/notes",
+    "baseline_note": "ideas/baseline.md"
+  },
+
+  "topic_screen": {
+    "demand_floor": 50,
+    "existing_threshold": 0.8,
+    "dedupe_threshold": 0.8,
+    "sitemap_url": "https://www.example.org/sitemap.xml",
+    "path_filter": "/blog/",
+    "board_dump": "queue/queue-export.csv",
+    "briefs_dir": "briefs",
+    "blocking_stages": ["Planned", "In production", "Review", "Ready to publish", "Live"]
+  },
+
+  "research": {
+    "competitors": ["www.example-competitor-one.com", "www.example-competitor-two.com"],
+    "search_data_sources": ["Google Search Console", "Bing Webmaster Tools", "GA4"],
+    "paid_keyword_tool": "example-seo-platform",
+    "briefs_folder": "briefs",
+    "synthetic_panel_allowed": false
+  },
+
+  "draft": {
+    "drafts_folder": "drafts",
+    "word_range": [1200, 2400],
+    "style_guide_file": "style/voice-and-banned-words.md",
+    "one_call_to_action": "Request a demo",
+    "call_to_action_url": "https://www.example.org/demo",
+    "default_voice_preset": "analyst-memo"
+  },
+
+  "quality_gates": {
+    "banned_words_file": "style/voice-and-banned-words.md",
+    "brand_rules_file": "style/brand-rules-example-site.json",
+    "thresholds_file": "style/gate-thresholds-example-site.json",
+    "max_paragraph_sentences": 6,
+    "require_sources_for_numbers": true,
+    "require_evidence_review_for": ["original data", "any claim about our results", "leader reports"]
+  },
+
+  "publish": {
+    "adapter": "cms-draft-creation",
+    "site_id": "example-site",
+    "dry_run_first": true,
+    "require_human_confirmation": true,
+    "never_publish_from_scheduled_run": true
+  },
+
+  "measurement": {
+    "search_console_property": "sc-domain:example.org",
+    "bing_site_url": "https://www.example.org/",
+    "ga4_property_label": "Example site (GA4)",
+    "clarity_project_label": "Example site (Clarity)",
+    "checkpoints_weeks": [2, 6, 12],
+    "export_folder": "measure"
+  },
+
+  "queue": {
+    "stages": ["Idea", "Screened", "Planned", "In production", "Review", "Ready to publish", "Live"],
+    "pick_limit_per_run": 3,
+    "extra_columns": ["owner", "site", "market", "content_type"]
+  },
+
+  "schedule": {
+    "log_file": "ops/job-log.csv",
+    "jobs": [
+      {"name": "feeds", "every_days": 7, "grace_days": 1, "owner": "content_lead"},
+      {"name": "search-console-export", "every_days": 7, "grace_days": 1, "owner": "analyst"},
+      {"name": "tell-audit", "every_days": 7, "grace_days": 1, "owner": "editor"}
+    ],
+    "retries": 1,
+    "tell_someone_same_day": "post in the team channel and message the job's owner"
+  },
+
+  "reporting": {
+    "audience": "marketing leadership",
+    "cadence": "monthly",
+    "surface": "a one-page note plus a Looker Studio view",
+    "must_pass": "evidence-review"
+  },
+
+  "support": {
+    "kit_id": "content-engine",
+    "kit_code": "CE"
+  }
+}
