@@ -34,3 +34,7 @@ The team stopped debating whose dashboard was right, because the report said whi
 ## The point of view
 
 Most reliability and measurement practice sits behind a vendor's monitoring product or a consultant's audit. David's view is that these habits are short and teachable, and a team should have them in full. This kit is that view made concrete. Paid help is for fitting the habits to one team's stack and cadence, and it never buys a withheld step.
+
+## Read the full write-up
+
+David wrote up how this runs in his own work in the case studies [Six Domains, One Operating System](https://davidhluther.github.io/case-studies/six-domains/) and [Running AEO as an Operating System](https://davidhluther.github.io/case-studies/aeo-operating-system/), on his portfolio.

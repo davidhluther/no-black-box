@@ -35,3 +35,7 @@ For his own consultancy it showed, early and plainly, that the name problem was 
 ## His point of view
 
 Much of how this field works is held in a black box, partly because it is complicated and partly because people profit from selling the answer back to you. David's view is that a small business should be able to see exactly how its numbers were made, and decide for itself whether it needs help. This kit is that view in working form. If someone does want help fitting it to their situation, he and Pigasus Group can do that, and the knowledge in the kit stays free.
+
+## Read the full write-up
+
+David wrote up how this runs in his own work in the case study [Measuring AI Visibility Without Fooling Yourself](https://davidhluther.github.io/case-studies/ai-visibility-measurement/), on his portfolio.

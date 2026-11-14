@@ -38,3 +38,7 @@ Work that depended on a few experienced people became a repeatable process that 
 ## Why it is open
 
 David's view is that much of how technology and business works is held in a black box, partly because it is complicated and partly because people benefit from selling the knowledge back to you. This kit explains each step so a team can run it, and the paid offer is limited to David's time fitting it to one team's platforms. It never buys withheld steps. If you'd like to talk about work like this, whether as a hire or for your team, write through Pigasus Group's [contact page](https://pigasus.group/contact).
+
+## Read the full write-up
+
+David wrote up how this runs in his own work in the case study [A Content Engine Built to Earn Citations](https://davidhluther.github.io/case-studies/content-engine/), on his portfolio.

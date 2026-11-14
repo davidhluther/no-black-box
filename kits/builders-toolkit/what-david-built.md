@@ -36,3 +36,7 @@ Long sessions stopped repeating themselves. Quiet failures became visible the sa
 ## The point of view
 
 Most of how this kind of work gets done sits in a black box, because the people who learned it sell it back as a service. David's view is that these habits are short and teachable, and that a small organization should get them for free and in full. The kit is that view made concrete. Paid help is for fitting the habits to one team's situation, never for holding steps back.
+
+## Read the full write-up
+
+David wrote up how this runs in his own work in the case study [Six Domains, One Operating System](https://davidhluther.github.io/case-studies/six-domains/), on his portfolio.

@@ -35,3 +35,7 @@ The team stopped debating whose number was right and started showing how each nu
 ## The point of view
 
 Analytics gets sold as a black box: a dashboard nobody can question and a cause nobody tested. Knowing how to check a number is not secret knowledge. A team can do it, and every leader reading the report is better served when it does.
+
+## Read the full write-up
+
+David wrote up how this runs in his own work in the case studies [Triangulating the AI Traffic Analytics Can't See](https://davidhluther.github.io/case-studies/ai-traffic-triangulation/) and [The Attribution Layer That Can't Write Back](https://davidhluther.github.io/case-studies/attribution-extract-layer/), on his portfolio.

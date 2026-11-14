@@ -35,3 +35,7 @@ The monthly packet stopped depending on one person's memory. Late or missing rep
 - Teaching, which is the point of the whole repository. Knowledge goes out free and complete, so a small organization does not have to pay someone to answer a simple question.
 
 This kit is one of several in the same repository, each built from tools David uses in his own work.
+
+## Read the full write-up
+
+David wrote up how this runs in his own work in the case study [The Authority Boundary](https://davidhluther.github.io/case-studies/authority-boundary/), on his portfolio.

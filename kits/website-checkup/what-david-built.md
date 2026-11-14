@@ -38,3 +38,7 @@ A business owner can find out in an afternoon how they look to a stranger, and g
 - Building small, safe tools. A Google [Apps Script](glossary.md#apps-script) check-up that never reads or reports cell contents, and read-only scripts that need no secrets.
 - Prioritization under limits. Impact, urgency, and effort sized for a one-person business.
 - Writing for a mixed audience, with a recruiter's skim and an owner's careful read in mind.
+
+## Read the full write-up
+
+David wrote up how this runs in his own work in the case study [The AEO Site-Readiness Playbook](https://davidhluther.github.io/case-studies/aeo-site-playbook/), on his portfolio.

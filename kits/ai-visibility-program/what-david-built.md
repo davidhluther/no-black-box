@@ -32,3 +32,7 @@ The conversation moved from "what is our score" to "which questions, which answe
 ## His point of view
 
 Much of this field is held in a black box, partly because it is complicated and partly because there is money in selling the answer back to you. David's view is that a team should be able to see how its numbers were made and decide for itself what to trust. The kit is that view in working form. If a team wants it fitted to its own platforms and reporting, he and Pigasus Group can do that, and the knowledge in the kit stays free.
+
+## Read the full write-up
+
+David wrote up how this runs in his own work in the case study [Measuring AI Visibility Without Fooling Yourself](https://davidhluther.github.io/case-studies/ai-visibility-measurement/), on his portfolio.

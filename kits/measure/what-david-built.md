@@ -36,3 +36,7 @@ Reports that once drew a "why did it drop?" question now answer it before it is 
 ## The point of view
 
 This is the same idea as the rest of the repository. Analytics gets sold as a black box, with a dashboard nobody can question and an expert who applies the same template everywhere. Knowing how to check a number is not secret knowledge. A small organization can do it, and it is better for everyone when it does.
+
+## Read the full write-up
+
+David wrote up how this runs in his own work in the case study [Evidence Engineering for a Field That Runs on Hype](https://davidhluther.github.io/case-studies/evidence-engineering/), on his portfolio.

@@ -33,13 +33,13 @@ Pick the need, open the page. Each start-here page says what you will have at th
 
 You run many pages through a CMS (content management system, the tool your team publishes pages with), pay for SEO and analytics platforms, and get asked "how do we know" by people who sign the budget. These five kits are the full versions built for that job: scheduled, multi-platform, and honest about what the data can and can't show.
 
-| What your team needs | Kit |
-|---|---|
-| Run AI visibility as a program across models, competitors, and citations | [AI visibility program](kits/ai-visibility-program/start-here.md) |
-| Ship briefs to published pages with quality and evidence gates | [Content engine](kits/content-engine/start-here.md) |
-| Find competitor, backlink, and cannibalization gaps | [Search and competitor gaps](kits/search-gaps/start-here.md) |
-| Answer "how do we know" across analytics, search, and AI-visibility platforms | [Measurement and exec reporting](kits/measurement-reporting/start-here.md) |
-| Keep scheduled jobs, handoffs, and shipped work from failing quietly | [Team operating discipline](kits/team-operations/start-here.md) |
+| What your team needs | Kit | How David runs it |
+|---|---|---|
+| Run AI visibility as a program across models, competitors, and citations | [AI visibility program](kits/ai-visibility-program/start-here.md) | [Measuring AI visibility](https://davidhluther.github.io/case-studies/ai-visibility-measurement/) |
+| Ship briefs to published pages with quality and evidence gates | [Content engine](kits/content-engine/start-here.md) | [A content engine built to earn citations](https://davidhluther.github.io/case-studies/content-engine/) |
+| Find competitor, backlink, and cannibalization gaps | [Search and competitor gaps](kits/search-gaps/start-here.md) | [Discoverability work](https://davidhluther.github.io/aeo/) |
+| Answer "how do we know" across analytics, search, and AI-visibility platforms | [Measurement and exec reporting](kits/measurement-reporting/start-here.md) | [Triangulating AI traffic](https://davidhluther.github.io/case-studies/ai-traffic-triangulation/) |
+| Keep scheduled jobs, handoffs, and shipped work from failing quietly | [Team operating discipline](kits/team-operations/start-here.md) | [Six domains, one operating system](https://davidhluther.github.io/case-studies/six-domains/) |
 
 These kits run in Claude Code and reuse the same skills as the small-business kits, set up for team scale. A smaller team can start with the free versions of [AI visibility check](kits/ai-visibility/start-here.md), [Idea to live post](kits/idea-to-post/start-here.md), [Website check-up](kits/website-checkup/start-here.md), or [Measure what matters](kits/measure/start-here.md).
 
@@ -75,7 +75,7 @@ Start at [pigasus.group/contact](https://pigasus.group/contact).
 
 ## Who made this
 
-David Luther built these kits from tools he made for his own work and for small organizations he has helped. Each kit has a page, "What David built," that tells the story in plain language:
+David Luther built these kits from tools he made for his own work and for small organizations he has helped. The longer write-ups of that work are on [his portfolio](https://davidhluther.github.io). Each kit has a page, "What David built," that tells the story in plain language:
 
 [Grants and giving](kits/grants/what-david-built.md) | [Board packet and minutes](kits/board-packet/what-david-built.md) | [Treasurer and books](kits/books/what-david-built.md) | [Plain writing](kits/plain-writing/what-david-built.md) | [Idea to live post](kits/idea-to-post/what-david-built.md) | [Website check-up](kits/website-checkup/what-david-built.md) | [AI visibility check](kits/ai-visibility/what-david-built.md) | [Customer-language research](kits/customer-research/what-david-built.md) | [Owner's numbers](kits/owners-numbers/what-david-built.md) | [Continuity kit](kits/continuity/what-david-built.md) | [Measure what matters](kits/measure/what-david-built.md) | [Civic voice](kits/civic-voice/what-david-built.md) | [Builder's toolkit](kits/builders-toolkit/what-david-built.md) | [Ad and social](kits/ad-and-social/what-david-built.md)
 

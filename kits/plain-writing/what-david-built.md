@@ -40,3 +40,7 @@ This kit is the public version. It leaves out the employer's own brand rules and
 - Writing for beginners. Defining each term where it first appears, and designing for someone who has never opened a [command line](glossary.md#command-line).
 
 David Luther built this as part of Pigasus Group's work to make tools like these open to organizations that can't afford a consultant for every question. See [start here](start-here.md) for what the kit does and how to use it.
+
+## Read the full write-up
+
+David wrote up how this runs in his own work in the case study [Governance as Code](https://davidhluther.github.io/case-studies/governance-as-code/), on his portfolio.
