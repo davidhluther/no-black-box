@@ -143,8 +143,8 @@ function bpMakePdfCopies() {
     var unmatchedOrder = minutes ? minutes.order - 0.5 : 98;
 
     var out = bpFolderByName_(month, BP_PDF_FOLDER) || month.createFolder(BP_PDF_FOLDER);
-    var old = out.getFiles();               // our own earlier copies only
-    while (old.hasNext()) { old.next().setTrashed(true); }
+    var old = [], oldIt = out.getFiles();   // our own earlier copies only; retired after the new ones exist
+    while (oldIt.hasNext()) { old.push(oldIt.next()); }
 
     var items = [], skipped = [];
     var files = month.getFiles();
@@ -162,8 +162,9 @@ function bpMakePdfCopies() {
       items.push({
         order: match ? match.order : unmatchedOrder,
         label: match ? match.name : name.replace(/\.[^.]+$/, ''),
-        inPacket: match ? match.inPacket : true,
+        inPacket: match ? (match.inPacket && match.active) : true,
         matched: !!match,
+        inactive: !!match && !match.active,
         blob: blob
       });
     }
@@ -177,8 +178,9 @@ function bpMakePdfCopies() {
       var fileName = prefix + it.label + '.pdf';
       it.blob.setName(fileName);
       out.createFile(it.blob);
-      lines.push([it.inPacket ? n : '', fileName, it.inPacket ? 'Yes' : 'No, share by its own link', it.matched ? 'Yes' : 'No, check the keyword']);
+      lines.push([it.inPacket ? n : '', fileName, it.inPacket ? 'Yes' : (it.inactive ? 'No, its report row is not active' : 'No, share by its own link'), it.matched ? 'Yes' : 'No, check the keyword']);
     });
+    old.forEach(function (f) { f.setTrashed(true); });
     skipped.forEach(function (nm) { lines.push(['', nm, 'Not converted (E22)', '']); });
     bpWriteLastRun_(lines);
 

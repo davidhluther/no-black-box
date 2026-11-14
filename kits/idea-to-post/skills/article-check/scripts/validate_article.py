@@ -272,6 +272,26 @@ def strip_embedded_markup(content):
     return "\n".join(out)
 
 
+def strip_code_fences(content):
+    """Blank the inside of fenced code blocks so code (a `# comment`, sample
+    text) is never read as a heading or prose. The fence lines stay, and a
+    ```json block (JSON-LD schema) is kept whole for the schema checks. Line
+    count is preserved so reported line numbers stay true.
+    """
+    out = []
+    fence = None  # None outside a block; else True to keep (json) or False to blank
+    for line in content.split("\n"):
+        stripped = line.strip()
+        if stripped.startswith("```"):
+            fence = stripped[3:].strip().lower().startswith("json") if fence is None else None
+            out.append(line)
+        elif fence is False:
+            out.append("")
+        else:
+            out.append(line)
+    return "\n".join(out)
+
+
 def get_lines(content):
     return content.split("\n")
 
@@ -1227,7 +1247,7 @@ def main():
 
     load_brand_rules(file_path, site)
 
-    content = strip_embedded_markup(load_file(file_path))
+    content = strip_code_fences(strip_embedded_markup(load_file(file_path)))
     lines = get_lines(content)
     result = ValidationResult()
 
@@ -2000,17 +2020,32 @@ def check_faq_schema_match(content, lines, result):
     if not BRAND_RULES.get("faq_schema_match"):
         return
     # 1) Extract FAQ section H3 questions (between the FAQ H2 and the schema/EOF).
-    faq_h2 = re.search(r"^##\s+.*(faq|frequently asked).*$", content, re.IGNORECASE | re.MULTILINE)
+    faq_h2 = re.search(r"^##\s+.*(faq|frequently asked|common questions).*$", content, re.IGNORECASE | re.MULTILINE)
     if not faq_h2:
         return  # check_faq_section already handles a missing FAQ section
     faq_region = content[faq_h2.end():]
     # Stop at the schema comment / code fence if present
     faq_region = re.split(r"<!--\s*FAQ Schema|```json", faq_region)[0]
+    # ...and at the next H2, so later H3s are not counted as FAQ questions
+    faq_region = re.split(r"^##\s", faq_region, flags=re.MULTILINE)[0]
     faq_questions = [m.strip() for m in re.findall(r"^###\s+(.+?)\s*$", faq_region, re.MULTILINE)]
 
-    # 2) Extract schema question names.
-    schema_match = re.search(r"```json\s*(\{.*?\})\s*```", content, re.DOTALL)
-    if not schema_match:
+    # 2) Extract schema question names from the JSON block whose @type is FAQPage.
+    schema = None
+    for block in re.findall(r"```json\s*(\{.*?\})\s*```", content, re.DOTALL):
+        try:
+            obj = json.loads(block)
+        except ValueError:
+            result.error(
+                "FAQ_SCHEMA",
+                "A JSON-LD block is not valid JSON. Fix the schema so it parses.",
+            )
+            return
+        t = obj.get("@type") if isinstance(obj, dict) else None
+        if t == "FAQPage" or (isinstance(t, list) and "FAQPage" in t):
+            schema = obj
+            break
+    if schema is None:
         if faq_questions:
             result.warn(
                 "FAQ_SCHEMA",
@@ -2019,12 +2054,11 @@ def check_faq_schema_match(content, lines, result):
             )
         return
     try:
-        schema = json.loads(schema_match.group(1))
         schema_questions = [q.get("name", "").strip() for q in schema.get("mainEntity", [])]
-    except (ValueError, AttributeError):
+    except (AttributeError, TypeError):
         result.error(
             "FAQ_SCHEMA",
-            "FAQPage JSON-LD block is not valid JSON. Fix the schema so it parses.",
+            "FAQPage JSON-LD block has a malformed mainEntity list. Fix the schema so each question has a name.",
         )
         return
 

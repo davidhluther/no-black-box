@@ -870,9 +870,11 @@ def main() -> int:
             print(f"sev{f.severity}  {f.kind:<20} {f.route}  [{f.viewport}/{f.theme}/"
                   f"{f.disclosures}]  {f.message}")
         print()
-        if not captures:
-            die("0 captures were taken across "
-                f"{len(cfg['routes'])} route(s) — nothing was measured")
+    # Checked even with --quiet: zero captures is never a pass.
+    if not captures:
+        die("0 captures were taken across "
+            f"{len(cfg['routes'])} route(s) — nothing was measured")
+    if not args.quiet:
         print(f"DESIGN GATE (mechanical) {verdict} — {sev1} severity-1, {sev2} severity-2 "
               f"across {len(captures)} captures of {len(cfg['routes'])} route(s).")
         print(f"  report:     {out_dir / 'report.json'}")

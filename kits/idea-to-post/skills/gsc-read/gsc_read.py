@@ -103,10 +103,12 @@ def _inputs(site, inspect_urls, env=None):
         raise InputError('inspection_limit')
     if any(not isinstance(v, str) for v in inspect_urls) or len(set(inspect_urls)) != len(inspect_urls):
         raise InputError('duplicate_or_invalid_inspection')
-    if site.startswith('sc-domain:'):
+    prefix = None
+    if site.startswith('sc-domain:'):  # a domain property covers the domain and its subdomains
         domain = site[len('sc-domain:'):]
-    else:  # a URL-prefix property such as https://www.example.org/
-        domain = (urlsplit(site).hostname or '')
+    else:  # a URL-prefix property covers only its own scheme, host and path
+        prefix = urlsplit(site)
+        domain = prefix.hostname or ''
     for value in inspect_urls:
         try:
             parsed = urlsplit(value)
@@ -115,7 +117,9 @@ def _inputs(site, inspect_urls, env=None):
                      and '\\' not in value and parsed.scheme in ('http', 'https')
                      and parsed.username is None and parsed.password is None and parsed.port is None
                      and not parsed.fragment and host is not None
-                     and (host == domain or host.endswith('.' + domain)))
+                     and (host == domain or (prefix is None and host.endswith('.' + domain)))
+                     and (prefix is None or (parsed.scheme == prefix.scheme
+                                             and parsed.path.startswith(prefix.path or '/'))))
         except ValueError:
             valid = False
         if not valid:

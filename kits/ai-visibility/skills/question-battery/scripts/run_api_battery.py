@@ -324,6 +324,10 @@ def run(args) -> int:
 
     run_id = args.run_id or date.today().strftime("%Y-%m")
     out_dir = base / "runs" / f"{run_id}-api"
+    if out_dir.exists() and not args.overwrite:
+        print(f"{out_dir} already exists, so a run with this ID was saved before. Pick a new --run-id, "
+              "or add --overwrite to replace it.", file=sys.stderr)
+        return 1
     (out_dir / "answers").mkdir(parents=True, exist_ok=True)
     draft_rows, exit_code = [], 0
     started = datetime.now().isoformat(timespec="seconds")
@@ -403,6 +407,7 @@ def main() -> int:
     ap.add_argument("--dry-run", action="store_true", help="check everything, send nothing")
     ap.add_argument("--yes", action="store_true", help="really send the questions")
     ap.add_argument("--allow-unfrozen", action="store_true")
+    ap.add_argument("--overwrite", action="store_true", help="replace an earlier run with the same run ID")
     ap.add_argument("--self-test", action="store_true")
     args = ap.parse_args()
     return self_test() if args.self_test else run(args)

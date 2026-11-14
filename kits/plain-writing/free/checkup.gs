@@ -113,8 +113,21 @@ function highlightBanned() {
       : total + ' match(es) highlighted in yellow. Rewrite each one with a plain word, then run "Clear highlights".');
 }
 
+// Clears only the check's own highlight color, so colors you set yourself stay.
 function clearHighlights() {
-  paint_(null);
+  var body = DocumentApp.getActiveDocument().getBody();
+  allPatterns_().forEach(function (item) {
+    var found = body.findText(item.pattern);
+    while (found) {
+      var text = found.getElement().asText();
+      for (var i = found.getStartOffset(); i <= found.getEndOffsetInclusive(); i++) {
+        if (String(text.getBackgroundColor(i) || '').toLowerCase() === HIGHLIGHT_COLOR) {
+          text.setBackgroundColor(i, i, null);
+        }
+      }
+      found = body.findText(item.pattern, found);
+    }
+  });
   DocumentApp.getUi().alert('Highlights cleared.');
 }
 

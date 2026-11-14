@@ -55,7 +55,7 @@ function fetchFeeds() {
         existing[it.link] = true;
         var id = 'F' + Utilities.formatDate(new Date(), 'UTC', 'yyMMddHHmmss') + '-' + (ideas.getLastRow() + 1);
         ideas.appendRow([id, Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'MM/dd/yyyy'),
-          it.title, name, it.link, '', '', 'New']);
+          literal_(it.title), name, literal_(it.link), '', '', 'New']);
         count++;
       });
       added += count;
@@ -106,4 +106,9 @@ function installWeeklyTrigger() {
   });
   ScriptApp.newTrigger('fetchFeeds').timeBased().onWeekDay(ScriptApp.WeekDay.MONDAY).atHour(7).create();
   SpreadsheetApp.getUi().alert('Done. The feeds will be fetched every Monday morning. Check the Log tab each week; a quiet Log means the schedule may have stopped.');
+}
+
+/** Keeps outside text as plain text: a leading =, +, - or @ would otherwise make a formula. */
+function literal_(v) {
+  return (typeof v === 'string' && /^[=+\-@]/.test(v)) ? "'" + v : v;
 }

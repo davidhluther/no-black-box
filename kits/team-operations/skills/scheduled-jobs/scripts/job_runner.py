@@ -157,7 +157,7 @@ def run_job(reg, name, slot, attempt):
                        cause="output-missing", evidence=f"expected {fill(out, slot)}\n{tail}"[:1500])
             return False
     m = re.findall(r"^RESULT:\s*(.+)$", proc.stdout, re.M)
-    summary = m[-1].strip() if m else "ran; no RESULT line printed"
+    summary = scrub(m[-1].strip()) if m else "ran; no RESULT line printed"
     append_row(reg, job=name, slot=slot, attempt=attempt, status="ok", summary=summary)
     return True
 

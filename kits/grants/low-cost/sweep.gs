@@ -91,35 +91,44 @@ function runWeeklySweep() {
   var sheet = tab_(ss, SWEEP.sweepTab, SWEEP_HEADERS);
   appendLog_(log, 'attempting', 'slot ' + today);
 
-  var existing = loadRows_(sheet);
-  var failed = [], found = 0, hits = [];
-  SWEEP.keywords.forEach(function (kw) {
-    try {
-      var res = UrlFetchApp.fetch('https://api.grants.gov/v1/api/search2', {
-        method: 'post',
-        contentType: 'application/json',
-        payload: JSON.stringify({ keyword: kw, oppStatuses: 'forecasted|posted', eligibilities: '12', rows: SWEEP.rowsPerSearch }),
-        muteHttpExceptions: true
-      });
-      var code = res.getResponseCode();
-      if (code !== 200) { throw new Error('Grants.gov answered with status ' + code); }
-      var body = JSON.parse(res.getContentText());
-      if (body.errorcode) { throw new Error('Grants.gov error ' + body.errorcode); }
-      var list = (body.data && body.data.oppHits) || [];
-      found += list.length;
-      hits = hits.concat(list);
-    } catch (e) {
-      failed.push(kw);
-      appendLog_(log, 'failed', 'search "' + kw + '": ' + String(e).slice(0, 200));
+  try {
+    var existing = loadRows_(sheet);
+    var failed = [], found = 0, hits = [];
+    SWEEP.keywords.forEach(function (kw) {
+      try {
+        var res = UrlFetchApp.fetch('https://api.grants.gov/v1/api/search2', {
+          method: 'post',
+          contentType: 'application/json',
+          payload: JSON.stringify({ keyword: kw, oppStatuses: 'forecasted|posted', eligibilities: '12', rows: SWEEP.rowsPerSearch }),
+          muteHttpExceptions: true
+        });
+        var code = res.getResponseCode();
+        if (code !== 200) { throw new Error('Grants.gov answered with status ' + code); }
+        var body = JSON.parse(res.getContentText());
+        if (body.errorcode) { throw new Error('Grants.gov error ' + body.errorcode); }
+        var list = (body.data && body.data.oppHits) || [];
+        found += list.length;
+        hits = hits.concat(list);
+      } catch (e) {
+        failed.push(kw);
+        appendLog_(log, 'failed', 'search "' + kw + '": ' + String(e).slice(0, 200));
+      }
+    });
+    var added = mergeCandidates_(existing, hits, today, SWEEP);
+    writeRows_(sheet, existing);
+    var outcome = failed.length === 0 ? 'done' : (failed.length === SWEEP.keywords.length ? 'failed' : 'partial');
+    appendLog_(log, outcome, 'found ' + found + ', new ' + added + ', failed searches ' + failed.length);
+    if (failed.length > 0) {
+      alert_(ss, 'Grants sweep ' + outcome, failed.length + ' of ' + SWEEP.keywords.length +
+        ' searches failed on ' + today + '. See the SweepLog tab. Nothing was lost; old results are still on the Sweep tab.');
     }
-  });
-  var added = mergeCandidates_(existing, hits, today, SWEEP);
-  writeRows_(sheet, existing);
-  var outcome = failed.length === 0 ? 'done' : (failed.length === SWEEP.keywords.length ? 'failed' : 'partial');
-  appendLog_(log, outcome, 'found ' + found + ', new ' + added + ', failed searches ' + failed.length);
-  if (failed.length > 0) {
-    alert_(ss, 'Grants sweep ' + outcome, failed.length + ' of ' + SWEEP.keywords.length +
-      ' searches failed on ' + today + '. See the SweepLog tab. Nothing was lost; old results are still on the Sweep tab.');
+  } catch (err) {
+    // Anything outside the per-search catch (reading or writing the tab, the alert) still
+    // leaves a failed line and an email, then stops the run so Executions shows it too.
+    appendLog_(log, 'failed', 'sweep stopped: ' + String(err).slice(0, 200));
+    alert_(ss, 'Grants sweep failed', 'The sweep stopped on ' + today + ': ' + String(err).slice(0, 200) +
+      '. See the SweepLog tab. Old results are still on the Sweep tab.');
+    throw err;
   }
 }
 
@@ -182,12 +191,19 @@ function writeRows_(sheet, rows) {
   var list = Object.keys(rows).map(function (k) { return rows[k]; })
     .sort(function (a, b) { return Number(b.score) - Number(a.score); });
   var last = sheet.getLastRow();
-  if (last >= 2) { sheet.getRange(2, 1, last - 1, SWEEP_HEADERS.length).clearContent(); }
-  if (!list.length) { return; }
   var values = list.map(function (r) {
-    return [r.key, r.agency, r.title, r.closes, r.link, r.score, r.tier, r.why, r.firstSeen, r.lastSeen, r.status];
+    return [r.key, literal_(r.agency), literal_(r.title), r.closes, r.link, r.score, r.tier, r.why, r.firstSeen, r.lastSeen, r.status];
   });
-  sheet.getRange(2, 1, values.length, SWEEP_HEADERS.length).setValues(values);
+  // Write first, then clear only leftover rows, so a failed write leaves the old results in place.
+  if (values.length) { sheet.getRange(2, 1, values.length, SWEEP_HEADERS.length).setValues(values); }
+  if (last >= values.length + 2) {
+    sheet.getRange(values.length + 2, 1, last - values.length - 1, SWEEP_HEADERS.length).clearContent();
+  }
+}
+
+/** Keeps outside text as plain text: a leading =, +, - or @ would otherwise make a formula. */
+function literal_(v) {
+  return (typeof v === 'string' && /^[=+\-@]/.test(v)) ? "'" + v : v;
 }
 
 function alert_(ss, subject, text) {

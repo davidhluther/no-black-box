@@ -24,6 +24,7 @@ import os
 import shutil
 import subprocess
 import sys
+import tempfile
 
 AUDIO_VIDEO = {
     ".mp3", ".m4a", ".wav", ".ogg", ".flac", ".aac", ".wma",
@@ -56,16 +57,20 @@ def main():
     out_dir = os.path.abspath(args.out_dir)
     final = os.path.join(out_dir, f"{args.date}_board_meeting_transcript.txt")
 
-    cmd = [
-        "whisper", audio,
-        "--model", args.model,
-        "--language", args.language,
-        "--output_format", "txt",
-        "--output_dir", out_dir,
-        # Stops Whisper getting stuck repeating itself after long silences.
-        "--condition_on_previous_text", "False",
-    ]
-    print("Command:", " ".join(cmd))
+    def whisper_cmd(work_dir):
+        return [
+            "whisper", audio,
+            "--model", args.model,
+            "--language", args.language,
+            "--output_format", "txt",
+            "--output_dir", work_dir,
+            # Stops Whisper getting stuck repeating itself after long silences.
+            "--condition_on_previous_text", "False",
+        ]
+
+    # Whisper writes into a fresh, empty working folder so it can never
+    # overwrite a file that already sits in the month folder.
+    print("Command:", " ".join(whisper_cmd(os.path.join(out_dir, "<new working folder>"))))
     if args.dry_run:
         print("Dry run only. Nothing was run.")
         return 0
@@ -81,13 +86,19 @@ def main():
         return 1
 
     os.makedirs(out_dir, exist_ok=True)
+    work_dir = tempfile.mkdtemp(prefix=".transcribe-", dir=out_dir)
     print("Working. A two-hour meeting can take 5 to 15 minutes or longer, depending on your computer.")
-    subprocess.run(cmd, check=True)
-    produced = os.path.join(out_dir, os.path.splitext(os.path.basename(audio))[0] + ".txt")
+    subprocess.run(whisper_cmd(work_dir), check=True)
+    produced = os.path.join(work_dir, os.path.splitext(os.path.basename(audio))[0] + ".txt")
     if not os.path.exists(produced):
-        print("E40: Whisper finished but no transcript file appeared.")
+        print(f"E40: Whisper finished but no transcript file appeared. Check {work_dir}.")
+        return 1
+    if os.path.exists(final):
+        print(f"E39: a transcript named {os.path.basename(final)} appeared while Whisper ran. "
+              f"Nothing was overwritten; the new transcript is in {work_dir}.")
         return 1
     os.rename(produced, final)
+    shutil.rmtree(work_dir, ignore_errors=True)
     words = len(open(final, encoding="utf-8", errors="replace").read().split())
     print(f"Saved {final} (about {words} words).")
     print("Next: copy it to your private transcripts folder, never a shared month folder.")

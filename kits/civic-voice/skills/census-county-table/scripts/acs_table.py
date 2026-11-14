@@ -68,6 +68,7 @@ DEFAULT_MEASURES = [
 ]
 
 MISSING_BELOW = -222222222  # the Census Bureau uses codes such as -666666666 for "no estimate"
+CONTROLLED_MOE = -555555555  # margin code for a controlled estimate: no sampling error, so zero
 
 
 class CensusError(Exception):
@@ -131,6 +132,16 @@ def num(x):
     return None if f <= MISSING_BELOW else f
 
 
+def moe_num(x):
+    """A margin of error, with the controlled-estimate code read as zero and other codes as missing."""
+    try:
+        if float(x) == CONTROLLED_MOE:
+            return 0.0
+    except (TypeError, ValueError):
+        pass
+    return num(x)
+
+
 def variables_for(measures):
     seen, out = set(), []
     for m in measures:
@@ -159,19 +170,23 @@ def fetch_geo(year, key, state_fips, geo_kind, measures, county_fips=None):
                 continue
             entry = result.setdefault(gid, {"NAME": d["NAME"], "cells": {}})
             for v in chunk:
-                entry["cells"][v] = (num(d[v + "E"]), num(d[v + "M"]))
+                entry["cells"][v] = (num(d[v + "E"]), moe_num(d[v + "M"]))
     return result
 
 
 def sum_est_moe(cells, vars_):
-    e, m2 = 0.0, 0.0
+    """Sum estimates and combine margins. A missing margin makes the combined margin missing, not zero."""
+    e, m2, moe_known = 0.0, 0.0, True
     for v in vars_:
         est, moe = cells.get(v, (None, None))
         if est is None:
             return None, None
         e += est
-        m2 += (moe or 0.0) ** 2
-    return e, math.sqrt(m2)
+        if moe is None:
+            moe_known = False
+        else:
+            m2 += moe ** 2
+    return e, (math.sqrt(m2) if moe_known else None)
 
 
 def prop_moe(x, mx, y, my):
@@ -197,9 +212,11 @@ def compute(m, cells):
         s, ms = sum_est_moe(cells, m["den_sub"])
         if y is None or s is None:
             return None, None
-        y, my = y - s, math.sqrt(my ** 2 + ms ** 2)
+        y, my = y - s, (None if my is None or ms is None else math.sqrt(my ** 2 + ms ** 2))
     if x is None or y is None:
         return None, None
+    if mx is None or my is None:  # share is known, its margin is not, so comparisons read "unclear"
+        return (x / y * 100 if y else None), None
     p, moe = prop_moe(x, mx, y, my)
     if p is None:
         return None, None

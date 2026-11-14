@@ -36,10 +36,16 @@ function psiRequest_(address) {
   var key = PropertiesService.getScriptProperties().getProperty('PAGESPEED_API_KEY');
   var url = PSI_URL + '?strategy=mobile&category=performance&url=' + encodeURIComponent(address);
   if (key) url += '&key=' + encodeURIComponent(key);
-  var response = UrlFetchApp.fetch(url, { muteHttpExceptions: true });
-  var code = response.getResponseCode();
-  if (code !== 200) return { error: 'HTTP ' + code };
-  var data = JSON.parse(response.getContentText());
+  var data;
+  try {
+    var response = UrlFetchApp.fetch(url, { muteHttpExceptions: true });
+    var code = response.getResponseCode();
+    if (code !== 200) return { error: 'HTTP ' + code };
+    data = JSON.parse(response.getContentText());
+  } catch (e) {
+    // A timeout, a network error or an unreadable answer. The message never carries the key.
+    return { error: safeMessage_(e) };
+  }
   var score = null;
   try { score = Math.round(data.lighthouseResult.categories.performance.score * 100); } catch (e) {}
   var field = (data.loadingExperience && data.loadingExperience.metrics) || {};
@@ -55,13 +61,27 @@ function psiRequest_(address) {
   };
 }
 
+function safeMessage_(e) {
+  return String((e && e.message) || e).replace(/https?:\/\/\S+/g, '(address)').slice(0, 200);
+}
+
 function pullSpeedNow() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
-  var pages = ss.getSheetByName('Pages');
   var monthly = ss.getSheetByName('Monthly');
-  var home = getSetting_(ss, 'site_url');
   var today = Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'MM/dd/yyyy');
   var month = Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'MM/yyyy');
+  try {
+    pullSpeed_(ss, monthly, today, month);
+  } catch (e) {
+    // Even a run that stops early leaves this month's failure on the Monthly tab.
+    monthly.appendRow([month, '', '', '', '', '', '', '', '', '', '', '', '', 'Speed pull stopped on ' + today + ': ' + safeMessage_(e)]);
+    throw e;
+  }
+}
+
+function pullSpeed_(ss, monthly, today, month) {
+  var pages = ss.getSheetByName('Pages');
+  var home = getSetting_(ss, 'site_url');
 
   // Addresses from the Pages tab, column A, from row 2 down.
   var last = pages.getLastRow();

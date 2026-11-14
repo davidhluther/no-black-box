@@ -14,7 +14,9 @@ Common options:
   --canon PATH                     style_rules.json override (defaults to the
                                    shared article-check canon)
   --out FILE.csv                   output (default: tell-scores.csv)
-  --store DIR                      cache dir for fetched HTML (idempotent)
+  --store DIR                      folder that keeps fetched HTML, one file per
+                                   full URL; live runs fetch fresh unless
+                                   --reuse-cache is given
 
 Gate mode (stream auditing / CI):
   --thresholds FILE.json           per-feature ceilings; any breach prints a
@@ -34,6 +36,7 @@ from __future__ import annotations
 import argparse
 import csv
 import glob
+import hashlib
 import json
 import re
 import sys
@@ -46,16 +49,17 @@ from tell_engine import load_canon, parse_html, parse_markdown, score_page  # no
 UA = "Mozilla/5.0 (Macintosh) shared-skills-tell-scorer (site-owner audit)"
 
 
-def fetch_urls(urls: list[str], store: Path, delay: float = 0.25) -> list[tuple[str, Path]]:
+def fetch_urls(urls: list[str], store: Path, delay: float = 0.25, reuse: bool = False) -> list[tuple[str, Path]]:
     import requests
     store.mkdir(parents=True, exist_ok=True)
     session = requests.Session()
     session.headers["User-Agent"] = UA
     out = []
     for n, url in enumerate(urls, 1):
+        # Keyed by the full URL, so /blog/a and /news/a never share a file.
         slug = url.rstrip("/").rsplit("/", 1)[-1] or f"page-{n}"
-        dest = store / f"{slug}.html"
-        if not (dest.exists() and dest.stat().st_size > 5_000):
+        dest = store / f"{slug[:60]}-{hashlib.sha256(url.encode()).hexdigest()[:16]}.html"
+        if not (reuse and dest.exists() and dest.stat().st_size > 5_000):
             try:
                 resp = session.get(url, timeout=30)
                 if resp.status_code == 200:
@@ -91,12 +95,15 @@ def main() -> int:
     ap.add_argument("--canon")
     ap.add_argument("--out", default="tell-scores.csv")
     ap.add_argument("--store", default=".tell-scorer-cache")
+    ap.add_argument("--reuse-cache", action="store_true",
+                    help="score pages already in --store instead of fetching them again")
     ap.add_argument("--thresholds")
     ap.add_argument("--max-age-days", type=int)
     args = ap.parse_args()
 
     canon = load_canon(args.canon)
     docs: list[tuple[str, dict]] = []  # (identifier, parsed doc)
+    missed = 0  # requested pages that could not be fetched
 
     if args.md_glob:
         for path in sorted(glob.glob(args.md_glob)):
@@ -108,7 +115,8 @@ def main() -> int:
             urls = (sitemap_urls(args.sitemap, args.include) if args.sitemap
                     else [u.strip() for u in Path(args.urls_file).read_text().splitlines() if u.strip()])
             print(f"{len(urls)} URLs to score")
-            pairs = fetch_urls(urls, Path(args.store))
+            pairs = fetch_urls(urls, Path(args.store), reuse=args.reuse_cache)
+            missed = len(urls) - len(pairs)
         for ident, path in pairs:
             docs.append((str(ident), parse_html(path.read_text(), args.selector)))
 
@@ -143,6 +151,10 @@ def main() -> int:
     print(f"scored {len(rows)} -> {out}")
     for ident, why in problems:
         print(f"  EXTRACTION PROBLEM {ident}: {why} — check --selector", file=sys.stderr)
+    # Every requested page must be scored; a partial run is not a clean run.
+    incomplete = bool(problems or missed)
+    if incomplete:
+        print(f"INCOMPLETE: {len(problems)} page(s) not extracted, {missed} not fetched", file=sys.stderr)
 
     if args.thresholds:
         tpath = Path(args.thresholds)
@@ -175,7 +187,7 @@ def main() -> int:
                 print(f"  FAIL {ident}: {feat} = {val} (ceiling {ceiling})")
             return 1
         print("\nGATE: clean" + (" (warnings above)" if warnings else ""))
-    return 0
+    return 1 if incomplete else 0
 
 
 if __name__ == "__main__":

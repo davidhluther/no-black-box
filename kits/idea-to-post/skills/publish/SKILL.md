@@ -16,7 +16,7 @@ Everything specific to one website lives in `sites/<site-id>.json`, and the shar
 The fields at a glance:
 
 - `origin`: the live site, such as `https://example.org`.
-- `blog`: where posts live (`post_path` such as `content/posts/{slug}.md`), the live address shape (`url` such as `/blog/{slug}`), optional `routes` that send some topics to a different path, and the page-title shape (`title_fields`, `title_suffixes`).
+- `blog`: where posts live (`post_path` such as `content/posts/{slug}.md`), the live address shape (`url` such as `/blog/{slug}`), optional `routes` that send some topics to a different path, optional `asset_paths` (the folders a post's images may live in; "merge N" refuses a pull request that touches anything else), and the page-title shape (`title_fields`, `title_suffixes`).
 - `publish`: how a post goes live. `kind` is `git_pr` (a pull request, meaning a proposed change that waits for review) or `cms`. `authority` is `merge_n` (the exact words "merge N" may publish) or `none`. Git sites also name the repository, the base branch, a branch prefix for post changes, and the deployment environment to confirm.
 - `checks`: which shared checks apply. `brand_rules` points the article checker at this site's rules (`@SKILLS/...` means a path inside this kit's skills folder; `@CWD/...` means your working folder). `tell_thresholds` and `copy_lint` point at the other quality gates.
 

@@ -45,10 +45,16 @@ import json
 import os
 import re
 import sys
+import tempfile
 import urllib.error
 import urllib.parse
 import urllib.request
 from pathlib import Path
+
+try:
+    import fcntl  # file locking; absent on Windows, where concurrent pulls are not guarded
+except ImportError:
+    fcntl = None
 
 API_URL = "https://www.clarity.ms/export-data/api/v1/project-live-insights"
 TOKEN_DIR = Path(os.environ.get("CLARITY_TOKEN_DIR", Path.home() / ".config/clarity"))
@@ -380,16 +386,33 @@ def write_series(out_dir: Path, project: str, record: dict) -> Path:
     out_dir.mkdir(parents=True, exist_ok=True)
     day = dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%d")
     path = out_dir / f"{project}-{day}.json"
-    existing = []
-    if path.exists():
-        try:
-            existing = json.loads(path.read_text())
+    # Hold a lock across read and write so two pulls at once cannot erase each other.
+    with open(out_dir / f"{project}-{day}.json.lock", "w") as lock:
+        if fcntl:
+            fcntl.flock(lock, fcntl.LOCK_EX)
+        existing = []
+        if path.exists():
+            try:
+                existing = json.loads(path.read_text())
+            except json.JSONDecodeError as e:
+                # Keep the unreadable file's bytes instead of overwriting earlier pulls.
+                aside = path.with_name(path.name + ".corrupt-" + dt.datetime.now(dt.timezone.utc).strftime("%H%M%S%f"))
+                os.replace(path, aside)
+                print(f"[warn] {path} was not valid JSON ({e}); moved it to {aside.name} "
+                      "and started a new file. Recover earlier pulls from it by hand.", file=sys.stderr)
+                existing = []
             if not isinstance(existing, list):
                 existing = [existing]
-        except json.JSONDecodeError:
-            existing = []
-    existing.append(record)
-    path.write_text(json.dumps(existing, indent=2))
+        existing.append(record)
+        # Write to a temp file and swap it in, so a crash mid-write cannot truncate earlier pulls.
+        fd, tmp = tempfile.mkstemp(dir=out_dir, prefix=f".{project}-{day}.", suffix=".tmp")
+        try:
+            with os.fdopen(fd, "w") as f:
+                f.write(json.dumps(existing, indent=2))
+            os.replace(tmp, path)
+        except BaseException:
+            Path(tmp).unlink(missing_ok=True)
+            raise
     return path
 
 

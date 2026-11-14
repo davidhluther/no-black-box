@@ -32,9 +32,13 @@ function saveCsvToDrive() {
       }).join(',');
     }).join('\n');
     var fileName = name.toLowerCase() + '.csv';
+    // Create the new file first, then retire the old copies, so a failed write never leaves no file.
+    var fresh = folder.createFile(fileName, csv, MimeType.CSV);
     var existing = folder.getFilesByName(fileName);
-    while (existing.hasNext()) existing.next().setTrashed(true);
-    folder.createFile(fileName, csv, MimeType.CSV);
+    while (existing.hasNext()) {
+      var old = existing.next();
+      if (old.getId() !== fresh.getId()) old.setTrashed(true);
+    }
     saved.push(fileName);
   });
   SpreadsheetApp.getUi().alert('Saved ' + saved.join(', ') + ' in the Drive folder "' + FOLDER_NAME + '".');

@@ -24,6 +24,7 @@ if not os.path.exists(final):
 age_min = (time.time() - os.path.getmtime(final)) / 60
 if age_min < a.quiet_min:
     print(f"NOT-STABLE {a.slug} changed {age_min:.1f} min ago (< {a.quiet_min})"); sys.exit(1)
+before = hashlib.sha256(open(final, "rb").read()).hexdigest()
 r = subprocess.run([sys.executable, a.validator, final], capture_output=True, text=True, cwd=a.repo)
 out = r.stdout + r.stderr
 m = re.search(r"(\d+)\s+errors?", out, re.I)
@@ -37,5 +38,9 @@ if errors is None:
     print(f"NOT-STABLE {a.slug} could not read validator error count (exit {r.returncode})"); sys.exit(1)
 if errors:
     print(f"NOT-STABLE {a.slug} validator reports {errors} errors"); sys.exit(1)
-sha = hashlib.sha256(open(final, "rb").read()).hexdigest()[:16]
-print(f"STABLE {a.slug} {sha}")
+if r.returncode != 0:
+    print(f"NOT-STABLE {a.slug} validator exited {r.returncode}"); sys.exit(1)
+sha = hashlib.sha256(open(final, "rb").read()).hexdigest()
+if sha != before:
+    print(f"NOT-STABLE {a.slug} final changed while it was being validated"); sys.exit(1)
+print(f"STABLE {a.slug} {sha[:16]}")

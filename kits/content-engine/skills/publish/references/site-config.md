@@ -45,6 +45,7 @@ One file per site in `../sites/`, named `<site-id>.json`. The loader (`scripts/s
 | `blog.source` | `git` for a repository, `cms` for a content management system. It must agree with `publish.kind` (`git_pr` goes with `git`, `cms` with `cms`). |
 | `blog.post_path` | Where a post file lives in the repository, with exactly one `{slug}`. Not used for a CMS site (set it to `null`). |
 | `blog.url` | The live address path with `{slug}`. It may use other frontmatter fields too, such as `/guides/{category}/{slug}`. Frontmatter is the settings block at the top of a post file. |
+| `blog.asset_paths` | Optional. Folders, each ending in `/`, where a post's images and other files may live, such as `public/images/blog/`. "merge N" refuses a pull request that changes any file outside the post path and these folders, or that changes no post. |
 | `blog.routes` | Optional. The first route whose frontmatter `field` holds `contains` (a list member such as a topic, or the exact value) wins; otherwise `url` is used. |
 | `blog.title_fields` | Frontmatter fields the page title comes from, tried in order. |
 | `blog.title_suffixes` | What your site adds after the title in the browser tab, such as ` | Example Org`. The live check accepts the bare title or the title plus any suffix. |

@@ -15,6 +15,7 @@ Safety rules built in:
   - Only the exact words "merge N" count, bound to that pull request and its full head SHA (the
     fingerprint of the last saved change). If the pull request changes after you approved it, nothing merges.
   - Every check on the pull request must have finished and passed.
+  - The pull request must change at least one post, and nothing outside the post path and the site's asset_paths.
   - One action record per site and pull request, created exclusively, stops a repeated message or a retry
     from merging twice. An uncertain merge is re-read from GitHub, never retried blindly.
   - Nothing is merged unless you pass --yes. Without it, `run` only reports whether the merge would go ahead.
@@ -96,7 +97,7 @@ def merge_site(site_id) -> site_registry.Site:
 
 def view(site, number, runner=subprocess.run) -> dict:
     return gh(["pr", "view", str(number), "--repo", site.repo, "--json",
-               "number,state,isDraft,baseRefName,headRefName,headRefOid,mergeCommit,statusCheckRollup,files,"
+               "number,state,isDraft,baseRefName,headRefName,headRefOid,mergeCommit,statusCheckRollup,files,changedFiles,"
                "isCrossRepository,headRepositoryOwner,title"],
               runner)
 
@@ -123,6 +124,21 @@ def check_ready(site, pr: dict) -> None:
         status = (check.get("status") or "COMPLETED").upper()
         if status != "COMPLETED" or result not in GOOD_CHECKS:
             raise Refused(f"PR {pr['number']} check {name} is {result.lower() or status.lower()}.")
+
+
+def check_scope(site, pr: dict) -> None:
+    """Refuse unless the pull request changes at least one post and nothing outside the post path and the
+    site's asset_paths, so a branch with the right prefix cannot carry unrelated files out through "merge N"."""
+    files = pr.get("files") or []
+    if len(files) != pr.get("changedFiles", len(files)):
+        raise Refused(f"PR {pr['number']} changes more files than GitHub lists; split it before publishing.")
+    if not posts(site, pr):
+        raise Refused(f"PR {pr['number']} changes no post under {site.blog['post_path']}; nothing to publish.")
+    pattern, assets = site.post_pattern(), site.blog.get("asset_paths", [])
+    outside = sorted(f.get("path", "") for f in files
+                     if not pattern.match(f.get("path", "")) and not f.get("path", "").startswith(tuple(assets)))
+    if outside:
+        raise Refused(f"PR {pr['number']} changes files outside the post and asset paths: {', '.join(outside[:5])}.")
 
 
 def posts(site, pr: dict) -> list[str]:
@@ -229,24 +245,20 @@ def frontmatter(site, slug, sha, runner=subprocess.run) -> dict:
 
 
 def production_state(site, sha, runner=subprocess.run) -> str:
-    """success when a Production deployment whose LATEST status is success contains the merge commit
-    (its own, or a later one that superseded it); otherwise the merge commit's own latest state."""
+    """The state of the LATEST Production deployment, judged only when its commit is the merge commit or a
+    later one that contains it; a latest deployment that predates the merge reads as absent. An older
+    success can never stand in for a newer deployment that failed or is still running."""
     env = site.publish["production_environment"]
-    recent = gh(["api", f"repos/{site.repo}/deployments?environment={env}&per_page=10"], runner) or []
-    own = None
-    for deployment in recent:
-        statuses = gh(["api", f"repos/{site.repo}/deployments/{deployment['id']}/statuses?per_page=1"], runner) or []
-        latest = statuses[0]["state"] if statuses else "pending"
-        if deployment.get("sha") == sha and own is None:
-            own = latest
-        if latest != "success":
-            continue
-        if deployment.get("sha") == sha:
-            return "success"
-        compare = gh(["api", f"repos/{site.repo}/compare/{sha}...{deployment['sha']}", "--jq", ".status"], runner)
-        if compare in ("ahead", "identical"):
-            return "success"
-    return own or "absent"
+    recent = gh(["api", f"repos/{site.repo}/deployments?environment={env}&per_page=1"], runner) or []
+    if not recent:
+        return "absent"
+    deployment = recent[0]
+    if deployment.get("sha") != sha:
+        compare = gh(["api", f"repos/{site.repo}/compare/{sha}...{deployment.get('sha')}", "--jq", ".status"], runner)
+        if compare not in ("ahead", "identical"):
+            return "absent"
+    statuses = gh(["api", f"repos/{site.repo}/deployments/{deployment['id']}/statuses?per_page=1"], runner) or []
+    return statuses[0]["state"] if statuses else "pending"
 
 
 def verify(record: Record, data: dict, runner=subprocess.run, opener=urllib.request.urlopen,
@@ -340,6 +352,7 @@ def run(site_id, approval_id, runner=subprocess.run, opener=urllib.request.urlop
                 return finish(record, runner, opener, wait, sleep)
         pr = view(site, number, runner)
         check_ready(site, pr)
+        check_scope(site, pr)
         if pr["headRefOid"] != bound_head:
             raise Refused(f"PR {number} changed after you approved it. Review the new version and send merge {number} again.")
         head_at = head_seen_at(site, bound_head, runner)

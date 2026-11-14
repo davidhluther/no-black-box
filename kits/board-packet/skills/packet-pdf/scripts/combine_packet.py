@@ -7,7 +7,8 @@ What it does
      LibreOffice (one at a time).
   3. Puts the PDFs in packet order using the reports list in config.json.
      Unmatched files go just before the minutes. Minutes always go last.
-  4. Drops truly blank pages (a page with no text and no large image).
+  4. Drops truly blank pages (no text, no image and no drawing on the page)
+     and lists every page it removed.
   5. Merges everything into one PDF.
   6. Prints which active reports were not found.
 
@@ -78,18 +79,27 @@ def match_report(filename, reports):
     return None
 
 
+# Content-stream operators that put something visible on the page.
+PAINT_OPS = {b"S", b"s", b"f", b"F", b"f*", b"B", b"B*", b"b", b"b*", b"sh", b"Do", b"BI",
+             b"INLINE IMAGE"}
+
+
 def is_blank_page(page):
-    """No text (a bare page number does not count) and no large image."""
+    """Verified empty: no text (a bare page number does not count), no image of
+    any size (a scan or a signature is an image), and no drawing. Anything we
+    cannot check counts as not blank, so the page is kept."""
     text = (page.extract_text() or "").strip()
     if text and not (text.isdigit() and len(text) <= 3):
         return False
     try:
         resources = page["/Resources"].get_object() if "/Resources" in page else {}
         xobjects = resources.get("/XObject")
-        if xobjects:
-            for obj in xobjects.get_object().values():
-                o = obj.get_object()
-                if o.get("/Width", 0) > 1000 or o.get("/Height", 0) > 1000:
+        if xobjects and len(xobjects.get_object()) > 0:
+            return False
+        contents = page.get_contents()
+        if contents is not None:
+            for _operands, op in contents.operations:
+                if op in PAINT_OPS:
                     return False
     except Exception:
         return False
@@ -99,12 +109,12 @@ def is_blank_page(page):
 def merge_with_pypdf(pdfs, out_path, strip_blank):
     from pypdf import PdfReader, PdfWriter
     writer = PdfWriter()
-    dropped = 0
+    dropped = []
     for pdf in pdfs:
         reader = PdfReader(pdf)
-        for page in reader.pages:
+        for num, page in enumerate(reader.pages, 1):
             if strip_blank and is_blank_page(page):
-                dropped += 1
+                dropped.append(f"{os.path.basename(pdf)} page {num}")
                 continue
             writer.add_page(page)
     with open(out_path, "wb") as fh:
@@ -186,7 +196,9 @@ def main():
         import pypdf  # noqa: F401
         dropped = merge_with_pypdf(ordered, combined_path, not args.keep_blank_pages)
         print(f"\nWrote {combined_path}")
-        print(f"Blank pages removed: {dropped}")
+        print(f"Blank pages removed: {len(dropped)}")
+        for d in dropped:
+            print(f"  - {d}  (check it; rerun with --keep-blank-pages to keep every page)")
     except ImportError:
         if shutil.which("pdfunite"):
             subprocess.run(["pdfunite", *ordered, combined_path], check=True)

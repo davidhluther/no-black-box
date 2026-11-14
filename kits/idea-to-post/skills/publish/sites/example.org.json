@@ -8,7 +8,8 @@
     "post_path": "content/posts/{slug}.md",
     "url": "/blog/{slug}",
     "title_fields": ["title"],
-    "title_suffixes": [" | Example Org"]
+    "title_suffixes": [" | Example Org"],
+    "asset_paths": ["public/images/blog/"]
   },
   "publish": {
     "kind": "git_pr",

@@ -25,7 +25,7 @@ REPO = re.compile(r"[A-Za-z0-9-]{1,39}/[A-Za-z0-9._-]{1,100}")
 FIELD = re.compile(r"\{([A-Za-z_][A-Za-z0-9_]*)\}")
 TOP = {"schema_version", "site_id", "entity", "origin", "blog", "publish", "checks"}
 BLOG = {"source", "post_path", "url", "title_fields", "title_suffixes"}
-BLOG_OPTIONAL = {"routes"}
+BLOG_OPTIONAL = {"routes", "asset_paths"}
 ROUTE = {"field", "contains", "url"}
 PUBLISH = {"kind", "authority", "repo", "base", "lane_prefix", "production_environment", "contract", "store"}
 KINDS = {"git_pr": "git", "cms": "cms"}
@@ -165,6 +165,11 @@ def validate(data: dict, site_id: str) -> Site:
         if not all(isinstance(route[k], str) and route[k].strip() for k in ("field", "contains")):
             raise ValueError("blog route field and contains must be text")
         _url_path(route["url"], "blog route url")
+    assets = blog.get("asset_paths", [])
+    if not isinstance(assets, list) or not all(
+            isinstance(a, str) and a.endswith("/") and not a.startswith("/") and ".." not in a.split("/") and a != "/"
+            for a in assets):
+        raise ValueError("blog asset_paths must be a list of relative folder paths ending in /")
     if (not isinstance(blog["title_fields"], list) or not blog["title_fields"]
             or not all(isinstance(t, str) and t for t in blog["title_fields"])
             or not isinstance(blog["title_suffixes"], list)

@@ -71,6 +71,17 @@ class ReadOnlyViolation(Exception):
     """Raised when code tries to do anything other than read."""
 
 
+class _NoRedirect(urllib.request.HTTPRedirectHandler):
+    """Never follow a redirect: it would skip the host and path checks in _send
+    and could carry the sign-in header to another address."""
+
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        raise ReadOnlyViolation(f"The server tried to redirect (HTTP {code}); redirects are never followed.")
+
+
+_OPENER = urllib.request.build_opener(_NoRedirect())
+
+
 # --------------------------------------------------------------------------
 # The single gate every network call passes through
 # --------------------------------------------------------------------------
@@ -94,7 +105,7 @@ def _send(method, url, headers=None, body=None):
     else:
         raise ReadOnlyViolation(f"{method} is never allowed. This tool only reads.")
     req = urllib.request.Request(url, data=body, method=method, headers=headers or {})
-    with urllib.request.urlopen(req, timeout=60) as resp:
+    with _OPENER.open(req, timeout=60) as resp:
         return json.load(resp)
 
 
@@ -152,10 +163,23 @@ def _save_token(new_refresh, seeded_from):
         f.parent.mkdir(parents=True, exist_ok=True)
         payload = json.dumps({"refresh_token": new_refresh, "seeded_from": seeded_from,
                               "saved_at": datetime.datetime.now().isoformat(timespec="seconds")})
-        fd = os.open(str(f), os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600)
-        with os.fdopen(fd, "w") as fh:
-            fh.write(payload)
-        os.chmod(str(f), 0o600)
+        # Write a private temp file next to the real one, then swap it in, so a
+        # failed write never destroys the only copy of the refresh token.
+        tmp = f.with_name(f.name + f".tmp{os.getpid()}")
+        fd = os.open(str(tmp), os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600)
+        try:
+            with os.fdopen(fd, "w") as fh:
+                fh.write(payload)
+                fh.flush()
+                os.fsync(fh.fileno())
+            os.chmod(str(tmp), 0o600)
+            os.replace(str(tmp), str(f))
+        except OSError:
+            try:
+                tmp.unlink()
+            except OSError:
+                pass
+            raise
     except OSError:
         print("Warning: could not save the newest token. The next run may need a fresh token. Fix code E33.", file=sys.stderr)
 
@@ -416,12 +440,16 @@ def cmd_selftest(_a):
     expect_block("GET to a write path (invoice)", lambda: _send("GET", API_HOSTS["production"] + "/v3/company/123/invoice"))
     expect_block("query that is not SELECT", lambda: check_select("delete from Invoice"))
     expect_block("GET query that is not SELECT", lambda: _send("GET", API_HOSTS["production"] + "/v3/company/123/query?query=delete+from+Invoice"))
+    expect_block("a redirect to another address", lambda: _NoRedirect().redirect_request(
+        None, None, 302, "Found", {}, "https://example.org/steal"))
     tree = ast.parse(pathlib.Path(__file__).read_text())
     counts = {"urlopen": 0, "Request": 0}
     for node in ast.walk(tree):
         if isinstance(node, ast.Call):
             fn = node.func
             name = fn.attr if isinstance(fn, ast.Attribute) else getattr(fn, "id", "")
+            if isinstance(fn, ast.Attribute) and name == "open" and getattr(fn.value, "id", "") == "_OPENER":
+                name = "urlopen"  # the one network call goes through the no-redirect opener
             if name in counts:
                 counts[name] += 1
     if counts == {"urlopen": 1, "Request": 1}:

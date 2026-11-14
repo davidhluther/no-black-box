@@ -60,6 +60,15 @@ def num(s, default=0.0):
         return default
 
 
+def check_numbers(rows, cols, fname):
+    """Stop on a number the script cannot read; a blank cell may stay blank."""
+    for i, r in enumerate(rows, start=2):
+        for c in cols:
+            v = (r.get(c) or "").strip()
+            if v and num(v, None) is None:
+                raise SystemExit(f"E26 {fname} row {i}: could not read {c} {v!r} as a number. See fixes.md.")
+
+
 def prior_month(start: dt.date):
     end = start - dt.timedelta(days=1)
     return end.replace(day=1), end
@@ -88,6 +97,12 @@ def build(data_dir: Path) -> dict:
     bank = read_csv(data_dir / "bank.csv", ["date", "amount", "category"])
     book = read_csv(data_dir / "bookings.csv", ["date", "status", "client_id", "booked_minutes"], optional=True)
     settings = {r["name"]: (r.get("value") or "").strip() for r in read_csv(data_dir / "settings.csv", ["name", "value"])}
+    check_numbers(sales, ["net_sales", "quantity"], "sales.csv")
+    check_numbers(bank, ["amount"], "bank.csv")
+    check_numbers(book, ["booked_minutes", "price"], "bookings.csv")
+    for key in ("cash_on_hand", "prior_cash_on_hand"):
+        if settings.get(key) and num(settings[key], None) is None:
+            raise SystemExit(f"E26 settings.csv: could not read {key} {settings[key]!r} as a number. See fixes.md.")
     start, end = d(settings["month_start"]), d(settings["month_end"])
     pstart, pend = prior_month(start)
 

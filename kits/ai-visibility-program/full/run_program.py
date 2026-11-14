@@ -73,27 +73,30 @@ def append_ledger(base, row):
 
 
 def alert(cfg, lines):
+    """Print the alert and post it. Returns True only when the post succeeded."""
     text = "AI visibility program\n" + "\n".join(lines)
     print(text)
     env_name = (cfg["program"].get("alert") or {}).get("webhook_env", "PROGRAM_ALERT_WEBHOOK")
     url = os.environ.get(env_name, "")
     if not url:
         print("(No alert sent: %s is not set. See E48 in fixes.md.)" % env_name)
-        return
+        return False
     try:
         req = urllib.request.Request(url, data=json.dumps({"text": text}).encode("utf-8"),
                                      headers={"Content-Type": "application/json"})
         urllib.request.urlopen(req, timeout=20).read()
         print("(Alert posted.)")
+        return True
     except Exception as exc:  # the alert must never hide the original failure
         print("(Alert could not be posted: %s. See E48 in fixes.md.)" % type(exc).__name__)
+        return False
 
 
 def site_dir(base, site):
     return (base / site["config_file"]).resolve().parent
 
 
-def run_site(base, cfg, site, slot, dry_run):
+def run_site(base, cfg, site, slot, dry_run, force=False):
     prog = cfg["program"]
     attempts = int(prog.get("max_attempts", 2))
     wait = int(prog.get("retry_wait_minutes", 30)) * 60
@@ -102,6 +105,8 @@ def run_site(base, cfg, site, slot, dry_run):
     if cfg.get("providers"):
         cmd += ["--providers", ",".join(cfg["providers"])]
     cmd += ["--dry-run"] if dry_run else ["--yes"]
+    if force and not dry_run:
+        cmd += ["--overwrite"]  # --force means redo the slot; the runner refuses otherwise
     sdir = site_dir(base, site)
     (base / "logs").mkdir(exist_ok=True)
     for n in range(1, attempts + 1):
@@ -150,12 +155,12 @@ def cmd_run(args, base, cfg):
                   "Move that run folder aside yourself first." % (site.get("id"), slot))
             failed.append(site.get("id", "?"))
             continue
-        done = any(r["slot"] == slot and r["site"] == site["id"] and r["status"] == "ok" for r in ledger)
+        done = latest_outcome(ledger, slot, site["id"]) == "ok"
         if done and not args.force and not args.dry_run:
             print("%s: slot %s already has a good run; skipping (use --force to redo)." % (site["id"], slot))
             continue
         try:
-            ok = run_site(base, cfg, site, slot, args.dry_run)
+            ok = run_site(base, cfg, site, slot, args.dry_run, args.force)
         except Exception as exc:  # one bad site must not hide the rest
             print("%s: could not run (%s: %s)" % (site.get("id", "?"), type(exc).__name__, exc))
             append_ledger(base, {"slot": slot, "site": site.get("id", "?"), "attempt": 0,
@@ -173,6 +178,14 @@ def cmd_run(args, base, cfg):
     return 1 if failed else 0
 
 
+def latest_outcome(ledger, slot, site_id):
+    """Status of the most recent real attempt (ok or failed) for this site and
+    slot, or None. A later failed --force run outranks an earlier ok row."""
+    mine = [r["status"] for r in ledger if r["slot"] == slot and r["site"] == site_id
+            and r["status"] in ("ok", "failed")]
+    return mine[-1] if mine else None
+
+
 def problems(base, cfg, today):
     prog = cfg["program"]
     slot = today.strftime("%Y-%m")
@@ -183,10 +196,9 @@ def problems(base, cfg, today):
     for site in cfg["sites"]:
         mine = [r for r in ledger if r["slot"] == slot and r["site"] == site["id"]
                 and r["status"] in ("ok", "failed")]
-        good = [r for r in mine if r["status"] == "ok"]
-        if good:
+        if mine and mine[-1]["status"] == "ok":
             run_dir = site_dir(base, site) / "runs" / ("%s-api" % slot)
-            age = (datetime.now() - datetime.fromisoformat(good[-1]["finished"])).days
+            age = (datetime.now() - datetime.fromisoformat(mine[-1]["finished"])).days
             if not (run_dir / "scored.csv").is_file() and age >= review_days:
                 state = "NEEDS REVIEW (scored.csv missing %d days after the run)" % age
                 bad.append("%s: %s" % (site["id"], state))
@@ -206,8 +218,7 @@ def problems(base, cfg, today):
 
 def cmd_check(args, base, cfg, notify=True):
     if args.test_alert:
-        alert(cfg, ["This is a test alert. Nothing is wrong."])
-        return 0
+        return 0 if alert(cfg, ["This is a test alert. Nothing is wrong."]) else 1
     today = date.fromisoformat(args.today) if args.today else date.today()
     slot, rows, bad = problems(base, cfg, today)
     print("Slot %s" % slot)

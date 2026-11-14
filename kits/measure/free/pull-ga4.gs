@@ -3,7 +3,7 @@
  * Read-only. Needs the "Google Analytics Data API" advanced service switched on:
  *   Apps Script editor > Services (the + beside "Services") > Google Analytics Data API > Add.
  * Config tab: ga4_property_id (digits only, from GA4 Admin > Property details).
- * Writes monthly totals to "Monthly traffic" (it adds a new row; fill search columns with the Search Console pull)
+ * Writes monthly totals to "Monthly traffic" (one row per month; a rerun updates only the GA4 columns)
  * and AI sources to "AI referrals". The AI rows rely on a custom channel group; see the setup guide.
  * Not tested against a live account when this kit was written. See fixes.md E12.
  */
@@ -28,7 +28,7 @@ function pullGa4LastMonth() {
     dimensionFilter: {filter: {fieldName: 'sessionDefaultChannelGroup', stringFilter: {matchType: 'EXACT', value: 'Organic Search'}}}
   }, property);
   var m = (organic.rows && organic.rows[0]) ? organic.rows[0].metricValues.map(function (v) { return Number(v.value); }) : ['', '', '', ''];
-  ss.getSheetByName('Monthly traffic').appendRow([start, m[0], m[1], m[2], m[3], '', '', '', '', end]);
+  upsertTrafficGa4_(ss.getSheetByName('Monthly traffic'), start, {2: m[0], 3: m[1], 4: m[2], 5: m[3], 10: end}, tz);
 
   // AI sources by referring site.
   var ai = AnalyticsData.Properties.runReport({
@@ -39,10 +39,45 @@ function pullGa4LastMonth() {
     limit: 50
   }, property);
   var sheet = ss.getSheetByName('AI referrals');
-  (ai.rows || []).forEach(function (r) {
-    sheet.appendRow([start, r.dimensionValues[0].value, Number(r.metricValues[0].value), Number(r.metricValues[1].value), Number(r.metricValues[2].value), 'floor, not total']);
+  replaceMonthGa4_(sheet, start, (ai.rows || []).map(function (r) {
+    return [start, r.dimensionValues[0].value, Number(r.metricValues[0].value), Number(r.metricValues[1].value), Number(r.metricValues[2].value), 'floor, not total'];
+  }), [], tz);
+  SpreadsheetApp.getUi().alert('Wrote GA4 rows for ' + start + ' to ' + end + '.');
+}
+
+// Rerunning a month replaces that month's rows instead of adding a second copy.
+function monthKeyGa4_(v, tz) {
+  return (v instanceof Date) ? Utilities.formatDate(v, tz, 'yyyy-MM-dd') : String(v).trim();
+}
+
+// Monthly traffic: one row per month. Sets only this pull's columns (1-based col to value), creating the row if needed.
+function upsertTrafficGa4_(sheet, month, cols, tz) {
+  var rows = sheet.getDataRange().getValues();
+  var at = -1;
+  for (var i = 1; i < rows.length; i++) { if (monthKeyGa4_(rows[i][0], tz) === month) { at = i + 1; break; } }
+  if (at < 0) {
+    var blank = ['', '', '', '', '', '', '', '', '', ''];
+    blank[0] = month;
+    sheet.appendRow(blank);
+    at = sheet.getLastRow();
+  }
+  Object.keys(cols).forEach(function (c) { sheet.getRange(at, Number(c)).setValue(cols[c]); });
+}
+
+// Write this month's new rows first, then retire the old ones. Values in keepCols (0-based) that a person
+// typed on an old row with the same key (column B) carry over when the new row leaves them blank.
+function replaceMonthGa4_(sheet, month, fresh, keepCols, tz) {
+  var rows = sheet.getDataRange().getValues();
+  var old = [], kept = {};
+  for (var i = 1; i < rows.length; i++) {
+    if (monthKeyGa4_(rows[i][0], tz) === month) { old.push(i + 1); kept[String(rows[i][1])] = rows[i]; }
+  }
+  fresh.forEach(function (row) {
+    var prev = kept[String(row[1])];
+    if (prev) { keepCols.forEach(function (c) { if (row[c] === '') { row[c] = prev[c]; } }); }
+    sheet.appendRow(row);
   });
-  SpreadsheetApp.getUi().alert('Added GA4 rows for ' + start + ' to ' + end + '.');
+  for (var j = old.length - 1; j >= 0; j--) { sheet.deleteRow(old[j]); }
 }
 
 function readConfigGa4_(ss, key) {

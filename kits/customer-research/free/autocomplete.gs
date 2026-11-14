@@ -88,7 +88,7 @@ function runPull_(scheduled) {
               // Keep only plausible search phrases, never anything that looks like a link or code.
               if (clean && clean.length < 120 && !/https?:|<|>|\{|\}/.test(clean) && !existing[seed + '|' + clean]) {
                 existing[seed + '|' + clean] = true;
-                added.push([today, seed, clean, '']);
+                added.push([today, seed, literal_(clean), '']);
               }
             });
           } else {
@@ -129,4 +129,9 @@ function removeMonthlyTrigger() {
   ScriptApp.getProjectTriggers().forEach(function (t) {
     if (t.getHandlerFunction() === 'pullSuggestionsScheduled') { ScriptApp.deleteTrigger(t); }
   });
+}
+
+/** Keeps outside text as plain text: a leading =, +, - or @ would otherwise make a formula. */
+function literal_(v) {
+  return (typeof v === 'string' && /^[=+\-@]/.test(v)) ? "'" + v : v;
 }
