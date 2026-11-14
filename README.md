@@ -1,12 +1,17 @@
 # No Black Box
 
-Free, plainly written kits for small businesses, nonprofits, and in-house marketing teams.
+Free, plainly written kits in two sets. One is for small businesses, nonprofits, and civic groups. The other is for in-house marketing and SEO teams.
 
 So much of how technology and business works is kept in a black box. Part of that is real complexity. Part of it is that people profit from holding the knowledge and selling it back to you. The internet was supposed to be a web of sharing, and it has turned into a commercial utility, like the power company. You end up buying something that doesn't fit because the seller offers the same thing to everyone, or you hire an expert who applies the same template to every customer.
 
 There is no reason a hair salon or a small food bank should pay someone to answer simple questions about the technology that serves their people. When they can't afford the answers, they help fewer people, and some never learn the tools exist. These kits explain things in simple terms and give you the complete method. Nothing is held back to sell you something.
 
-## What do you need?
+The repo holds two kinds of kits:
+
+- **[Kits for small businesses, nonprofits, and civic groups](#kits-for-small-businesses-nonprofits-and-civic-groups).** There are 14 of these. Most start with a free version of paste-in prompts and Google templates that needs no install.
+- **[Kits for in-house marketing and SEO teams](#for-in-house-marketing-and-seo-teams).** These five are the full versions David runs for B2B teams that publish through a CMS (content management system), pay for SEO and analytics platforms, and report to leaders. They run in Claude Code.
+
+## Kits for small businesses, nonprofits, and civic groups
 
 Pick the need, open the page. Each start-here page says what you will have at the end.
 
