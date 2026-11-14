@@ -126,17 +126,26 @@ def check_ready(site, pr: dict) -> None:
             raise Refused(f"PR {pr['number']} check {name} is {result.lower() or status.lower()}.")
 
 
-def check_scope(site, pr: dict) -> None:
+def check_scope(site, pr: dict, runner=subprocess.run) -> None:
     """Refuse unless the pull request changes at least one post and nothing outside the post path and the
-    site's asset_paths, so a branch with the right prefix cannot carry unrelated files out through "merge N"."""
+    site's asset_paths, so a branch with the right prefix cannot carry unrelated files out through "merge N".
+    Renames and removals count by both paths: moving a file out of scope into posts is still out of scope."""
     files = pr.get("files") or []
-    if len(files) != pr.get("changedFiles", len(files)):
+    if "changedFiles" not in pr or len(files) != pr["changedFiles"]:
         raise Refused(f"PR {pr['number']} changes more files than GitHub lists; split it before publishing.")
     if not posts(site, pr):
         raise Refused(f"PR {pr['number']} changes no post under {site.blog['post_path']}; nothing to publish.")
-    pattern, assets = site.post_pattern(), site.blog.get("asset_paths", [])
-    outside = sorted(f.get("path", "") for f in files
-                     if not pattern.match(f.get("path", "")) and not f.get("path", "").startswith(tuple(assets)))
+    pattern, assets = site.post_pattern(), tuple(site.blog.get("asset_paths", []))
+
+    def in_scope(path):
+        return bool(path) and (bool(pattern.match(path)) or path.startswith(assets))
+
+    raw = gh(["api", f"repos/{site.repo}/pulls/{int(pr['number'])}/files?per_page=100", "--paginate",
+              "--jq", '.[] | [.filename, .status, (.previous_filename // "")]'], runner)
+    rows = [json.loads(line) for line in (raw if isinstance(raw, str) else json.dumps(raw)).splitlines() if line.strip()]
+    if len(rows) != pr["changedFiles"]:
+        raise Refused(f"PR {pr['number']}: GitHub's file list did not match its file count; nothing was merged.")
+    outside = sorted({p for name, _status, prev in rows for p in (name, prev) if p and not in_scope(p)})
     if outside:
         raise Refused(f"PR {pr['number']} changes files outside the post and asset paths: {', '.join(outside[:5])}.")
 
@@ -352,7 +361,7 @@ def run(site_id, approval_id, runner=subprocess.run, opener=urllib.request.urlop
                 return finish(record, runner, opener, wait, sleep)
         pr = view(site, number, runner)
         check_ready(site, pr)
-        check_scope(site, pr)
+        check_scope(site, pr, runner)
         if pr["headRefOid"] != bound_head:
             raise Refused(f"PR {number} changed after you approved it. Review the new version and send merge {number} again.")
         head_at = head_seen_at(site, bound_head, runner)
