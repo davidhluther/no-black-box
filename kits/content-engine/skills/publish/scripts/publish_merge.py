@@ -145,7 +145,11 @@ def check_scope(site, pr: dict, runner=subprocess.run) -> None:
     rows = [json.loads(line) for line in (raw if isinstance(raw, str) else json.dumps(raw)).splitlines() if line.strip()]
     if len(rows) != pr["changedFiles"]:
         raise Refused(f"PR {pr['number']}: GitHub's file list did not match its file count; nothing was merged.")
-    outside = sorted({p for name, _status, prev in rows for p in (name, prev) if p and not in_scope(p)})
+    # The file list must describe the same head that was checked and will be merged.
+    if view(site, pr["number"], runner).get("headRefOid") != pr["headRefOid"]:
+        raise Refused(f"PR {pr['number']} changed while its files were being checked; nothing was merged.")
+    paths = [(f.get("path", ""), "") for f in files] + [(name, prev) for name, _status, prev in rows]
+    outside = sorted({p for name, prev in paths for p in (name, prev) if p and not in_scope(p)})
     if outside:
         raise Refused(f"PR {pr['number']} changes files outside the post and asset paths: {', '.join(outside[:5])}.")
 
@@ -361,9 +365,9 @@ def run(site_id, approval_id, runner=subprocess.run, opener=urllib.request.urlop
                 return finish(record, runner, opener, wait, sleep)
         pr = view(site, number, runner)
         check_ready(site, pr)
-        check_scope(site, pr, runner)
         if pr["headRefOid"] != bound_head:
             raise Refused(f"PR {number} changed after you approved it. Review the new version and send merge {number} again.")
+        check_scope(site, pr, runner)
         head_at = head_seen_at(site, bound_head, runner)
         if head_at is None or head_at > said_at:
             raise Refused(f"PR {number}'s head was not on GitHub before your approval; nothing was merged.")
