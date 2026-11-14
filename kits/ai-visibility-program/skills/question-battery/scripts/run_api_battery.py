@@ -324,11 +324,20 @@ def run(args) -> int:
 
     run_id = args.run_id or date.today().strftime("%Y-%m")
     out_dir = base / "runs" / f"{run_id}-api"
-    if out_dir.exists() and not args.overwrite:
-        print(f"{out_dir} already exists, so a run with this ID was saved before. Pick a new --run-id, "
-              "or add --overwrite to replace it.", file=sys.stderr)
+    out_dir.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        out_dir.mkdir()  # atomic claim: only one run can create this ID
+    except FileExistsError:
+        if not args.overwrite:
+            print(f"{out_dir} already exists, so a run with this ID was saved before. Pick a new --run-id, "
+                  "or add --overwrite to replace it.", file=sys.stderr)
+            return 1
+    run_lock = open(out_dir / ".run.lock", "a+")
+    if not lock_run(run_lock):
+        print(f"Another run is using {out_dir} right now. Wait for it to finish or pick a new --run-id.",
+              file=sys.stderr)
         return 1
-    (out_dir / "answers").mkdir(parents=True, exist_ok=True)
+    (out_dir / "answers").mkdir(exist_ok=True)
     draft_rows, exit_code = [], 0
     started = datetime.now().isoformat(timespec="seconds")
     for provider, model in plan:
@@ -398,6 +407,23 @@ def self_test() -> int:
     print("self-test passed (parsers checked against the response shapes in vendor docs, not live calls)")
     return 0
 
+
+
+def lock_run(handle) -> bool:
+    """Hold an exclusive, non-blocking lock on a run directory for this process's lifetime."""
+    try:
+        import fcntl
+        fcntl.flock(handle, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        return True
+    except ImportError:
+        import msvcrt
+        try:
+            msvcrt.locking(handle.fileno(), msvcrt.LK_NBLCK, 1)
+            return True
+        except OSError:
+            return False
+    except OSError:
+        return False
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)

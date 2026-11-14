@@ -141,7 +141,7 @@ def check_scope(site, pr: dict, runner=subprocess.run) -> None:
         return bool(path) and (bool(pattern.match(path)) or path.startswith(assets))
 
     raw = gh(["api", f"repos/{site.repo}/pulls/{int(pr['number'])}/files?per_page=100", "--paginate",
-              "--jq", '.[] | [.filename, .status, (.previous_filename // "")]'], runner)
+              "--jq", '.[] | [.filename, .status, (.previous_filename // "")] | @json'], runner)
     rows = [json.loads(line) for line in (raw if isinstance(raw, str) else json.dumps(raw)).splitlines() if line.strip()]
     if len(rows) != pr["changedFiles"]:
         raise Refused(f"PR {pr['number']}: GitHub's file list did not match its file count; nothing was merged.")

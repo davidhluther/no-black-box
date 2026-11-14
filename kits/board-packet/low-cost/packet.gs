@@ -162,7 +162,7 @@ function bpMakePdfCopies() {
       items.push({
         order: match ? match.order : unmatchedOrder,
         label: match ? match.name : name.replace(/\.[^.]+$/, ''),
-        inPacket: match ? (match.inPacket && match.active) : true,
+        inPacket: match ? (match.inPacket && match.active) : false,  // unmatched files stay out until a report row claims them
         matched: !!match,
         inactive: !!match && !match.active,
         blob: blob
@@ -178,7 +178,7 @@ function bpMakePdfCopies() {
       var fileName = prefix + it.label + '.pdf';
       it.blob.setName(fileName);
       out.createFile(it.blob);
-      lines.push([it.inPacket ? n : '', fileName, it.inPacket ? 'Yes' : (it.inactive ? 'No, its report row is not active' : 'No, share by its own link'), it.matched ? 'Yes' : 'No, check the keyword']);
+      lines.push([it.inPacket ? n : '', fileName, it.inPacket ? 'Yes' : (it.inactive ? 'No, its report row is not active' : (it.matched ? 'No, share by its own link' : 'No, no report row matches it')), it.matched ? 'Yes' : 'No, check the keyword']);
     });
     old.forEach(function (f) { f.setTrashed(true); });
     skipped.forEach(function (nm) { lines.push(['', nm, 'Not converted (E22)', '']); });

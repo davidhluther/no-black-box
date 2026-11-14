@@ -93,11 +93,13 @@ def main():
     if not os.path.exists(produced):
         print(f"E40: Whisper finished but no transcript file appeared. Check {work_dir}.")
         return 1
-    if os.path.exists(final):
+    try:  # "x" creates the file only if it does not exist, so nothing is ever replaced
+        with open(produced, "rb") as src, open(final, "xb") as dst:
+            shutil.copyfileobj(src, dst)
+    except FileExistsError:
         print(f"E39: a transcript named {os.path.basename(final)} appeared while Whisper ran. "
               f"Nothing was overwritten; the new transcript is in {work_dir}.")
         return 1
-    os.rename(produced, final)
     shutil.rmtree(work_dir, ignore_errors=True)
     words = len(open(final, encoding="utf-8", errors="replace").read().split())
     print(f"Saved {final} (about {words} words).")

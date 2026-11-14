@@ -835,6 +835,8 @@ def main() -> int:
     sev1 = sum(1 for f in findings if f.severity == 1)
     sev2 = sum(1 for f in findings if f.severity == 2)
     verdict = "FAIL" if sev1 else ("WARN" if sev2 else "PASS")
+    if not captures:
+        verdict = "FAIL"  # zero captures is never a pass, and report.json must say so
 
     report = {
         "schema": SCHEMA,
