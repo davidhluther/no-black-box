@@ -4,6 +4,8 @@ Find the code on your screen or in your [support code](glossary.md#support-code)
 
 If a fix does not work, send the step ID and your support code to Pigasus Group at https://pigasus.group/contact. Setup questions are free.
 
+In the full version, codes from E90 to E95 come from the command-line check-up (`python3 support/doctor.py books`). They're explained in [getting help](../../guides/getting-help.md).
+
 | Code | What you see | Why | The fix | Step |
 |---|---|---|---|---|
 | E01 | You can't find an Export button on a QuickBooks report | QuickBooks moves buttons between versions, or you are on a screen that is not a report | Open Reports from the left menu, run the report, then look near the top right for a small icon or the word Export. If there is none, use the printer icon, save as PDF, and paste the text into your AI model | BK-FR-01-4 |

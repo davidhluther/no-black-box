@@ -2,6 +2,8 @@
 
 Find the code the [check-up](glossary.md#check-up) or a guide gave you, read what you see, and follow the fix. If it is still stuck, send the [support code](glossary.md#support-code) and the step ID to Pigasus Group at https://pigasus.group/contact. Setup questions are free.
 
+Codes from E90 to E95 come from the command-line check-up that every kit shares. They're explained in [getting help](../../guides/getting-help.md).
+
 | Code | What you see | Why | The fix | Step |
 |---|---|---|---|---|
 | E01 | The check-up says the Settings tab is missing | The tab was not imported, or it has another name | Import `Settings.csv` again and name the tab exactly `Settings` | BP-FR-02-2 |

@@ -2,6 +2,8 @@
 
 Find the code the check-up (the Kit help menu button that tests your sheet's setup) printed, or the code a step pointed you to. Each row says what you see, why it happens, what to do, and which step it belongs to. A support code (the short code the check-up prints, such as GR-FR-01-4-E02-v0.1.0-7KQ) contains one of these problem codes in the middle. If a fix does not work, send the support code and your step ID to Pigasus Group at https://pigasus.group/contact. Setup questions are free.
 
+Codes from E90 to E95 come from the command-line check-up that every kit shares. They're explained in [getting help](../../guides/getting-help.md).
+
 | Code | What you see | Why it happens | The fix | Step |
 |---|---|---|---|---|
 | E00 | The check-up says everything checks out. | Nothing is wrong. | Nothing to do. Keep the code if anyone asks for it. | GR-FR-02-7 |

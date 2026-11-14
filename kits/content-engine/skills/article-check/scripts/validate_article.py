@@ -1685,7 +1685,7 @@ def check_anaphora(content, lines, result):
     run = []
     flagged = set()
     for s in sentences:
-        first = re.split(r"\W+", s, 1)[0].lower() if s else ""
+        first = re.split(r"\W+", s, maxsplit=1)[0].lower() if s else ""
         if first and run and first == run[-1][0]:
             run.append((first, s))
             if len(run) >= 3 and first not in flagged:

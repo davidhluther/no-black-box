@@ -2,6 +2,8 @@
 
 Find your code in the first column. Each guide names the code when a step goes wrong. The first six rows are setup problems. The rest are the failures a team meets once the kit is running. A [slot](glossary.md#slot) is one scheduled run time of a [scheduled job](glossary.md#scheduled-job), a [retry](glossary.md#retry) runs it again, and an [outcome row](glossary.md#outcome-row) is the log line that says how it ended. If your problem is not here, write to Pigasus Group at https://pigasus.group/contact with the [step ID](glossary.md#step-id) and your [support code](glossary.md#support-code). Setup questions are free.
 
+Codes from E90 to E95 come from the command-line [check-up](glossary.md#check-up) that every kit shares. They're explained in [getting help](../../guides/getting-help.md).
+
 | Code | What you see | Why | The fix | Step |
 |---|---|---|---|---|
 | E01 | "claude: command not found" | [Claude Code](glossary.md#claude-code) is not installed, or the [terminal](glossary.md#terminal) was open before it was | Follow the shared install guide again, close the terminal, open a new one and type `claude --version` | TO-FU-01-1 |

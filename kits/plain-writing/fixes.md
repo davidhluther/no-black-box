@@ -2,6 +2,8 @@
 
 Find what you see, then follow the fix. If your problem isn't here, send the [step ID](glossary.md#step-id) and any [support code](glossary.md#support-code) to Pigasus Group at https://pigasus.group/contact. Setup questions are free, and new problems get added to this table.
 
+Codes from E90 to E95 come from the command-line check-up that every kit shares. They're explained in [getting help](../../guides/getting-help.md).
+
 | Code | What you see | Why it happens | The fix | Step |
 |---|---|---|---|---|
 | E01 | You can't find where to [upload](glossary.md#upload) a [skill](glossary.md#skill) in Claude or ChatGPT | The menu has a different name on your plan or app version, or skills are off for your account | Look under Settings for Skills, Capabilities, or Customize. If it isn't there, use a [Project](glossary.md#project) instead (guide `PW-LC-02`). It does the same job for the writing rules | PW-LC-01-2 |

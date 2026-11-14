@@ -25,7 +25,7 @@ python3 support/doctor.py ai-visibility-program --config ~/ai-visibility-program
    claude
    ```
    Then ask Claude Code: "Copy the scripts and references folders from the question-battery skill into this folder. Copy full/run_program.py and config.example.json from the ai-visibility-program kit here, and save config.example.json as config.json."
-   You'll know it worked when `ls` shows `config.json`, `run_program.py`, `scripts`, `references`, `sites`, `templates`, `imports` and `reports`. If Claude Code cannot find the kit files, it's E31.
+   You'll know it worked when `ls` shows `config.json`, `run_program.py`, `scripts`, `references`, `sites`, `templates`, `imports` and `reports`. If Claude Code cannot find the kit files, it's E31 in the [single-site fixes](../../ai-visibility/fixes.md).
 
 4. **AP-FU-01-4.** Fill in `config.json`. Open it in a plain-text editor. The `program` block names the people and the schedule. The `sites` list has one entry per site, market or product line you will track.
 
