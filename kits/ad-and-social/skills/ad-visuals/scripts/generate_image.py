@@ -19,12 +19,43 @@ import argparse
 import base64
 import json
 import os
+import re
 import sys
 import urllib.error
+import urllib.parse
 import urllib.request
 
 ENV_VARS = {"openai": "OPENAI_API_KEY", "gemini": "GEMINI_API_KEY"}
 NO_TEXT = " No text, no letters, no numbers, no logos."
+
+
+class _NoRedirect(urllib.request.HTTPRedirectHandler):
+    """Never follow a redirect: it would carry the API key header to whatever host the reply names."""
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        raise urllib.error.HTTPError(req.full_url, code, "redirect refused", headers, fp)
+
+
+OPENER = urllib.request.build_opener(_NoRedirect)
+# OpenAI's own picture storage only; a bare ".blob.core.windows.net" would admit any Azure customer's account.
+IMAGE_HOST = re.compile(r"^(?:oaidalleapiprodscus\.blob\.core\.windows\.net|(?:[a-z0-9-]+\.)*(?:openai\.com|oaiusercontent\.com))$")
+MAX_IMAGE_BYTES = 50 * 1024 * 1024
+
+
+def fetch_image_url(url):
+    """Download a returned picture only from the provider's own https hosts, with a size cap, no key sent."""
+    try:
+        parts = urllib.parse.urlsplit(url or "")
+        host = (parts.hostname or "").lower()
+    except ValueError:
+        return None
+    if parts.scheme != "https" or not IMAGE_HOST.match(host):
+        return None
+    try:
+        with OPENER.open(url, timeout=120) as resp:
+            data = resp.read(MAX_IMAGE_BYTES + 1)
+    except (urllib.error.URLError, TimeoutError, OSError):
+        return None
+    return data if len(data) <= MAX_IMAGE_BYTES else None
 
 
 def load_config(path):
@@ -49,8 +80,11 @@ def post_json(url, body, headers):
     data = json.dumps(body).encode("utf-8")
     req = urllib.request.Request(url, data=data, headers={"Content-Type": "application/json", **headers})
     try:
-        with urllib.request.urlopen(req, timeout=120) as resp:
+        with OPENER.open(req, timeout=120) as resp:
             return json.loads(resp.read().decode("utf-8"))
+    except ValueError:
+        print("The image service sent a reply that could not be read. See fix E07.", file=sys.stderr)
+        sys.exit(3)
     except urllib.error.HTTPError as err:
         # Print the status only. The body can echo request details, so it is not shown.
         print(f"The image service refused the request (HTTP {err.code}). See fix E07.", file=sys.stderr)
@@ -61,8 +95,11 @@ def post_json(url, body, headers):
 
 
 def fetch_bytes(url):
-    with urllib.request.urlopen(url, timeout=120) as resp:
-        return resp.read()
+    data = fetch_image_url(url)
+    if data is None:
+        print("The picture link the service returned could not be downloaded safely. See fix E07.", file=sys.stderr)
+        sys.exit(3)
+    return data
 
 
 def openai_image(key, model, prompt, size):
@@ -81,7 +118,7 @@ def openai_image(key, model, prompt, size):
 
 
 def gemini_image(key, model, prompt):
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/{urllib.parse.quote(model, safe='')}:generateContent"
     body = {"contents": [{"parts": [{"text": prompt}]}],
             "generationConfig": {"responseModalities": ["TEXT", "IMAGE"]}}
     result = post_json(url, body, {"x-goog-api-key": key})

@@ -20,12 +20,43 @@ import argparse
 import base64
 import json
 import os
+import re
 import sys
 import urllib.error
+import urllib.parse
 import urllib.request
 
 NO_TEXT = (" Landscape banner composition, no text, no words, no letters, no logos, "
            "professional quality, clean composition.")
+
+
+class _NoRedirect(urllib.request.HTTPRedirectHandler):
+    """Never follow a redirect: it would carry the API key header to whatever host the reply names."""
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        raise urllib.error.HTTPError(req.full_url, code, "redirect refused", headers, fp)
+
+
+OPENER = urllib.request.build_opener(_NoRedirect)
+# OpenAI's own picture storage only; a bare ".blob.core.windows.net" would admit any Azure customer's account.
+IMAGE_HOST = re.compile(r"^(?:oaidalleapiprodscus\.blob\.core\.windows\.net|(?:[a-z0-9-]+\.)*(?:openai\.com|oaiusercontent\.com))$")
+MAX_IMAGE_BYTES = 50 * 1024 * 1024
+
+
+def fetch_image_url(url):
+    """Download a returned picture only from the provider's own https hosts, with a size cap, no key sent."""
+    try:
+        parts = urllib.parse.urlsplit(url or "")
+        host = (parts.hostname or "").lower()
+    except ValueError:
+        return None
+    if parts.scheme != "https" or not IMAGE_HOST.match(host):
+        return None
+    try:
+        with OPENER.open(url, timeout=120) as resp:
+            data = resp.read(MAX_IMAGE_BYTES + 1)
+    except (urllib.error.URLError, TimeoutError, OSError):
+        return None
+    return data if len(data) <= MAX_IMAGE_BYTES else None
 
 
 def build_request(provider, prompt, size):
@@ -36,7 +67,7 @@ def build_request(provider, prompt, size):
                 {"Content-Type": "application/json"},
                 {"model": model, "prompt": full, "size": size, "n": 1}, "OPENAI_API_KEY", model)
     model = os.environ.get("GEMINI_IMAGE_MODEL", "gemini-2.5-flash-image")
-    return (f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent",
+    return (f"https://generativelanguage.googleapis.com/v1beta/models/{urllib.parse.quote(model, safe='')}:generateContent",
             {"Content-Type": "application/json"},
             {"contents": [{"parts": [{"text": full}]}],
              "generationConfig": {"responseModalities": ["TEXT", "IMAGE"]}}, "GEMINI_API_KEY", model)
@@ -50,13 +81,15 @@ def call(url, headers, body, provider, key):
         headers["x-goog-api-key"] = key
     req = urllib.request.Request(url, data=json.dumps(body).encode(), headers=headers, method="POST")
     try:
-        with urllib.request.urlopen(req, timeout=180) as resp:
+        with OPENER.open(req, timeout=180) as resp:
             return json.loads(resp.read())
     except urllib.error.HTTPError as exc:
-        detail = exc.read().decode("utf-8", "replace")[:300]
-        sys.exit(f"The {provider} API answered {exc.code}. {detail}")
-    except (urllib.error.URLError, TimeoutError) as exc:
-        sys.exit(f"Could not reach the {provider} API: {exc}")
+        # Status only: the body and URL can echo request details.
+        sys.exit(f"The {provider} API answered {exc.code}. Check the model name and your account.")
+    except (urllib.error.URLError, TimeoutError):
+        sys.exit(f"Could not reach the {provider} API. Check your connection and try again.")
+    except ValueError:
+        sys.exit(f"The {provider} API sent a reply that could not be read.")
 
 
 def image_bytes(provider, data):
@@ -65,8 +98,10 @@ def image_bytes(provider, data):
         if item.get("b64_json"):
             return base64.b64decode(item["b64_json"])
         if item.get("url"):
-            with urllib.request.urlopen(item["url"], timeout=120) as resp:
-                return resp.read()
+            raw = fetch_image_url(item["url"])
+            if raw is None:
+                sys.exit("The picture link the service returned could not be downloaded safely.")
+            return raw
     else:
         for cand in data.get("candidates", []):
             for part in cand.get("content", {}).get("parts", []):
