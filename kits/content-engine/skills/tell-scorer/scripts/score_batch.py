@@ -110,7 +110,7 @@ def main() -> int:
         tpath = Path(args.thresholds)
         if not tpath.is_file():
             bundled = Path(__file__).resolve().parent.parent / "gate-thresholds.default.json"
-            if tpath.name == bundled.name and bundled.is_file():
+            if args.thresholds == bundled.name and bundled.is_file():  # only the bare documented name
                 tpath = bundled
             else:
                 print(f"thresholds file not found: {args.thresholds}", file=sys.stderr)

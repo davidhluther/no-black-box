@@ -879,7 +879,7 @@ def main() -> int:
             "severity_2": sev2,
             "skipped": len(skipped),
         },
-        "complete": not skipped and bool(captures),
+        "complete": not skipped and bool(captures) and not any(f.kind == "http-error" for f in findings),
         "skipped": skipped,
         "verdict": verdict,
         "judgment": {"status": "pending",

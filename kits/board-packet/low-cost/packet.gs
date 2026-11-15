@@ -199,10 +199,9 @@ function bpMakePdfCopies() {
 var BP_COPY_MARK = 'Made by the board packet menu. Replaced on the next run of "2. Make PDF copies".';
 
 function bpIsOurCopy_(f, folder) {
-  if (f.getDescription() === BP_COPY_MARK) { return true; }
-  if (f.getMimeType() !== 'application/pdf' || !/^(\d{2}|Separate) - .+\.pdf$/.test(f.getName())) { return false; }
-  var owner = f.getOwner(), folderOwner = folder.getOwner();
-  return !!owner && !!folderOwner && owner.getEmail() === folderOwner.getEmail();
+  // Only files this script marked are ever retired. Unmarked files, including copies made
+  // before the marker existed, are left for you to delete by hand.
+  return f.getDescription() === BP_COPY_MARK;
 }
 
 function bpWriteLastRun_(rows) {

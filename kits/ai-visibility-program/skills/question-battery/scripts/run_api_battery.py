@@ -262,7 +262,7 @@ def draft_row(run_id, q, provider, result, cfg_all):
     if name_hit and same:
         note += "; a same-name entry also appears, check which business is meant"
     return {"run_id": run_id, "question_id": q["id"], "ai_product": PROVIDERS[provider]["label"],
-            "answer_status": "ok" if result["text"] else "failed",
+            "answer_status": "ok" if result["text"].strip() else "failed",
             "named": named, "position": "" if named != "y" else "check",
             "your_site_cited": ("y" if site_hit else "n") if domains else "none_given",
             "cited_domains": "; ".join(domains), "others_named": "", "resolved_to": "",
@@ -364,12 +364,13 @@ def run(args) -> int:
             row = draft_row(run_id, q, provider, res, cfg)
             if err:
                 row["answer_status"], row["notes"] = "failed", "API error, see the .jsonl file"
-            elif not res["text"]:
+            elif not res["text"].strip():
                 # The call worked but the answer came back empty: still a failed question.
+                row["answer_status"] = "failed"
                 row["notes"] = "The AI product sent back an empty answer; run this question again"
                 exit_code = 1
             draft_rows.append(row)
-            status = "ERROR" if err else ("EMPTY" if not res["text"] else "ok")
+            status = "ERROR" if err else ("EMPTY" if not res["text"].strip() else "ok")
             print(f"  [{provider} {i}/{len(questions)}] {q['id']} {status}")
             if i < len(questions):
                 time.sleep(pause)

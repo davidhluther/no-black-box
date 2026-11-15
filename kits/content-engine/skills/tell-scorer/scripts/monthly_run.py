@@ -16,6 +16,7 @@ import os
 from pathlib import Path
 import re
 import subprocess
+import tempfile
 import sys
 
 HERE = Path(__file__).resolve().parent
@@ -47,7 +48,11 @@ def main() -> int:
     # score_batch.py writes its CSV before it reports an incomplete run, so score
     # into a temp file and replace the dated CSV only after a clean exit; a failed
     # rerun must never overwrite that day's good scores.
-    tmp = out.with_name(out.name + ".partial")
+    # A unique temp file per run, so two runs on the same day never share or delete one.
+    out.parent.mkdir(parents=True, exist_ok=True)
+    fd, tmp_name = tempfile.mkstemp(prefix=out.name + ".", suffix=".partial", dir=out.parent)
+    os.close(fd)
+    tmp = Path(tmp_name)
     code = subprocess.call([sys.executable, str(HERE / "score_batch.py"), "--sitemap", a.sitemap,
                             "--include", a.include, "--selector", a.selector,
                             "--store", str(runs / ".cache"), "--out", str(tmp)])
