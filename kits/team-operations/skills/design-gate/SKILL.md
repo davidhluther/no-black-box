@@ -44,9 +44,10 @@ Run `scripts/design_gate.py`. It takes full-page screenshots of every changed ro
 | `overflow` | 1 | The page scrolls sideways at that width. Reports the outermost offending elements. |
 | `zero-ink-section` | 1 | A section with real area that draws nothing. The finding says whether its text is in the page, because "missing" and "present but invisible" are different bugs. |
 | `capture-failed` | 1 | The page could not be laid out at all in that theme and width. |
+| `http-error` | 1 | The route answered with an error status (a 404 or 500, say), so it was not measured. |
 | `void-near` | 2 | A gap within 90 percent of the ceiling. Worth watching. |
 | `void-edge` | 2 | Empty page at the very top or bottom. Off by default, since that is usually breathing room. |
-| `page-too-tall` | 2 | Above the height cap, so capture was skipped. |
+| `page-too-tall` | 2 | Above the height cap, so capture was skipped. Any skip makes the run INCOMPLETE and exits 2. |
 
 "Empty" means every pixel in a row is the same color, whatever the color is. Two hundred pixels of solid dark green with nothing in it is as empty as two hundred pixels of white, so the check works unchanged in dark mode. One refinement matters: a thin full-width rule line counts as ink, so a gap, a rule and another gap read as two small gaps and not one big one.
 
@@ -58,7 +59,7 @@ A skip is never a pass.
 |---|---|
 | 0 | Ran and found no severity 1 problem. PASS, or WARN if only severity 2. |
 | 1 | Ran and found at least one severity 1 problem. FAIL. |
-| 2 | Could not run: no browser, an unreachable address, a bad config, or a target whose fingerprint does not match what you expected. Nothing was measured, or what was measured was not the thing under test. |
+| 2 | Could not run: no browser, an unreachable address, a bad config, a fingerprint page that answered with an error status, or a target whose fingerprint does not match what you expected. Nothing was measured, or what was measured was not the thing under test. A run that skipped any capture also exits 2, and `report.json` gives the verdict INCOMPLETE with the skips listed under `skipped`. |
 
 Read the exit code, never the last line of the log. A failure branch once nearly got recorded as a green because its message was worded like an opt-out.
 

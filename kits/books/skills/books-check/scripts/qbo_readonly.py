@@ -43,6 +43,7 @@ import base64
 import csv
 import datetime
 import decimal
+import hashlib
 import json
 import os
 import pathlib
@@ -224,12 +225,33 @@ def _get(path_tail, params):
 # Commands
 # --------------------------------------------------------------------------
 def _write_json(name, payload):
+    """Write a new file and never overwrite an earlier pull: if the name is taken,
+    add -2, -3 and so on."""
     out = _out_dir()
     out.mkdir(parents=True, exist_ok=True)
-    f = out / name
-    f.write_text(json.dumps(payload, indent=1))
-    f.chmod(0o600)
-    return f
+    stem, suffix = os.path.splitext(name)
+    for n in range(1, 1000):
+        f = out / (name if n == 1 else f"{stem}-{n}{suffix}")
+        try:
+            fd = os.open(f, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+        except FileExistsError:
+            continue
+        with os.fdopen(fd, "w") as fh:
+            fh.write(json.dumps(payload, indent=1))
+        f.chmod(0o600)
+        return f
+    sys.exit(f"Too many files named like {name} in {out}. Move some older pulls away first.")
+
+
+def _pull_name(report, start, end, method, extra):
+    """File name that carries the whole request: report, dates, method and any
+    --param values, so two different pulls never share a name."""
+    name = f"{datetime.date.today()}-{report}-{start}_to_{end}-{method}"
+    if extra:
+        text = "&".join(f"{k}={v}" for k, v in sorted(extra.items()))
+        slug = re.sub(r"[^A-Za-z0-9=_.-]+", "_", text)[:60]
+        name += f"-{slug}-{hashlib.sha256(text.encode()).hexdigest()[:8]}"
+    return name + ".json"
 
 
 def cmd_check(_a):
@@ -243,13 +265,14 @@ def cmd_pull(a):
     if a.report not in REPORTS:
         sys.exit("Report must be one of: " + ", ".join(sorted(REPORTS)))
     params = {"start_date": a.start, "end_date": a.end, "accounting_method": a.method}
+    extra = {}
     for item in a.param or []:
         k, _, v = item.partition("=")
         if not re.fullmatch(r"[a-z_]+", k) or not v:
             sys.exit("--param needs key=value with a lowercase key, for example summarize_column_by=Month")
-        params[k] = v
+        params[k] = extra[k] = v
     data = _get(f"reports/{a.report}", params)
-    f = _write_json(f"{datetime.date.today()}-{a.report}-{a.start}_to_{a.end}.json", data)
+    f = _write_json(_pull_name(a.report, a.start, a.end, a.method, extra), data)
     print("Wrote", f)
 
 

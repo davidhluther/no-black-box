@@ -364,8 +364,13 @@ def run(args) -> int:
             row = draft_row(run_id, q, provider, res, cfg)
             if err:
                 row["answer_status"], row["notes"] = "failed", "API error, see the .jsonl file"
+            elif not res["text"]:
+                # The call worked but the answer came back empty: still a failed question.
+                row["notes"] = "The AI product sent back an empty answer; run this question again"
+                exit_code = 1
             draft_rows.append(row)
-            print(f"  [{provider} {i}/{len(questions)}] {q['id']} {'ok' if not err else 'ERROR'}")
+            status = "ERROR" if err else ("EMPTY" if not res["text"] else "ok")
+            print(f"  [{provider} {i}/{len(questions)}] {q['id']} {status}")
             if i < len(questions):
                 time.sleep(pause)
         jsonl.close()

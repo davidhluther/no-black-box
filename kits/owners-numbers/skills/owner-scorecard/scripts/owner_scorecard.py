@@ -20,6 +20,7 @@ import argparse
 import csv
 import datetime as dt
 import json
+import math
 import sys
 from collections import defaultdict
 from pathlib import Path
@@ -55,9 +56,11 @@ def d(s: str) -> dt.date:
 
 def num(s, default=0.0):
     try:
-        return float(str(s).replace("$", "").replace(",", ""))
+        v = float(str(s).replace("$", "").replace(",", ""))
     except ValueError:
         return default
+    # nan and inf parse as floats but are not amounts; treat them like any unreadable cell.
+    return v if math.isfinite(v) else default
 
 
 def check_numbers(rows, cols, fname):
@@ -100,7 +103,7 @@ def build(data_dir: Path) -> dict:
     check_numbers(sales, ["net_sales", "quantity"], "sales.csv")
     check_numbers(bank, ["amount"], "bank.csv")
     check_numbers(book, ["booked_minutes", "price"], "bookings.csv")
-    for key in ("cash_on_hand", "prior_cash_on_hand"):
+    for key in ("cash_on_hand", "prior_cash_on_hand", *M.EXAMPLE_INPUTS):
         if settings.get(key) and num(settings[key], None) is None:
             raise SystemExit(f"E26 settings.csv: could not read {key} {settings[key]!r} as a number. See fixes.md.")
     start, end = d(settings["month_start"]), d(settings["month_end"])
@@ -136,12 +139,13 @@ def build(data_dir: Path) -> dict:
            "sales": {"total": sales_total, "prior_total": prior_total, "count": n_sales,
                      "deposit_gap": mb["money_in"] - sales_total}}
 
-    # Money section: runway is a finding only when cash is real.
+    # Money section: runway is a finding only when cash is real. With no cash_on_hand there is
+    # no runway claim at all; an invented balance would read as fact in the flag and the letter.
     burn = mb["money_out"] - mb["money_in"]
     if cash is not None:
         out["money"]["runway"] = {"months": M.runway(cash, burn)["months"], "basis": "actual"}
     else:
-        out["money"]["runway"] = {"months": M.runway(15000.0, max(burn, 1))["months"], "basis": "what-if"}
+        out["money"]["runway"] = {"months": None, "basis": "not-supplied"}
 
     # What pays.
     by_item = defaultdict(float)
@@ -224,7 +228,8 @@ def flag(o):
     m = o["money"]
     if m["net_operating"] < 0:
         r = m["runway"]
-        tail = f" At that pace the cash lasts about {r['months']:.1f} months." if r["months"] else ""
+        tail = (f" At that pace the cash lasts about {r['months']:.1f} months."
+                if r["basis"] == "actual" and r["months"] else "")
         return ("Cash", f"Operating costs ran {M.money(-m['net_operating'])} past money in.{tail}")
     c = o.get("customers")
     if c and (c["no_show_rate"] or 0) > 0.06:
@@ -256,7 +261,8 @@ def render_md(o) -> str:
     r = m["runway"]
     L += ["", f"Sales from the point-of-sale export were {M.money(s['total'])}, {ch(s['total'], s['prior_total'])} against last month. "
           f"Deposits minus sales was {M.money(s['deposit_gap'])}, which is normally card fees and timing.",
-          f"Runway{tag(r['basis'])} " + ("is not a useful lens this month because the business funded itself." if r["months"] is None else f"is about {r['months']:.1f} months."),
+          ("Runway is not shown because cash_on_hand is blank in settings.csv." if r["basis"] == "not-supplied" else
+           f"Runway{tag(r['basis'])} " + ("is not a useful lens this month because the business funded itself." if r["months"] is None else f"is about {r['months']:.1f} months.")),
           "", "## What actually pays", "| Line | Sales |", "|---|---|"]
     L += [f"| {k} | {M.money(v)} |" for k, v in w["top_items"]]
     gm, lc, cm, be = w["gross_margin"], w["labor_cost"], w["contribution"], w["break_even"]

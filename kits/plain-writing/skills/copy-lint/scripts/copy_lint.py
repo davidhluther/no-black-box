@@ -197,6 +197,20 @@ _FINITE_VERBS = {
     "stays", "stops", "takes", "tells", "tracks", "turns", "uses", "wants",
     "wins", "works",
 }
+# Adverbs that can sit between a subject pronoun and its verb ("it also prices").
+_PRE_VERB_ADVERBS = {
+    "also", "only", "never", "still", "just", "often", "always", "already",
+    "now", "then", "really", "actually", "even", "simply", "rarely", "usually",
+    "sometimes", "seldom", "barely", "mostly", "largely", "quickly",
+}
+# Common irregular past tenses; regular ones are caught by the "-ed" ending.
+_IRREGULAR_PAST = {
+    "said", "made", "took", "got", "went", "came", "found", "gave", "kept",
+    "left", "lost", "ran", "saw", "sent", "told", "built", "bought", "paid",
+    "won", "held", "knew", "led", "sold", "spent", "stood", "thought", "felt",
+    "meant", "brought", "began", "broke", "chose", "drew", "fell", "grew",
+    "wrote", "rose", "shut", "hit", "cut", "set", "put", "let", "read",
+}
 _DETERMINERS = {
     "the", "a", "an", "this", "that", "these", "those", "his", "her", "its",
     "our", "your", "their", "my", "no", "none", "every", "each", "some", "any",
@@ -267,7 +281,9 @@ def _has_finite_core(word_list: list[str], cfg: Config | None = None) -> bool:
       a relative clause ("the minute the ridgeline takes the sun off") reads as
       the fragment it is, while "the credibility of the comparison depends on X"
       (second determiner governed by a preposition) still reads as a sentence;
-    - an auxiliary right after a relativizer is a relative clause, not a main verb.
+    - an auxiliary right after a relativizer is a relative clause, not a main verb;
+    - a subject pronoun counts only with a verb after it, so "it and the team"
+      stays a fragment.
     """
     determiners = _determiners(cfg)
     if len(word_list) < 2:
@@ -281,7 +297,17 @@ def _has_finite_core(word_list: list[str], cfg: Config | None = None) -> bool:
         if word in _AUX and (i == 0 or window[i - 1] not in _RELATIVIZERS):
             return True
     if word_list[0] in _SUBJECT_PRONOUNS:
-        return True
+        # A pronoun alone is not a clause ("it and the team"): a verb has to
+        # follow it, allowing for an adverb in between ("it also prices").
+        j = 1
+        while j < len(word_list) - 1 and word_list[j] in _PRE_VERB_ADVERBS:
+            j += 1
+        nxt = word_list[j]
+        if (nxt in _FINITE_VERBS or nxt in _IMPERATIVE_OPENERS
+                or nxt + "s" in _FINITE_VERBS or nxt + "es" in _FINITE_VERBS
+                or nxt in _IRREGULAR_PAST
+                or (len(nxt) > 3 and nxt.endswith("ed"))):
+            return True
     free_dets = [
         i
         for i, w in enumerate(window)

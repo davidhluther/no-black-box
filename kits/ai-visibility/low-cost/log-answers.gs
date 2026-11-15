@@ -74,7 +74,7 @@ function logAnswer(form) {
     ash.appendRow(['run_id', 'question_id', 'ai_product', 'answer_text', 'sources_pasted']);
   }
   var stored = text.length > ANSWER_CELL_LIMIT ? text.substring(0, ANSWER_CELL_LIMIT) + ' [cut: too long for one cell]' : text;
-  ash.appendRow([runId, qid, product, stored, sources]);
+  ash.appendRow([avLiteral_(runId), qid, avLiteral_(product), avLiteral_(stored), avLiteral_(sources)]);
 
   var named = 'n', position = '-', cited = 'none_given', domainsOut = '', note = 'guessed by script, check it';
   if (status === 'ok') {
@@ -101,9 +101,14 @@ function logAnswer(form) {
   var group = '=IFERROR(VLOOKUP(B' + row + ',Questions!$A:$B,2,FALSE),"")';
   var outcome = '=IF(A' + row + '="","",IF(D' + row + '<>"ok","not scored",IF(E' + row + '="y",IF(G' + row +
     '="y","named and cited","named only"),IF(G' + row + '="y","cited only",IF(I' + row + '<>"","crowded out","absent")))))';
-  rsh.getRange(row, 1, 1, 14).setValues([[runId, qid, product, status, named, position, cited, domainsOut,
-    others, resolved, cfg.question_set_version, note, outcome, group]]);
+  rsh.getRange(row, 1, 1, 14).setValues([[avLiteral_(runId), qid, avLiteral_(product), avLiteral_(status), named, position, cited, domainsOut,
+    avLiteral_(others), avLiteral_(resolved), cfg.question_set_version, note, outcome, group]]);
   return 'Logged ' + qid + ' for ' + product + ': named = ' + named + ', your site cited = ' + cited + '. Check the new row on the Results tab.';
+}
+
+/** Keeps pasted text as plain text: a leading =, +, - or @ would otherwise make a formula. */
+function avLiteral_(v) {
+  return (typeof v === 'string' && /^[=+\-@]/.test(v)) ? "'" + v : v;
 }
 
 function readConfig_(ss) {

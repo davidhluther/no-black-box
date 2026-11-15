@@ -101,6 +101,29 @@ def main() -> int:
     ap.add_argument("--max-age-days", type=int)
     args = ap.parse_args()
 
+    # Load the gate config before any fetching, so a bad path fails fast. A
+    # missing file is an error: silently gating on the defaults would pass a
+    # draft against ceilings nobody chose. The one exception is the bundled
+    # default's own name, which the docs pass from the skill folder.
+    conf = None
+    if args.thresholds:
+        tpath = Path(args.thresholds)
+        if not tpath.is_file():
+            bundled = Path(__file__).resolve().parent.parent / "gate-thresholds.default.json"
+            if tpath.name == bundled.name and bundled.is_file():
+                tpath = bundled
+            else:
+                print(f"thresholds file not found: {args.thresholds}", file=sys.stderr)
+                return 2
+        try:
+            conf = json.loads(tpath.read_text())
+        except json.JSONDecodeError as e:
+            print(f"thresholds file {tpath} is not valid JSON: {e}", file=sys.stderr)
+            return 2
+        if not isinstance(conf, dict):
+            print(f"thresholds file {tpath} must hold a JSON object", file=sys.stderr)
+            return 2
+
     canon = load_canon(args.canon)
     docs: list[tuple[str, dict]] = []  # (identifier, parsed doc)
     missed = 0  # requested pages that could not be fetched
@@ -156,11 +179,7 @@ def main() -> int:
     if incomplete:
         print(f"INCOMPLETE: {len(problems)} page(s) not extracted, {missed} not fetched", file=sys.stderr)
 
-    if args.thresholds:
-        tpath = Path(args.thresholds)
-        if not tpath.exists():
-            tpath = Path(__file__).resolve().parent.parent / "gate-thresholds.default.json"
-        conf = json.loads(tpath.read_text())
+    if conf is not None:
         # Formatting-density features warn and never fail the gate (styleguide
         # evidence rule, 2026-10-01): the 192-page premise test found no measured
         # citation benefit to language tells and a POSITIVE association for the
@@ -168,6 +187,15 @@ def main() -> int:
         # stripping bold, colons or dashes out of a page that already has them.
         warn_only = set(conf.get("_warn_only", []))
         limits = {k: v for k, v in conf.items() if not k.startswith("_")}
+        # Every configured feature must be a real score field; a typo would
+        # otherwise switch that ceiling off without a word.
+        known = set(rows[0].keys()) - {"id", "title", "date_published"}
+        unknown = sorted((set(limits) | warn_only) - known)
+        if unknown:
+            print(f"\nGATE CONFIG ERROR: unknown feature name(s) in thresholds: "
+                  f"{', '.join(unknown)}", file=sys.stderr)
+            print(f"  known features: {', '.join(sorted(known))}", file=sys.stderr)
+            return 2
         failures, warnings = [], []
         for row in rows:
             for feat, ceiling in limits.items():

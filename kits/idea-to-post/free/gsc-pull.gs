@@ -69,7 +69,7 @@ function pullSearchData() {
     sheet.appendRow(['date_pulled', 'page', 'query', 'clicks', 'impressions', 'ctr', 'position']);
     var today = Utilities.formatDate(new Date(), tz, 'MM/dd/yyyy');
     var out = rows.map(function (r) {
-      return [today, r.keys[0], r.keys[1], r.clicks, r.impressions, r.ctr, r.position];
+      return [today, gscLiteral_(r.keys[0]), gscLiteral_(r.keys[1]), r.clicks, r.impressions, r.ctr, r.position];
     });
     if (out.length) { sheet.getRange(2, 1, out.length, 7).setValues(out); }
     log_(ss, out.length ? 'ok' : 'empty', out.length + ' row(s)');
@@ -77,6 +77,11 @@ function pullSearchData() {
     log_(ss, 'FAILED', e.message);
     SpreadsheetApp.getUi().alert('The pull failed. See the Log tab and fix E11.');
   }
+}
+
+/** Keeps search text as plain text: a query starting with =, +, - or @ would otherwise make a formula. */
+function gscLiteral_(v) {
+  return (typeof v === 'string' && /^[=+\-@]/.test(v)) ? "'" + v : v;
 }
 
 function installTrigger() {

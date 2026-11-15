@@ -5,7 +5,8 @@
  * asks Google's public search-suggestion address for suggestions, including
  * the term followed by each letter a to z, and appends new ones to the
  * Autocomplete tab. Every run, passed or failed, is recorded in the RunLog tab.
- * If a scheduled run fails, it emails the notify_email address from Config.
+ * If any request fails the run is logged INCOMPLETE (or FAILED if none worked),
+ * and a scheduled run emails the notify_email address from Config.
  *
  * Honest limits: the suggestion address is not an official Google product, so
  * Google may change or block it. If that happens the run is logged as failed
@@ -72,12 +73,14 @@ function runPull_(scheduled) {
     var added = [];
     var fetchedAny = false;
     var failedFetches = 0;
+    var totalFetches = 0;
 
     seeds.forEach(function (seed) {
       var queries = [seed];
       'abcdefghijklmnopqrstuvwxyz'.split('').forEach(function (ch) { queries.push(seed + ' ' + ch); });
       queries.forEach(function (q) {
         var url = 'https://suggestqueries.google.com/complete/search?client=firefox&q=' + encodeURIComponent(q);
+        totalFetches++;
         try {
           var resp = UrlFetchApp.fetch(url, { muteHttpExceptions: true });
           if (resp.getResponseCode() === 200) {
@@ -107,7 +110,19 @@ function runPull_(scheduled) {
     if (added.length) {
       tab.getRange(tab.getLastRow() + 1, 1, added.length, 4).setValues(added);
     }
-    logRun_(ss, 'ok', added.length, failedFetches + ' requests failed');
+    if (failedFetches) {
+      // Some requests worked and some did not. Keep what came back, but do not call it ok.
+      var partial = failedFetches + ' of ' + totalFetches + ' requests failed, so some suggestions are missing. Fix E12.';
+      logRun_(ss, 'INCOMPLETE', added.length, partial);
+      if (scheduled && cfg.notify_email) {
+        MailApp.sendEmail(cfg.notify_email, 'Customer research pull incomplete',
+          'The monthly search-suggestion pull only partly worked. ' + partial +
+          '\nThe ' + added.length + ' new suggestion(s) it did get were saved. Open the RunLog tab in your Sheet, then run "Pull search suggestions now" by hand.');
+      }
+      if (!scheduled) { SpreadsheetApp.getUi().alert('The pull only partly worked: ' + partial + ' The ' + added.length + ' new suggestion(s) it did get were saved.'); }
+      return;
+    }
+    logRun_(ss, 'ok', added.length, totalFetches + ' requests, none failed');
   } catch (e) {
     logRun_(ss, 'FAILED', 0, String(e.message || e));
     if (scheduled && cfg && cfg.notify_email) {

@@ -143,8 +143,9 @@ function bpMakePdfCopies() {
     var unmatchedOrder = minutes ? minutes.order - 0.5 : 98;
 
     var out = bpFolderByName_(month, BP_PDF_FOLDER) || month.createFolder(BP_PDF_FOLDER);
-    var old = [], oldIt = out.getFiles();   // our own earlier copies only; retired after the new ones exist
-    while (oldIt.hasNext()) { old.push(oldIt.next()); }
+    // Only our own earlier copies are retired, after the new ones exist. Anything else in the folder stays.
+    var old = [], oldIt = out.getFiles();
+    while (oldIt.hasNext()) { var o = oldIt.next(); if (bpIsOurCopy_(o, out)) { old.push(o); } }
 
     var items = [], skipped = [];
     var files = month.getFiles();
@@ -177,7 +178,7 @@ function bpMakePdfCopies() {
       if (it.inPacket) { n++; prefix = (n < 10 ? '0' : '') + n + ' - '; } else { prefix = 'Separate - '; }
       var fileName = prefix + it.label + '.pdf';
       it.blob.setName(fileName);
-      out.createFile(it.blob);
+      out.createFile(it.blob).setDescription(BP_COPY_MARK);
       lines.push([it.inPacket ? n : '', fileName, it.inPacket ? 'Yes' : (it.inactive ? 'No, its report row is not active' : (it.matched ? 'No, share by its own link' : 'No, no report row matches it')), it.matched ? 'Yes' : 'No, check the keyword']);
     });
     old.forEach(function (f) { f.setTrashed(true); });
@@ -190,6 +191,18 @@ function bpMakePdfCopies() {
     msg += '\nSee the "Last run" tab for the merge order.';
     ui.alert('PDF copies', msg, ui.ButtonSet.OK);
   } catch (e) { ui.alert('Stopped', String(e.message || e), ui.ButtonSet.OK); }
+}
+
+// Each copy this script makes carries BP_COPY_MARK in its Drive description. Copies made before
+// the mark existed are recognized by their numbered name, PDF type, and having the same owner as
+// the "PDF copies" folder the script made.
+var BP_COPY_MARK = 'Made by the board packet menu. Replaced on the next run of "2. Make PDF copies".';
+
+function bpIsOurCopy_(f, folder) {
+  if (f.getDescription() === BP_COPY_MARK) { return true; }
+  if (f.getMimeType() !== 'application/pdf' || !/^(\d{2}|Separate) - .+\.pdf$/.test(f.getName())) { return false; }
+  var owner = f.getOwner(), folderOwner = folder.getOwner();
+  return !!owner && !!folderOwner && owner.getEmail() === folderOwner.getEmail();
 }
 
 function bpWriteLastRun_(rows) {

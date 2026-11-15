@@ -12,7 +12,8 @@ A slot is resolved only when a later row for it has status "ok". A slot is flagg
 when its retries are used up (or it is not safe to repeat), or when it is still
 unresolved escalate_after_minutes (default 240) after its scheduled time.
 
-Safety: standard library only. Writes only the outcomes file, the flags file and
+Safety: standard library only. Writes only the outcomes file, the flags file, one
+small lock file per job and slot (in a locks folder beside the outcomes file) and
 whatever the registered commands themselves write. Secrets come from the
 environment and are never printed; text taken from a job's log is scrubbed of
 the values of any environment variable whose name contains KEY, TOKEN, SECRET
@@ -121,6 +122,42 @@ def slot_state(rows, job, slot):
     return mine, any(r["status"] == "ok" for r in mine)
 
 
+def claim(reg, name, slot):
+    """Take an exclusive, non-blocking lock for one job and slot, so two checks (or a
+    check and a manual run) never launch the same slot at once. Returns an open handle
+    to pass to release(), or None when another process holds the slot."""
+    safe = re.sub(r"[^A-Za-z0-9_.-]", "_", f"{name}__{slot}")
+    d = reg["_outcomes"].parent / "locks"
+    d.mkdir(parents=True, exist_ok=True)
+    fh = open(d / f"{safe}.lock", "a+")
+    try:
+        try:
+            import fcntl
+            fcntl.flock(fh, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except ImportError:  # Windows
+            import msvcrt
+            fh.seek(0)
+            msvcrt.locking(fh.fileno(), msvcrt.LK_NBLCK, 1)
+        return fh
+    except OSError:
+        fh.close()
+        return None
+
+
+def release(fh):
+    try:
+        try:
+            import fcntl
+            fcntl.flock(fh, fcntl.LOCK_UN)
+        except ImportError:
+            import msvcrt
+            fh.seek(0)
+            msvcrt.locking(fh.fileno(), msvcrt.LK_UNLCK, 1)
+    except OSError:
+        pass
+    fh.close()
+
+
 def fill(template, slot):
     d = dt.datetime.strptime(slot, "%Y-%m-%dT%H:%M")
     return template.replace("{slot}", slot).replace("{slot_date}", d.strftime("%Y-%m-%d"))
@@ -190,48 +227,61 @@ def cmd_check(reg, args):
     for name, job in reg["jobs"].items():
         for s in due_slots(job, now, args.lookback_days):
             sid = slot_id(s)
-            rows = read_rows(reg)
-            mine, ok = slot_state(rows, name, sid)
-            if ok:
+            lock = claim(reg, name, sid)
+            if lock is None:
+                unresolved.append((name, sid, "another check or run is handling this slot right now"))
                 continue
-            last = mine[-1] if mine else None
-            timeout = dt.timedelta(minutes=job.get("timeout_minutes", 30))
-            if last is None:
-                append_row(reg, job=name, slot=sid, attempt=0, status="missed",
-                           summary="no outcome row for this slot after the grace period", cause="missed-slot")
-                last = {"status": "missed", "ts": now.isoformat()}
-            elif last["status"] == "attempting" and dt.datetime.fromisoformat(last["ts"]) + timeout < now:
-                append_row(reg, job=name, slot=sid, attempt=last.get("attempt", 1), status="failed",
-                           summary="attempt started but no outcome after the timeout", cause="no-outcome")
-                last = {"status": "failed", "ts": now.isoformat()}
-            elif last["status"] == "attempting":
-                unresolved.append((name, sid, "still running"))
-                continue
-            attempts = max([r.get("attempt", 0) for r in mine] + [0])
-            delays = job.get("retry_delays_minutes", [15, 60, 240])
-            if args.retry and job.get("safe_to_repeat", False) and attempts < len(delays) + 1:
-                wait = dt.timedelta(minutes=delays[max(attempts - 1, 0)])
-                if dt.datetime.fromisoformat(last["ts"]) + wait <= now:
-                    print(f"retrying {name} slot {sid} (attempt {attempts + 1})")
-                    if run_job(reg, name, sid, attempts + 1):
-                        continue
-            rows = read_rows(reg)
-            mine, ok = slot_state(rows, name, sid)
-            if ok:
-                continue
-            attempts = max([r.get("attempt", 0) for r in mine] + [0])
-            exhausted = (not job.get("safe_to_repeat", False)) or attempts >= len(delays) + 1
-            stuck_for = now - s
-            too_old = stuck_for > dt.timedelta(minutes=job.get("escalate_after_minutes", 240))
-            why = mine[-1].get("summary", "") if mine else "missed"
-            unresolved.append((name, sid, why))
-            if exhausted or too_old:
-                if flag(reg, name, sid, why, args.notify):
-                    print(f"FLAGGED {name} slot {sid}")
+            try:
+                check_slot(reg, args, now, name, job, s, sid, unresolved)
+            finally:
+                release(lock)
     for n, s, why in unresolved:
         print(f"unresolved: {n} slot {s} ({why})")
     print(f"{len(unresolved)} unresolved slot(s)")
     return 1 if unresolved else 0
+
+
+def check_slot(reg, args, now, name, job, s, sid, unresolved):
+    """Decide and act on one slot. The caller holds this slot's lock, so the state
+    read here cannot change under us from another check."""
+    rows = read_rows(reg)
+    mine, ok = slot_state(rows, name, sid)
+    if ok:
+        return
+    last = mine[-1] if mine else None
+    timeout = dt.timedelta(minutes=job.get("timeout_minutes", 30))
+    if last is None:
+        append_row(reg, job=name, slot=sid, attempt=0, status="missed",
+                   summary="no outcome row for this slot after the grace period", cause="missed-slot")
+        last = {"status": "missed", "ts": now.isoformat()}
+    elif last["status"] == "attempting" and dt.datetime.fromisoformat(last["ts"]) + timeout < now:
+        append_row(reg, job=name, slot=sid, attempt=last.get("attempt", 1), status="failed",
+                   summary="attempt started but no outcome after the timeout", cause="no-outcome")
+        last = {"status": "failed", "ts": now.isoformat()}
+    elif last["status"] == "attempting":
+        unresolved.append((name, sid, "still running"))
+        return
+    attempts = max([r.get("attempt", 0) for r in mine] + [0])
+    delays = job.get("retry_delays_minutes", [15, 60, 240])
+    if args.retry and job.get("safe_to_repeat", False) and attempts < len(delays) + 1:
+        wait = dt.timedelta(minutes=delays[max(attempts - 1, 0)])
+        if dt.datetime.fromisoformat(last["ts"]) + wait <= now:
+            print(f"retrying {name} slot {sid} (attempt {attempts + 1})")
+            if run_job(reg, name, sid, attempts + 1):
+                return
+    rows = read_rows(reg)
+    mine, ok = slot_state(rows, name, sid)
+    if ok:
+        return
+    attempts = max([r.get("attempt", 0) for r in mine] + [0])
+    exhausted = (not job.get("safe_to_repeat", False)) or attempts >= len(delays) + 1
+    stuck_for = now - s
+    too_old = stuck_for > dt.timedelta(minutes=job.get("escalate_after_minutes", 240))
+    why = mine[-1].get("summary", "") if mine else "missed"
+    unresolved.append((name, sid, why))
+    if exhausted or too_old:
+        if flag(reg, name, sid, why, args.notify):
+            print(f"FLAGGED {name} slot {sid}")
 
 
 def cmd_report(reg, args):
@@ -271,7 +321,13 @@ def main():
             if not ds:
                 print("could not run: no slot found; pass --slot YYYY-MM-DDTHH:MM"); return 2
             slot = slot_id(ds[-1])
-        ok = run_job(reg, a.job, slot, a.attempt)
+        lock = claim(reg, a.job, slot)
+        if lock is None:
+            print(f"could not run: {a.job} slot {slot} is already being run or checked by another process"); return 2
+        try:
+            ok = run_job(reg, a.job, slot, a.attempt)
+        finally:
+            release(lock)
         print(("ok" if ok else "FAILED") + f": {a.job} slot {slot}")
         return 0 if ok else 1
     if a.cmd == "check":

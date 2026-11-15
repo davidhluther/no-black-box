@@ -17,7 +17,7 @@ If you get stuck, the check-up button in your sheet prints a [support code](../g
    You'll know it worked when the addresses are in column A with nothing in between.
 
 5. **WC-LC-02-5.** Click Kit help, then Pull speed now. If Google asks permission, allow it, as in [WC-FR-02-6](WC-FR-02-make-your-scorecard-sheet.md). Wait one to two minutes.
-   You'll know it worked when scores appear in column I of the Pages tab, and a new row appears on the Monthly tab. If a Notes cell says "Speed pull failed", the reason follows it. HTTP 429 means too many requests and it's E18. If Google blocks the allow screen, it's E09.
+   You'll know it worked when scores appear in column I of the Pages tab, and a new row appears on the Monthly tab. If a Notes cell on the Pages tab says "Speed pull failed", the reason follows it. If the homepage is not on the Pages tab and its pull fails, the reason is in the Notes column of the new Monthly row. HTTP 429 means too many requests and it's E18. If Google blocks the allow screen, it's E09.
 
 6. **WC-LC-02-6.** Make it automatic. In the editor, pick `createMonthlyTrigger` from the function list at the top and click Run. Then click the clock icon ([Triggers](../glossary.md#trigger)) at the left. You'll see one [trigger](../glossary.md#trigger) for `pullSpeedNow`, monthly. Click its three dots, choose Edit, and under "Failure notification settings" choose "Notify me immediately".
    You'll know it worked when the trigger appears. If it doesn't, run `createMonthlyTrigger` again. A run that fails will email you the same day, so you won't discover a missing month weeks later.

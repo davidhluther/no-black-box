@@ -39,6 +39,7 @@ Usage:
 Stdlib only - no pip installs, matching the other tools in seo/.
 """
 import argparse
+import contextlib
 import csv
 import datetime as dt
 import json
@@ -52,9 +53,10 @@ import urllib.request
 from pathlib import Path
 
 try:
-    import fcntl  # file locking; absent on Windows, where concurrent pulls are not guarded
+    import fcntl  # file locking on Mac and Linux
 except ImportError:
     fcntl = None
+    import msvcrt  # file locking on Windows
 
 API_URL = "https://www.clarity.ms/export-data/api/v1/project-live-insights"
 TOKEN_DIR = Path(os.environ.get("CLARITY_TOKEN_DIR", Path.home() / ".config/clarity"))
@@ -100,6 +102,45 @@ def _inside_git_repo(path: Path) -> bool:
         if (parent / ".git").exists():
             return True
     return False
+
+
+PROJECT_SLUG = re.compile(r"[A-Za-z0-9][A-Za-z0-9_-]{0,63}")
+
+
+def check_project_slug(project: str) -> str:
+    """The slug becomes part of file names (token, budget counter, output), so it
+    may hold only letters, digits, - and _. Anything else could point outside
+    the intended folder."""
+    if not PROJECT_SLUG.fullmatch(project or ""):
+        sys.exit(f"--project must be a short name of letters, digits, - or _ "
+                 f"(for example my-site), up to 64 characters. Got {project!r}.")
+    return project
+
+
+@contextlib.contextmanager
+def file_lock(lock_path: Path):
+    """Hold an exclusive lock on lock_path for the with-block. Waits for any
+    other pull holding it. Works on Mac, Linux and Windows."""
+    lock_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(lock_path, "a+") as fh:
+        if fcntl:
+            fcntl.flock(fh, fcntl.LOCK_EX)
+        else:
+            fh.seek(0)
+            while True:
+                try:
+                    msvcrt.locking(fh.fileno(), msvcrt.LK_LOCK, 1)  # retries for about 10 seconds
+                    break
+                except OSError:
+                    continue
+        try:
+            yield
+        finally:
+            if fcntl:
+                fcntl.flock(fh, fcntl.LOCK_UN)
+            else:
+                fh.seek(0)
+                msvcrt.locking(fh.fileno(), msvcrt.LK_UNLCK, 1)
 
 
 def token_env_name(project: str) -> str:
@@ -204,14 +245,15 @@ def budget_path(project: str) -> Path:
 def check_and_record_budget(project: str) -> int:
     """Track calls against Microsoft's 10/project/day quota. UTC day, matching
     the API's stated timezone. Advisory - the server is the real enforcer."""
-    p = budget_path(project)
-    used = int(p.read_text().strip()) if p.exists() else 0
-    if used >= DAILY_REQUEST_BUDGET:
-        sys.exit(f"Daily budget exhausted for '{project}': {used}/"
-                 f"{DAILY_REQUEST_BUDGET} requests already made today (UTC). "
-                 f"The API will return 429. Counter: {p}")
-    p.parent.mkdir(parents=True, exist_ok=True)
-    p.write_text(str(used + 1))
+    p = budget_path(check_project_slug(project))
+    # Hold a lock across read and write so two pulls at once cannot both take the last call.
+    with file_lock(p.with_name(p.name + ".lock")):
+        used = int(p.read_text().strip() or 0) if p.exists() else 0
+        if used >= DAILY_REQUEST_BUDGET:
+            sys.exit(f"Daily budget exhausted for '{project}': {used}/"
+                     f"{DAILY_REQUEST_BUDGET} requests already made today (UTC). "
+                     f"The API will return 429. Counter: {p}")
+        p.write_text(str(used + 1))
     return used + 1
 
 
@@ -381,15 +423,16 @@ def write_series(out_dir: Path, project: str, record: dict) -> Path:
     Append rather than overwrite: at 10 calls/day the pulls are cheap and
     losing one to a same-day rerun would be silent data loss.
     """
+    check_project_slug(project)
     assert_writable_out(out_dir)
     out_dir = out_dir.expanduser()
     out_dir.mkdir(parents=True, exist_ok=True)
     day = dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%d")
     path = out_dir / f"{project}-{day}.json"
+    if path.resolve().parent != out_dir.resolve():
+        sys.exit(f"Refusing to write {path}: it would land outside {out_dir}.")
     # Hold a lock across read and write so two pulls at once cannot erase each other.
-    with open(out_dir / f"{project}-{day}.json.lock", "w") as lock:
-        if fcntl:
-            fcntl.flock(lock, fcntl.LOCK_EX)
+    with file_lock(out_dir / f"{project}-{day}.json.lock"):
         existing = []
         if path.exists():
             try:
@@ -449,6 +492,7 @@ def main(argv=None):
     ap.add_argument("--no-budget-check", action="store_true",
                     help="Skip the local 10/day counter (the server still enforces).")
     args = ap.parse_args(argv)
+    check_project_slug(args.project)
 
     dims = [d for d in args.dimensions.split(",") if d.strip()]
     metrics = [m.strip() for m in args.metrics.split(",") if m.strip()]

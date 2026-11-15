@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
+import os
 from pathlib import Path
 import re
 import subprocess
@@ -43,12 +44,19 @@ def main() -> int:
         return 2
     day = today_et()
     out = runs / day / "live_scores.csv"
+    # score_batch.py writes its CSV before it reports an incomplete run, so score
+    # into a temp file and replace the dated CSV only after a clean exit; a failed
+    # rerun must never overwrite that day's good scores.
+    tmp = out.with_name(out.name + ".partial")
     code = subprocess.call([sys.executable, str(HERE / "score_batch.py"), "--sitemap", a.sitemap,
                             "--include", a.include, "--selector", a.selector,
-                            "--store", str(runs / ".cache"), "--out", str(out)])
-    if code != 0 or not out.is_file():
-        print("scoring failed (exit %d); no comparison run" % code, file=sys.stderr)
+                            "--store", str(runs / ".cache"), "--out", str(tmp)])
+    if code != 0 or not tmp.is_file():
+        tmp.unlink(missing_ok=True)
+        print("scoring failed (exit %d); no comparison run%s" % (
+            code, "; kept the earlier %s" % out.name if out.is_file() else ""), file=sys.stderr)
         return code or 1
+    os.replace(tmp, out)
     prior = sorted(p for p in runs.iterdir()
                    if re.fullmatch(r"\d{4}-\d{2}-\d{2}", p.name) and p.name < day
                    and (p / "live_scores.csv").is_file())

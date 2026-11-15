@@ -96,6 +96,38 @@ def site_dir(base, site):
     return (base / site["config_file"]).resolve().parent
 
 
+def run_dir_busy(run_dir):
+    """True when another process holds <run dir>/.run.lock (run_api_battery.py takes it
+    for the whole run). Never move a run folder that something is still writing."""
+    lock_path = run_dir / ".run.lock"
+    if not lock_path.is_file():
+        return False
+    try:
+        handle = open(lock_path, "a+")
+    except OSError:
+        return True
+    try:
+        try:
+            import fcntl
+            try:
+                fcntl.flock(handle, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            except OSError:
+                return True
+            fcntl.flock(handle, fcntl.LOCK_UN)
+        except ImportError:  # Windows
+            import msvcrt
+            try:
+                handle.seek(0)
+                msvcrt.locking(handle.fileno(), msvcrt.LK_NBLCK, 1)
+            except OSError:
+                return True
+            handle.seek(0)
+            msvcrt.locking(handle.fileno(), msvcrt.LK_UNLCK, 1)
+        return False
+    finally:
+        handle.close()
+
+
 def run_site(base, cfg, site, slot, dry_run, force=False):
     prog = cfg["program"]
     attempts = int(prog.get("max_attempts", 2))
@@ -115,11 +147,15 @@ def run_site(base, cfg, site, slot, dry_run, force=False):
         out = (proc.stdout or "") + (proc.stderr or "")
         log = base / "logs" / ("%s-%s-attempt%d.log" % (slot, site["id"], n))
         log.write_text(out, encoding="utf-8")
-        errors = sum(1 for ln in out.splitlines() if " ERROR" in ln)
+        errors = sum(1 for ln in out.splitlines() if " ERROR" in ln or " EMPTY" in ln)
         status = "ok" if proc.returncode == 0 else "failed"
         if dry_run:
             status = "dry-run-ok" if proc.returncode == 0 else "dry-run-failed"
         note = "%d question errors" % errors if errors else ""
+        run_dir = sdir / "runs" / ("%s-api" % slot)
+        busy = proc.returncode != 0 and not dry_run and run_dir_busy(run_dir)
+        if busy:
+            note = "another run was still writing this slot; nothing was moved or retried"
         append_ledger(base, {"slot": slot, "site": site["id"], "attempt": n, "started": started,
                              "finished": datetime.now().isoformat(timespec="seconds"),
                              "exit_code": proc.returncode, "status": status, "note": note})
@@ -128,7 +164,10 @@ def run_site(base, cfg, site, slot, dry_run, force=False):
             return True
         if dry_run:
             return False
-        run_dir = sdir / "runs" / ("%s-api" % slot)
+        if busy:  # in progress elsewhere: its own failure, and no retry can fix it now
+            print("%s: %s is in use by another run; left in place. Check again when it finishes."
+                  % (site["id"], run_dir))
+            return False
         if (run_dir / "scored.csv").is_file():  # never move a reviewed run aside
             print("%s: %s holds a reviewed scored.csv; left in place" % (site["id"], run_dir))
         elif run_dir.is_dir():  # keep the failed evidence, free the name for the retry

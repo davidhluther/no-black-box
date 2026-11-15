@@ -241,6 +241,27 @@ def fmt(v, unit):
     return format(round(v), ",")
 
 
+def pick_reference(wanted, geos):
+    """Return the one geography --reference names, or exit with a plain message.
+    An exact name ("Wake County, North Carolina" or "Wake") wins; otherwise the text
+    must appear in exactly one name. Never fall back silently to another place."""
+    def base(name):
+        return re.sub(r"\s+(county|parish|borough|census area|municipality)$", "",
+                      re.sub(r",.*$", "", name), flags=re.I).strip().lower()
+    w = wanted.strip().lower()
+    hits = [g for g in geos if w in (geos[g]["NAME"].lower(), base(geos[g]["NAME"]))]
+    if not hits:
+        hits = [g for g in geos if w in geos[g]["NAME"].lower()]
+    if len(hits) == 1:
+        return hits[0]
+    names = sorted(geos[g]["NAME"] for g in (hits or geos))
+    if not hits:
+        sys.exit("--reference %r matched none of the places in this table: %s. Use one of those names."
+                 % (wanted, "; ".join(names)))
+    sys.exit("--reference %r matched more than one place: %s. Use the full name of one."
+             % (wanted, "; ".join(names)))
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--state", required=True, help="state name or two-digit FIPS code (for example 37)")
@@ -301,12 +322,7 @@ def main():
         sys.exit(str(e))
 
     order = sorted(geos, key=lambda g: (g == state_fips, geos[g]["NAME"]))
-    ref_id = None
-    if a.reference:
-        for g in geos:
-            if a.reference.lower() in geos[g]["NAME"].lower():
-                ref_id = g
-                break
+    ref_id = pick_reference(a.reference, geos) if a.reference else None
     if ref_id is None:
         ref_id = state_fips if a.include_state else order[0]
 

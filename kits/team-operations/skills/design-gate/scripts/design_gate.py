@@ -83,10 +83,13 @@ must not read as green; both are the same rule.
 
   0  gate ran and found no severity-1 defect (PASS, or WARN with sev-2 only)
   1  gate ran and found at least one severity-1 defect (FAIL)
-  2  gate COULD NOT RUN — no browser, unreachable base URL, bad config, or a
-     target whose fingerprint does not match `expect_marker`. Nothing was
-     measured (or what was measured was not the thing under test), so this is
-     not evidence of anything. Read the exit code, never the last line of the
+  2  gate COULD NOT RUN — no browser, unreachable base URL, bad config, a
+     fingerprint page that answered with an HTTP error, or a target whose
+     fingerprint does not match `expect_marker`. Nothing was measured (or what
+     was measured was not the thing under test), so this is not evidence of
+     anything. A run that skipped any capture (a page taller than
+     `max_page_height_px`) is INCOMPLETE and also exits 2: an unmeasured route
+     is not a passed route. Read the exit code, never the last line of the
      log. (A different gate in the same project once nearly recorded a green
      because a failure branch was worded like a skip.)
 
@@ -259,6 +262,12 @@ def fingerprint_target(cfg: dict) -> dict:
         "marker_ok": None,
     }
 
+    if not 200 <= status < 300:
+        die(f"the fingerprint page {resolved} answered HTTP {status}, not a success.\n"
+            "An error page is not the site under test; capturing it would report a verdict "
+            "about the wrong page. Fix the route, set `reference_page` to a page that "
+            "exists, or pass the right --base-url.")
+
     if marker:
         hit = needle in text
         fp["marker_ok"] = hit if mode == "present" else not hit
@@ -277,11 +286,6 @@ def fingerprint_target(cfg: dict) -> dict:
                 "--base-url. Refusing to report a verdict about a page that is not "
                 "the one under test."
             )
-
-    if status >= 400:
-        print(f"WARNING: the fingerprint page {resolved} returned HTTP {status}. "
-              "The captures below may be of a different site than you intend.",
-              file=sys.stderr)
 
     return fp
 
@@ -503,7 +507,16 @@ def run_case(page, url, route, vp, theme, disclosures, out_dir, cfg, findings, c
 
     try:
         page.set_viewport_size({"width": vp["width"], "height": vp["height"]})
-        page.goto(url, wait_until="domcontentloaded", timeout=45000)
+        resp = page.goto(url, wait_until="domcontentloaded", timeout=45000)
+        # An error page lays out fine and can look clean; it is not the route under test.
+        # 304 is a cache revalidation of a page that exists.
+        if resp is None or not (200 <= resp.status < 300 or resp.status == 304):
+            findings.append(Finding(
+                1, "http-error", route, vp["name"], theme, disclosures,
+                "the route did not answer with a success, so it was not measured: "
+                + (f"HTTP {resp.status}" if resp is not None else "no navigation response"),
+            ))
+            return None
         page.add_style_tag(content=FREEZE_CSS)
         if cfg["force_visible_selectors"]:
             sel = ", ".join(cfg["force_visible_selectors"])
@@ -837,6 +850,11 @@ def main() -> int:
     verdict = "FAIL" if sev1 else ("WARN" if sev2 else "PASS")
     if not captures:
         verdict = "FAIL"  # zero captures is never a pass, and report.json must say so
+    # A skipped capture means a route/viewport/theme went unmeasured: the run is
+    # incomplete, never a pass, whatever the other captures found.
+    skipped = [asdict(f) for f in findings if f.kind == "page-too-tall"]
+    if skipped and captures:
+        verdict = "INCOMPLETE"
 
     report = {
         "schema": SCHEMA,
@@ -859,7 +877,10 @@ def main() -> int:
             "captures": len(captures),
             "severity_1": sev1,
             "severity_2": sev2,
+            "skipped": len(skipped),
         },
+        "complete": not skipped and bool(captures),
+        "skipped": skipped,
         "verdict": verdict,
         "judgment": {"status": "pending",
                      "note": "the judgment layer has not run; a mechanical PASS is half a gate"},
@@ -876,6 +897,14 @@ def main() -> int:
     if not captures:
         die("0 captures were taken across "
             f"{len(cfg['routes'])} route(s) — nothing was measured")
+    # Checked even with --quiet: an unmeasured route is not a passed route.
+    if skipped:
+        print(f"\nDESIGN GATE INCOMPLETE (exit 2) — {len(skipped)} capture(s) were skipped "
+              f"(page taller than {cfg['max_page_height_px']}px), so those routes were not "
+              "measured. Raise max_page_height_px or shorten the page, then run again.\n"
+              f"report.json says verdict INCOMPLETE: {out_dir / 'report.json'}\n"
+              "An unmeasured route is not a pass.", file=sys.stderr)
+        sys.exit(2)
     if not args.quiet:
         print(f"DESIGN GATE (mechanical) {verdict} — {sev1} severity-1, {sev2} severity-2 "
               f"across {len(captures)} captures of {len(cfg['routes'])} route(s).")

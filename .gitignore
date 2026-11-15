@@ -13,3 +13,9 @@ venv/
 *.key
 *.pem
 kits/*/config.json
+# A kit's doctor.json may name another settings file (config_file), which lives at the
+# top of the kit folder. Every JSON file there is local settings except the tracked
+# doctor.json and *.example.json files.
+kits/*/*.json
+!kits/*/doctor.json
+!kits/*/*.example.json

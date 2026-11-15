@@ -42,7 +42,8 @@ DEFAULT_STAT_LABELS = ["grant asks on record", "awarded", "awarded in all",
 
 def money(v):
     v = (v or "").strip()
-    return f"${float(v):,.0f}" if re.fullmatch(r"[\d.]+", v) else (v or "")
+    # Nonnumeric amounts ("TBD", free text) go into the page as text, never as markup.
+    return f"${float(v):,.0f}" if re.fullmatch(r"[\d.]+", v) else html.escape(v)
 
 
 SAFE_HREF = re.compile(r"^(https?:|mailto:|#)", re.I)

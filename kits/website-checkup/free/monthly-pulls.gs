@@ -109,14 +109,19 @@ function pullSpeed_(ss, monthly, today, month) {
     Utilities.sleep(1500); // be polite to the service
   });
 
+  var homeError = '';
   if (homeScore === '' && home) {
     var homeResult = psiRequest_(home);
-    if (homeResult.error) failures++; else homeScore = homeResult.score;
+    if (homeResult.error) { failures++; homeError = homeResult.error; } else homeScore = homeResult.score;
   }
 
-  var note = failures ? failures + ' speed pull(s) failed on ' + today + '. See the Pages tab, Notes column.' : '';
+  var pageFailures = failures - (homeError ? 1 : 0);
+  var parts = [];
+  if (pageFailures) parts.push(pageFailures + ' page speed pull(s) failed on ' + today + '. See the Pages tab, Notes column.');
+  if (homeError) parts.push('The homepage speed pull failed on ' + today + ': ' + homeError);
+  var note = parts.join(' ');
   monthly.appendRow([month, '', '', '', '', homeScore, '', '', '', '', '', '', '', note]);
-  SpreadsheetApp.getActive().toast(failures ? 'Done, with ' + failures + ' failure(s). See the Notes column.' : 'Speed pull finished.', 'Website check-up', 6);
+  SpreadsheetApp.getActive().toast(failures ? 'Done, with ' + failures + ' failure(s). See the Notes column on the Monthly tab.' : 'Speed pull finished.', 'Website check-up', 6);
 }
 
 // Run this once to set up the monthly timer (see setup guide WC-LC-02).

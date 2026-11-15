@@ -91,7 +91,7 @@ Everything shaped by one organization lives in a rules file, never in the script
 | `upsell` | Product addresses and heading patterns that mark the upsell section, plus your organization's name (`label`) |
 | `cta_patterns` | Phrases that count as a call to action |
 | `compliance` | Your own banned phrases: a list of `{"pattern": "regex", "message": "why"}` pairs, reported as warnings |
-| `faq_schema_match` | When true, the FAQ markup in the draft must match the visible FAQ questions |
+| `faq_schema_match` | When true, the FAQ markup in the draft must match the visible FAQ questions and their answers |
 | `structure` | Turn on `metadata_table` or `key_takeaways` if your posts need them |
 
 Empty lists switch a check off. An unknown key stops the run on purpose, so a typo can never quietly disable a check.

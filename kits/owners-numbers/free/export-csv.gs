@@ -3,18 +3,19 @@
  *
  * Adds a menu item "Owner's Numbers, Save data tabs as CSV in Drive" (the menu is created by checkup.gs). It
  * writes four files (Sales, Bank, Bookings and Settings as plain CSV) into
- * a Drive folder in your own account so you can attach them to an AI Project.
+ * a Drive folder you own, so you can attach them to an AI Project. It never
+ * writes into a folder someone else owns, even one with the same name.
  * It only writes to your own Drive. It sends nothing anywhere else.
  */
 var FOLDER_NAME = 'owners-numbers-data';
 var TABS_TO_EXPORT = ['Sales', 'Bank', 'Bookings', 'Settings'];
+var FOLDER_ID_KEY = 'owners_numbers_folder_id';
 
 // The menu is added by onOpen() in checkup.gs, which looks for saveCsvToDrive.
 
 function saveCsvToDrive() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
-  var folders = DriveApp.getFoldersByName(FOLDER_NAME);
-  var folder = folders.hasNext() ? folders.next() : DriveApp.createFolder(FOLDER_NAME);
+  var folder = ownFolder_();
   var saved = [];
   TABS_TO_EXPORT.forEach(function (name) {
     var sh = ss.getSheetByName(name);
@@ -41,5 +42,35 @@ function saveCsvToDrive() {
     }
     saved.push(fileName);
   });
-  SpreadsheetApp.getUi().alert('Saved ' + saved.join(', ') + ' in the Drive folder "' + FOLDER_NAME + '".');
+  SpreadsheetApp.getUi().alert('Saved ' + saved.join(', ') + ' in your Drive folder "' + FOLDER_NAME + '":\n' + folder.getUrl());
+}
+
+// Your numbers go only into a folder you own. The folder is remembered by its ID for you alone,
+// so a folder with the same name that someone else shared with you is never used.
+function ownFolder_() {
+  var props = PropertiesService.getUserProperties();
+  var id = props.getProperty(FOLDER_ID_KEY);
+  if (id) {
+    try {
+      var saved = DriveApp.getFolderById(id);
+      // If Google will not say who you are, trust the folder this script saved for you before.
+      if (!saved.isTrashed() && isMine_(saved) !== false) return saved;
+    } catch (e) { /* deleted or no longer reachable: pick or make another below */ }
+  }
+  var found = null, it = DriveApp.getFoldersByName(FOLDER_NAME);
+  while (!found && it.hasNext()) {
+    var f = it.next();
+    if (!f.isTrashed() && isMine_(f) === true) found = f;
+  }
+  if (!found) found = DriveApp.createFolder(FOLDER_NAME);
+  props.setProperty(FOLDER_ID_KEY, found.getId());
+  return found;
+}
+
+// true if you own it, false if someone else does, null if Google did not give your address.
+function isMine_(item) {
+  var me = Session.getEffectiveUser().getEmail();
+  if (!me) return null;
+  var owner = item.getOwner();
+  return !!owner && owner.getEmail() === me;
 }

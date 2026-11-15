@@ -1346,25 +1346,57 @@ def check_key_takeaways(content, lines, result):
 # CHECK 19: Product upsell section
 # ---------------------------------------------------------------------------
 def check_upsell_section(content, lines, result):
-    # Look for brand product page links which indicate the upsell section.
-    # Product URLs and heading patterns come from the brand rules.
+    """The upsell is a section, not a link anywhere.
+
+    Product URLs and heading patterns come from the brand rules. The upsell H2
+    must sit in its expected place (the second-to-last H2, or the last one when
+    nothing follows it), and when product URLs are configured, one of them must
+    appear inside that section. A product link elsewhere in the article does not
+    count as an upsell section.
+    """
     cfg = BRAND_RULES["upsell"]
     if not cfg["product_urls"] and not cfg["heading_patterns"]:
         return  # this brand has no product upsell convention
-    has_product_link = any(url in content for url in cfg["product_urls"])
 
-    has_upsell_heading = False
-    for line in lines:
-        if line.startswith("## "):
-            for pattern in cfg["heading_patterns"]:
-                if re.search(pattern, line):
-                    has_upsell_heading = True
-                    break
+    h2_indices = [i for i, line in enumerate(lines) if line.startswith("## ")]
 
-    if not has_product_link and not has_upsell_heading:
+    def _section(idx):
+        nxt = [j for j in h2_indices if j > idx]
+        return "\n".join(lines[idx:nxt[0] if nxt else len(lines)])
+
+    def _has_product_link(text):
+        return any(url in text for url in cfg["product_urls"])
+
+    if cfg["heading_patterns"]:
+        candidates = [i for i in h2_indices
+                      if any(re.search(p, lines[i]) for p in cfg["heading_patterns"])]
+    else:
+        # No heading convention: the upsell H2 is the one whose section
+        # carries the product link.
+        candidates = [i for i in h2_indices if _has_product_link(_section(i))]
+
+    if not candidates:
         result.error(
             "UPSELL",
             f"No product upsell section detected. Add a second-to-last H2 that connects the article's pain points to a specific {cfg['label']} product with product page links."
+        )
+        return
+
+    expected = h2_indices[-2:]  # second-to-last H2, or last when nothing follows
+    placed = [i for i in candidates if i in expected]
+    if not placed:
+        result.error(
+            "UPSELL",
+            f"Upsell H2 '{lines[candidates[-1]].strip()[3:][:70]}' is not in the expected place. "
+            f"Move it to the second-to-last H2 (only the FAQ or a closing section may follow it)."
+        )
+        return
+
+    if cfg["product_urls"] and not any(_has_product_link(_section(i)) for i in placed):
+        result.error(
+            "UPSELL",
+            f"Upsell section '{lines[placed[-1]].strip()[3:][:70]}' has no {cfg['label']} product page link. "
+            f"Link the product inside the upsell section itself."
         )
 
 
@@ -2012,10 +2044,52 @@ def _extract_body_for_compliance(content):
 # BRAND CHECK: FAQ schema must match the visible FAQ section
 #   Runs only when a brand config enables it ("faq_schema_match": true).
 #   The FAQPage JSON-LD must contain exactly the
-#   questions in the article's FAQ section — same set, same order. Including
+#   questions in the article's FAQ section — same set, same order — and each
+#   question's acceptedAnswer text must match the visible answer. Including
 #   body H2 questions in the schema creates a structured-data/content
 #   mismatch (Google penalty risk).
 # ---------------------------------------------------------------------------
+def _faq_norm(text):
+    """Answer text reduced to its words, so markdown, HTML and punctuation
+    differences between the visible FAQ and the schema do not count."""
+    text = re.sub(r"<[^>]+>", " ", text)
+    text = re.sub(r"!?\[([^\]]*)\]\([^)]*\)", r"\1", text)
+    text = re.sub(r"[^\w]+", " ", text.lower())
+    return " ".join(text.split())
+
+
+def _check_faq_schema_answers(schema, faq_region, result):
+    visible = {}
+    parts = re.split(r"^###\s+(.+?)\s*$", faq_region, flags=re.MULTILINE)
+    for q, body in zip(parts[1::2], parts[2::2]):
+        visible[q.strip()] = _faq_norm(body)
+    for entity in schema.get("mainEntity", []):
+        name = entity.get("name", "").strip()
+        if name not in visible:
+            continue  # question-set mismatches are reported below
+        answer = entity.get("acceptedAnswer")
+        if isinstance(answer, list):
+            answer = answer[0] if answer else None
+        text = answer.get("text", "") if isinstance(answer, dict) else ""
+        if not isinstance(text, str) or not _faq_norm(text):
+            result.error(
+                "FAQ_SCHEMA",
+                f"FAQ schema question '{name[:70]}' has no acceptedAnswer text. "
+                f"Add the visible answer as acceptedAnswer.text.",
+            )
+            continue
+        schema_answer, page_answer = _faq_norm(text), visible[name]
+        # Word-bounded containment either way tolerates a schema that carries
+        # the answer's opening or a page that adds a list, never a different answer.
+        if not page_answer or (f" {schema_answer} " not in f" {page_answer} "
+                               and f" {page_answer} " not in f" {schema_answer} "):
+            result.error(
+                "FAQ_SCHEMA",
+                f"FAQ schema answer for '{name[:70]}' does not match the visible answer. "
+                f"The acceptedAnswer text must be the answer shown on the page.",
+            )
+
+
 def check_faq_schema_match(content, lines, result):
     if not BRAND_RULES.get("faq_schema_match"):
         return
@@ -2062,7 +2136,12 @@ def check_faq_schema_match(content, lines, result):
         )
         return
 
-    # 3) Compare. Schema must equal the FAQ section exactly (set + order).
+    # 3) Compare answers for every question the schema and the FAQ share. A
+    #    schema whose names match but whose answers are missing or different
+    #    is still a structured-data/content mismatch.
+    _check_faq_schema_answers(schema, faq_region, result)
+
+    # 4) Compare questions. Schema must equal the FAQ section exactly (set + order).
     if schema_questions == faq_questions:
         return
 

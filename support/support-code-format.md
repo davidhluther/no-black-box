@@ -74,7 +74,7 @@ A kit can describe what to check in `kits/<id>/doctor.json`. Every field is opti
 | code | Two-letter kit code. Defaults to the first two letters of the kit id, uppercased. |
 | version | Kit version. Defaults to the plugin's version, then 0.0.0. |
 | python_min | Lowest Python version, such as 3.9. |
-| config_file | Name of the settings file. Defaults to config.json. |
+| config_file | Name of the settings file, a `.json` file directly in the kit folder. Defaults to config.json. Git ignores every JSON file there except doctor.json and `*.example.json`, so private settings stay out of commits. |
 | config_required_keys | Top-level keys in config.json that must not be empty. |
 | required_env | Key names that must be set. Names only, never values. |
 | optional_commands | Programs the kit can use if present. |
